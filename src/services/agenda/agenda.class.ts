@@ -18,53 +18,72 @@ export class AgendaService<ServiceParams extends Params = AgendaParams> extends 
   AgendaParams,
   AgendaPatch
 > {
+  /**
+   * La agenda del médico, creándola si todavía no existe.
+   *
+   * NADA creaba nunca este documento: `create` no tiene resolver que fije
+   * `userId` y no hay hook de alta de usuario que lo siembre, así que la
+   * colección estaba vacía. Con `data[0]` indefinido, agendar reventaba en los
+   * dos extremos —aquí al hacer `prevAgenda.data[0]._id` y en el frontend al
+   * leer `data.data[0]._id`— y el modal simplemente no hacía nada al elegir
+   * paciente. Se crea a demanda, que además cubre a cualquier cuenta nueva.
+   *
+   * Se inserta contra la colección y no vía `create` a propósito: el esquema de
+   * alta solo admite `appointments`, así que por esa vía el documento nacería
+   * sin dueño.
+   */
+  private async agendaDelUsuario(params: any): Promise<Agenda> {
+    const userId = params?.user?._id
+    if (!userId) throw new GeneralError('No hay usuario autenticado para resolver la agenda')
+
+    const existentes = await this.find({
+      // @ts-ignore
+      query: { userId }
+    })
+    if (existentes.data.length > 0) return existentes.data[0]
+
+    const collection = await this.getModel(params)
+    const nueva = { userId, appointments: [] }
+    const { insertedId } = await collection.insertOne(nueva as any)
+    return { ...nueva, _id: insertedId } as unknown as Agenda
+  }
+
+  /**
+   * `super.patch` con el documento entero incluía `_id`, y MongoDB rechaza
+   * cualquier `$set` sobre ese campo por inmutable. Se manda solo lo que cambia.
+   */
+  private async guardarCitas(agenda: Agenda, appointments: Agenda['appointments']) {
+    // @ts-ignore
+    return super.patch(agenda._id, { appointments })
+  }
+
   // @ts-ignore
   async get(_id: AdapterId, params: ServiceParams): Promise<Agenda[]> {
-    // Obtener el ID del grupo desde los parámetros y Buscarlo
-    const AgendaEvents = await this.find({
-      // @ts-ignore
-      query: {
-        userId: params.user?._id
-      }
-    })
-    return AgendaEvents.data
+    // Devuelve siempre un elemento: si el médico aún no tiene agenda, se crea.
+    return [await this.agendaDelUsuario(params)]
   }
 
   // @ts-ignore
   async patch(id: AdapterId, data: AgendaData, params?: ServiceParams): Promise<Agenda> {
     if (params?.query?.patchType === 'newEvent') {
       const newEventArray = data.appointments
-      const prevAgenda = await this.find({
-        // @ts-ignore
-        query: {
-          userId: params?.user?._id
-        }
-      })
+      const prevAgenda = await this.agendaDelUsuario(params)
 
-      // @ts-ignore
-      return super.patch(prevAgenda.data[0]._id, {
-        ...prevAgenda.data[0],
-        appointments: [
-          ...prevAgenda.data[0].appointments,
-          {
-            id: newEventArray[0].id,
-            startDate: newEventArray[0].startDate,
-            endDate: newEventArray[0].endDate,
-            patientId: newEventArray[0].patientId,
-            patientName: newEventArray[0].patientName
-          }
-        ]
-      })
+      return this.guardarCitas(prevAgenda, [
+        ...prevAgenda.appointments,
+        {
+          id: newEventArray[0].id,
+          startDate: newEventArray[0].startDate,
+          endDate: newEventArray[0].endDate,
+          patientId: newEventArray[0].patientId,
+          patientName: newEventArray[0].patientName
+        }
+      ])
     } else if (params?.query?.patchType === 'eventUpdate') {
       const modEventArray = data.appointments
-      const prevAgenda = await this.find({
-        // @ts-ignore
-        query: {
-          userId: params?.user?._id
-        }
-      })
+      const prevAgenda = await this.agendaDelUsuario(params)
 
-      const listWithEventUpdated = prevAgenda.data[0].appointments.map((event) => {
+      const listWithEventUpdated = prevAgenda.appointments.map((event) => {
         if (event.id === modEventArray[0].id) {
           return {
             ...event,
@@ -76,30 +95,19 @@ export class AgendaService<ServiceParams extends Params = AgendaParams> extends 
         } else return event
       })
 
-      // @ts-ignore
-      return super.patch(prevAgenda.data[0]._id, {
-        ...prevAgenda.data[0],
-        appointments: listWithEventUpdated
-      })
+      return this.guardarCitas(prevAgenda, listWithEventUpdated)
     } else if (params?.query?.patchType === 'deleteEvent') {
       const modEventArray = data.appointments
-      const prevAgenda = await this.find({
-        // @ts-ignore
-        query: {
-          userId: params?.user?._id
-        }
-      })
+      const prevAgenda = await this.agendaDelUsuario(params)
 
-      const listWithEventsUpdated = prevAgenda.data[0].appointments.filter((event) => {
-        if (event.id === modEventArray[0].id) {
-        } else return event
-      })
+      // Antes el filtro devolvía el evento en vez de un booleano y `undefined`
+      // en la rama que sí coincidía. Funcionaba por casualidad —ambos valores
+      // se leen como verdadero o falso— pero decía lo contrario de lo que hace.
+      const listWithEventsUpdated = prevAgenda.appointments.filter(
+        (event) => event.id !== modEventArray[0].id
+      )
 
-      // @ts-ignore
-      return super.patch(prevAgenda.data[0]._id, {
-        ...prevAgenda.data[0],
-        appointments: listWithEventsUpdated
-      })
+      return this.guardarCitas(prevAgenda, listWithEventsUpdated)
     } else {
       throw new GeneralError('Invalid patchType for agenda event provided')
     }
