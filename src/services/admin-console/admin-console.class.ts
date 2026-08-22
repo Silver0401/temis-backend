@@ -283,7 +283,7 @@ export class AdminConsoleService {
 
     const enRango = { ...alcance, ...this.rangoDeIds(desde, hasta) }
 
-    const [records, drugs, ordersCount, somasCount, pacientesAlcance] = await Promise.all([
+    const [records, drugs, orders, somasCount, pacientesAlcance] = await Promise.all([
       db
         .collection('records')
         .find(enRango, { projection: { Diagnosis: 1 } })
@@ -292,7 +292,14 @@ export class AdminConsoleService {
         .collection('drugs')
         .find(enRango, { projection: { values: 1 } })
         .toArray(),
-      db.collection('orders').countDocuments(enRango),
+      // Se traen los documentos y no solo el conteo: de aquí sale también el
+      // desglose de estudios. El filtro va por `patientId`, nunca por
+      // `recordId`, porque hay solicitudes guardadas sin `recordId` y un join
+      // por ese campo las dejaría fuera del tablero sin avisar.
+      db
+        .collection('orders')
+        .find(enRango, { projection: { ordersArray: 1 } })
+        .toArray(),
       db.collection('somas').countDocuments(enRango),
       patientIds ? patientIds.length : db.collection('patients').countDocuments({})
     ])
@@ -306,6 +313,19 @@ export class AdminConsoleService {
         if (!nombre) return
         porFarmaco.set(nombre, (porFarmaco.get(nombre) ?? 0) + 1)
         recetados += 1
+      })
+    })
+
+    // Estudios solicitados: un renglón por estudio dentro de cada solicitud,
+    // igual que los fármacos dentro de cada receta.
+    const porEstudio = new Map<string, number>()
+    let estudiosSolicitados = 0
+    orders.forEach((solicitud: any) => {
+      ;(solicitud.ordersArray ?? []).forEach((item: any) => {
+        const nombre = String(item?.request ?? '').trim()
+        if (!nombre) return
+        porEstudio.set(nombre, (porEstudio.get(nombre) ?? 0) + 1)
+        estudiosSolicitados += 1
       })
     })
 
@@ -358,10 +378,14 @@ export class AdminConsoleService {
         pacientes: pacientesAlcance,
         recetas: drugs.length,
         farmacosRecetados: recetados,
-        solicitudes: ordersCount,
+        solicitudes: orders.length,
+        estudiosSolicitados,
         somatometrias: somasCount
       },
       drugs: [...porFarmaco.entries()]
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count),
+      studies: [...porEstudio.entries()]
         .map(([name, count]) => ({ name, count }))
         .sort((a, b) => b.count - a.count),
       diagnoses: [...porDiagnostico.entries()]
