@@ -1,0 +1,15 @@
+{
+  "host": "HOSTNAME",
+  "port": {
+    "__name": "PORT",
+    "__format": "number"
+  },
+  "mongodb": "NOT_MONGODB_URL",
+  "authentication": {
+    "secret": "NOT_FEATHERS_SECRET",
+    "jwtOptions": {
+      "audience": "NOT_FRONTEND_URL"
+    }
+  }
+}
+

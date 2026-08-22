@@ -1,0 +1,40 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "public": "./public/",
+  "origins": [
+    "http://localhost:3000", "http://localhost:3100", "https://cronos-frontend-three.vercel.app", "http://192.168.1.91:3000", "https://www.cronosmd.com"
+  ],
+  "paginate": {
+    "default": 15,
+    "max": 15
+  },
+  "mongodb": "mongodb+srv://",
+  "authentication": {
+    "entity": "user",
+    "service": "users",
+    "secret": "8f1zvZ4UvSlJVEe+QrMUMFCSMWy9+mIe",
+    "authStrategies": [
+      "jwt",
+      "local"
+    ],
+    "jwtOptions": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://www.cronosmd.com",
+      "algorithm": "HS256",
+      "expiresIn": "7d"
+    },
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password"
+    },
+    "oauth": {
+      "google": {
+        "key": "<Client ID>",
+        "secret": "<Client secret>"
+      }
+    }
+  }
+}
