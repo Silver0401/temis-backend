@@ -190,11 +190,15 @@ export class AdminConsoleService {
       })
     })
 
+    // La clave NO puede llamarse `data`: `feathersFetchCC` en el frontend hace
+    // `res.data ? res.data : res`, así que se quedaba con el arreglo y perdía
+    // `total`, `limit` y `skip`. La vista leía `respuesta.data`, que ya no
+    // existía, y la tabla salía vacía pasara lo que pasara con la búsqueda.
     return {
       total,
       limit,
       skip,
-      data: rows.map((row: any) => ({
+      rows: rows.map((row: any) => ({
         _id: String(row._id),
         LUID: row.LUID,
         names: row.personalInfo?.names ?? '',
@@ -439,7 +443,8 @@ export class AdminConsoleService {
       return { _id: String(id), name: owner?.name ?? 'Sin nombre' }
     })
 
-    return { total: appointments.length, doctors: conAgenda, data: appointments }
+    // Mismo motivo que en `patients()`: `data` la desenvuelve el cliente.
+    return { total: appointments.length, doctors: conAgenda, rows: appointments }
   }
 }
 
