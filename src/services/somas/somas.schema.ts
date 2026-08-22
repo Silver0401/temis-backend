@@ -70,7 +70,14 @@ export const somasDataSchema = Type.Object(
     // El formulario manda los trece parámetros como texto: es lo que escribió
     // el médico, sin convertir. `build_somas_from_values` los valida y los
     // normaliza a número antes de guardar.
-    values: Type.Record(Type.String(), Type.String())
+    //
+    // El tipo admite número y null además de texto. Exigir texto puro hacía que
+    // una sola clave ajena al catálogo tumbara el alta completa con
+    // "/values/<clave> must be string", aunque el hook ni siquiera la lee: solo
+    // recorre las claves de `CAMPOS`. Lo que se persiste lo sigue fijando
+    // `somasSchema` (número o null en los trece parámetros), así que aflojar el
+    // transporte no afloja el documento.
+    values: Type.Record(Type.String(), Type.Union([Type.String(), Type.Number(), Type.Null()]))
   },
   { $id: 'SomasData', additionalProperties: false }
 )

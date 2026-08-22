@@ -28,9 +28,23 @@ const CAMPOS: Record<string, keyof typeof SomaBaseParameters> = {
  */
 const NO_MEDIDO = 999
 
-/** Glucemia: texto del formulario -> código GIIS (NOM-024). */
-const TIPO_MEDICION: Record<string, number> = { Ayuno: 1, Casual: 2 }
-const OBTENIDO_DE: Record<string, number> = { Laboratorio: 1, 'Tira Reactiva': 2 }
+/**
+ * Glucemia: valor del formulario -> código GIIS (NOM-024).
+ *
+ * Se aceptan las dos formas a propósito. El formulario dejó de mandar la
+ * etiqueta ("Ayuno") y ahora manda el código ya resuelto ("1"), pero este mapa
+ * solo conocía las etiquetas: la búsqueda fallaba en silencio, caía a `null` y
+ * el tipo de glucemia y su procedencia no se guardaban nunca, sin un solo error
+ * a la vista. Reconocer ambas formas evita que el dato se pierda otra vez si
+ * alguno de los dos lados cambia.
+ */
+const TIPO_MEDICION: Record<string, number> = { Ayuno: 1, Casual: 2, '1': 1, '2': 2 }
+const OBTENIDO_DE: Record<string, number> = {
+  Laboratorio: 1,
+  'Tira Reactiva': 2,
+  '1': 1,
+  '2': 2
+}
 
 /**
  * Normaliza lo que escribió el médico antes de intentar leerlo como número.
