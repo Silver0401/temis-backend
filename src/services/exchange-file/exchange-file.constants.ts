@@ -72,3 +72,15 @@ export const GENERO: Record<string, number> = {
 // El catálogo AFILIACION almacena los códigos como strings en MongoDB.
 // CronosMD usa el catálogo catalogo-afiliaciones del SIS.
 export const DERECHOHABIENCIA_DESCONOCIDA = -1
+
+/**
+ * Valor con el que se rellena una columna sin dato.
+ *
+ * Decisión explícita del usuario (2026-08-22): antes se escribía `-1` en todo
+ * hueco. Queda en un solo sitio a propósito, porque la elección NO es inocua:
+ * en los catálogos GIIS `-1` suele significar "no aplica" mientras `0` suele
+ * ser un valor real —normalmente "NO"—, así que un `0` en una columna que no
+ * aplicaba afirma algo en vez de callarlo. Si hay que revertirlo, se cambia
+ * este número y nada más.
+ */
+export const VACIO = 0

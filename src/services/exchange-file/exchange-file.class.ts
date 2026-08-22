@@ -1,4 +1,6 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.class.html#custom-services
+import { BadRequest } from '@feathersjs/errors'
+import { ObjectId } from 'mongodb'
 import type { Id, NullableId, Params, ServiceInterface } from '@feathersjs/feathers'
 
 import type { Application } from '../../declarations'
@@ -12,7 +14,7 @@ import type { User } from '../users/users.schema'
 import type { Patients } from '../patients/patients.schema'
 import type { Records } from '../records/records.schema'
 import type { Somas } from '../somas/somas.schema'
-import { GENERO, SEXO_BIOLOGICO, SEXO_CURP, TIPO_PERSONAL } from './exchange-file.constants'
+import { GENERO, SEXO_BIOLOGICO, SEXO_CURP, TIPO_PERSONAL, VACIO } from './exchange-file.constants'
 import { primaryDerechohabienciaKey } from '../../utils/afiliaciones'
 
 export type { ExchangeFile, ExchangeFileData, ExchangeFilePatch, ExchangeFileQuery }
@@ -26,6 +28,35 @@ export interface ExchangeFileParams extends Params<ExchangeFileQuery> {
 }
 
 // --- Helpers ---
+
+/**
+ * Tope de pacientes por descarga. No es una regla de negocio sino un freno:
+ * cada paciente son varias consultas a Mongo y un archivo sin límite puede
+ * dejar la petición colgada sin que nadie sepa por qué.
+ */
+const MAX_PACIENTES_POR_ARCHIVO = 500
+
+/** Rango de `_id` que cubre un intervalo de fechas (el ObjectId lleva la fecha). */
+const objectIdDesdeFecha = (fecha: Date, borde: 'inicio' | 'fin') =>
+  new ObjectId(
+    Math.floor(fecha.getTime() / 1000)
+      .toString(16)
+      .padStart(8, '0') + (borde === 'inicio' ? '0000000000000000' : 'ffffffffffffffff')
+  )
+
+const rangoDeObjectIds = (desde?: string, hasta?: string) => {
+  const ini = desde ? new Date(desde) : undefined
+  const fin = hasta ? new Date(`${hasta}T23:59:59.999Z`) : undefined
+  if (ini && isNaN(ini.getTime())) throw new BadRequest('Fecha inicial inválida')
+  if (fin && isNaN(fin.getTime())) throw new BadRequest('Fecha final inválida')
+  if (!ini && !fin) return {}
+  return {
+    _id: {
+      ...(ini ? { $gte: objectIdDesdeFecha(ini, 'inicio') } : {}),
+      ...(fin ? { $lte: objectIdDesdeFecha(fin, 'fin') } : {})
+    }
+  }
+}
 
 const toCofeprDate = (date: Date): string => {
   const dd = String(date.getDate()).padStart(2, '0')
@@ -76,6 +107,42 @@ const mapServicioAtencion = (serviceArea: string): number => {
 const getSomaValue = (values: Somas['values'] | undefined, campo: keyof Somas['values']): string =>
   values?.[campo] != null ? String(values[campo]) : '0'
 
+/**
+ * Lee una variable de un formulario dinámico del record.
+ *
+ * Los bloques (`General`, `Gynecology`, `Pediatrics`, `Geriatrics`,
+ * `Administrativas`) son opcionales y sus campos también: una consulta de
+ * adulto sano no tiene nada de pediatría. Cuando la variable no aplicó, la
+ * columna va con `VACIO` en vez de quedarse con el marcador fijo que traía
+ * antes el generador.
+ */
+const varClinica = (
+  record: Records,
+  bloque: 'General' | 'Gynecology' | 'Pediatrics' | 'Geriatrics' | 'Administrativas',
+  campo: string
+): number => {
+  const valor = (record as any)?.[bloque]?.[campo]
+  if (typeof valor === 'number' && Number.isFinite(valor)) return valor
+  // El formulario puede devolver el número como texto según el control usado.
+  if (typeof valor === 'string' && valor.trim() !== '' && !Number.isNaN(Number(valor))) {
+    return Number(valor)
+  }
+  return VACIO
+}
+
+/** Igual que `varClinica` pero para columnas de texto (riesgo, multivalor). */
+const varClinicaTexto = (
+  record: Records,
+  bloque: 'General' | 'Gynecology' | 'Pediatrics' | 'Geriatrics' | 'Administrativas',
+  campo: string
+): string => {
+  const valor = (record as any)?.[bloque]?.[campo]
+  if (valor === undefined || valor === null || valor === '') return String(VACIO)
+  // `intervencionesSMyA` es multivalor y viaja separado por "&".
+  if (Array.isArray(valor)) return valor.length > 0 ? valor.join('&') : String(VACIO)
+  return String(valor)
+}
+
 // Splits a full name string into [nombre, primerApellido, segundoApellido]
 // Names with 4+ words: last two are apellidos, rest is nombre (e.g. "LUIS FRANCISCO PUERTAS VASQUEZ")
 const splitFullName = (fullName: string): [string, string, string] => {
@@ -111,6 +178,15 @@ export class ExchangeFileService<ServiceParams extends ExchangeFileParams = Exch
   ): Promise<ExchangeFile | ExchangeFile[]> {
     if (Array.isArray(data)) {
       return Promise.all(data.map((current) => this.create(current, params)))
+    }
+
+    // Lote: el archivo completo para una lista de pacientes.
+    if (Array.isArray(data.patientIds)) {
+      return this.crearPorLote(data, params)
+    }
+
+    if (!data.patientId || !data.recordId) {
+      throw new BadRequest('Se requiere { patientId, recordId } o { patientIds }')
     }
 
     const app = this.options.app
@@ -161,11 +237,11 @@ export class ExchangeFileService<ServiceParams extends ExchangeFileParams = Exch
 
     // Diagnósticos — up to 3, CIE code truncated to 4 chars per spec
     const cie1 = dx[0]?.CIE?.substring(0, 4) ?? 'R69X'
-    const confirmDx1 = dx[0] !== undefined ? (dx[0].Confirmed ? 1 : 0) : -1
+    const confirmDx1 = dx[0] !== undefined ? (dx[0].Confirmed ? 1 : 0) : VACIO
     const cie2 = dx[1]?.CIE?.substring(0, 4) ?? ''
-    const confirmDx2 = dx[1] !== undefined ? (dx[1].Confirmed ? 1 : 0) : -1
+    const confirmDx2 = dx[1] !== undefined ? (dx[1].Confirmed ? 1 : 0) : VACIO
     const cie3 = dx[2]?.CIE?.substring(0, 4) ?? ''
-    const confirmDx3 = dx[2] !== undefined ? (dx[2].Confirmed ? 1 : 0) : -1
+    const confirmDx3 = dx[2] !== undefined ? (dx[2].Confirmed ? 1 : 0) : VACIO
 
     // 106-field pipe-delimited row per GIIS-B015-04-11 spec
     const fields: (string | number)[] = [
@@ -180,7 +256,7 @@ export class ExchangeFileService<ServiceParams extends ExchangeFileParams = Exch
       primerApellidoPrestador, // primerApellidoPrestador
       segundoApellidoPrestador, // segundoApellidoPrestador
       mapTipoPersonal(user.professionType), // tipoPersonal
-      -1, // programaSMyMG
+      VACIO, // programaSMyMG
 
       // 9-23 — Datos del paciente
       pi.curp, // curpPaciente
@@ -189,15 +265,15 @@ export class ExchangeFileService<ServiceParams extends ExchangeFileParams = Exch
       pi.lastName, // segundoApellido
       normalizeBirthDate(pi.birthDate), // fechaNacimiento dd/mm/aaaa
       patient.localizacion?.nacimiento?.pais?.catalogKey ?? 142, // paisNacPaciente (142=México default)
-      patient.localizacion?.nacimiento?.estado?.catalogKey ?? -1, // entidadNacimiento
+      patient.localizacion?.nacimiento?.estado?.catalogKey ?? VACIO, // entidadNacimiento
       mapSexCode(pi.sex), // sexoCURP (1=HOMBRE, 2=MUJER, 3=NO BINARIO)
       mapSexBiologico(pi.sex), // sexoBiologico (1=HOMBRE, 2=MUJER, 3=INTERSEXUAL)
       // 18-21 — Identidad de sector público. Se capturan en la ficha de
       // identificación y viven en patients.personalInfo, no en el record.
-      pi.seAutodenominaAfromexicano ?? -1, // seAutodenominaAfromexicano
-      pi.seConsideraIndigena ?? -1, // seConsideraIndigena
-      pi.migrante ?? -1, // migrante
-      pi.paisProcedencia ?? -1, // paisProcedencia
+      pi.seAutodenominaAfromexicano ?? VACIO, // seAutodenominaAfromexicano
+      pi.seConsideraIndigena ?? VACIO, // seConsideraIndigena
+      pi.migrante ?? VACIO, // migrante
+      pi.paisProcedencia ?? VACIO, // paisProcedencia
       mapGenero(pi.genre), // genero
       primaryDerechohabienciaKey(pi.derechohabiencia), // derechohabiencia (GIIS single-valued: primera afiliación)
 
@@ -216,93 +292,97 @@ export class ExchangeFileService<ServiceParams extends ExchangeFileParams = Exch
       getSomaValue(sv, 'temperatura'), // temperatura °C
       getSomaValue(sv, 'saturacionOxigeno'), // saturacionOxigeno %
       getSomaValue(sv, 'glucemia'), // glucemia mg/dL
-      -1, // tipoMedicion
-      -1, // resultadoObtenidoATravesde
-      -1, // embarazadaSinDiabetes
-      -1, // sintomaticoRespiratorioTb
+      // Glucemia: el tipo y la procedencia salen de la somatometría, no de un
+      // formulario aparte.
+      sv?.glucemiaTipo ?? VACIO, // tipoMedicion
+      sv?.glucemiaObtenida ?? VACIO, // resultadoObtenidoATravesde
+      varClinica(record, 'Gynecology', 'embarazadaSinDiabetes'), // embarazadaSinDiabetes
+      varClinica(record, 'General', 'sintomaticoRespiratorioTb'), // sintomaticoRespiratorioTb
 
       // 40-51 — Diagnósticos
       record.FirstTimeInYear ? 1 : 0, // primeraVezAnio
-      -1, // primeraVezUneme
+      varClinica(record, 'Administrativas', 'primeraVezUneme'), // primeraVezUneme
       record.Temporality === 'PrimeraVez' ? 0 : 1, // relacionTemporal (0=PrimeraVez, 1=Subsecuente)
       cie1, // codigoCIEDiagnostico1
       confirmDx1, // confirmacionDiagnostica1 (0=presuntivo, 1=confirmado)
-      dx[1] !== undefined ? 0 : -1, // primeraVezDiagnostico2
+      dx[1] !== undefined ? 0 : VACIO, // primeraVezDiagnostico2
       cie2, // codigoCIEDiagnostico2 (vacío si no hay)
       confirmDx2, // confirmacionDiagnostica2
-      dx[2] !== undefined ? 0 : -1, // primeraVezDiagnostico3
+      dx[2] !== undefined ? 0 : VACIO, // primeraVezDiagnostico3
       cie3, // codigoCIEDiagnostico3 (vacío si no hay)
       confirmDx3, // confirmacionDiagnostica3
-      -1, // intervencionesSMyA
+      varClinicaTexto(record, 'General', 'intervencionesSMyA'), // intervencionesSMyA (multivalor "&")
 
       // 52-61 — Atención prenatal y embarazo
-      -1, // atencionPregestacionalRt
-      -1, // riesgo
-      -1, // relacionTemporalEmbarazo
-      -1, // planSeguridad
-      -1, // trimestreGestacional
-      -1, // primeraVezAltoRiesgo
-      -1, // complicacionPorDiabetes
-      -1, // complicacionPorInfUri
-      -1, // complicacionPorPreEecla
-      -1, // complicacionPorHemorragia
+      varClinica(record, 'Gynecology', 'atencionPregestacionalRT'), // atencionPregestacionalRt
+      varClinicaTexto(record, 'Gynecology', 'riesgo'), // riesgo
+      varClinica(record, 'Gynecology', 'relacionTemporalEmbarazo'), // relacionTemporalEmbarazo
+      varClinica(record, 'Gynecology', 'planSeguridad'), // planSeguridad
+      varClinica(record, 'Gynecology', 'trimestreGestacional'), // trimestreGestacional
+      varClinica(record, 'Gynecology', 'primeraVezAltoRiesgo'), // primeraVezAltoRiesgo
+      varClinica(record, 'Gynecology', 'complicacionPorDiabetes'), // complicacionPorDiabetes
+      varClinica(record, 'Gynecology', 'complicacionPorInfeccionUrinaria'), // complicacionPorInfUri
+      varClinica(record, 'Gynecology', 'complicacionPorPreeclampsiaEclampsia'), // complicacionPorPreEecla
+      varClinica(record, 'Gynecology', 'complicacionPorHemorragia'), // complicacionPorHemorragia
 
       // 62-76 — COVID-19, hipertensión, salud reproductiva femenina
-      -1, // sospechaCovid19
-      -1, // covid19Confirmado
-      -1, // hipertensionArtPrexistente
-      -1, // otrasAccPrescAcidoFolico
-      -1, // otrasAccApoyoTraslado
-      -1, // otrasAccApoyoTrasladoAme
-      -1, // puerpera
-      -1, // infeccionPuerperal
-      -1, // terapiaHormonal
-      -1, // periPostmenopausia
-      -1, // its
-      -1, // patologiaMamariaBenigna
-      -1, // cancerMamario
-      -1, // colposcopia
-      -1, // cancerCervicouterino
+      varClinica(record, 'Gynecology', 'sospechaCovid19'), // sospechaCovid19
+      // No hay variable de confirmación de COVID en el record: no se captura en
+      // ningún formulario, así que la columna va vacía y no inventada.
+      VACIO, // covid19Confirmado
+      varClinica(record, 'Gynecology', 'hipertensionarterialprexistente'), // hipertensionArtPrexistente
+      varClinica(record, 'Gynecology', 'otrasAccPrescAcidoFolico'), // otrasAccPrescAcidoFolico
+      varClinica(record, 'Gynecology', 'otrasAccApoyoTraslado'), // otrasAccApoyoTraslado
+      varClinica(record, 'Gynecology', 'otrasACCApoyoTrasladoAME'), // otrasAccApoyoTrasladoAme
+      varClinica(record, 'Gynecology', 'puerpera'), // puerpera
+      varClinica(record, 'Gynecology', 'infeccionPuerperal'), // infeccionPuerperal
+      varClinica(record, 'Gynecology', 'terapiaHormonal'), // terapiaHormonal
+      varClinica(record, 'Gynecology', 'periPostMenopausia'), // periPostmenopausia
+      varClinica(record, 'Gynecology', 'its'), // its
+      varClinica(record, 'Gynecology', 'patologiaMamariaBenigna'), // patologiaMamariaBenigna
+      varClinica(record, 'Gynecology', 'cancerMamario'), // cancerMamario
+      varClinica(record, 'Gynecology', 'colposcopia'), // colposcopia
+      varClinica(record, 'Gynecology', 'cancerCervicouterino'), // cancerCervicouterino
 
       // 77-84 — Pediatría
-      -1, // ninosAnort
-      -1, // pruebaEdi
-      -1, // resultadoEdi
-      -1, // resultadoBattelle
-      -1, // edasRt
-      -1, // edasPlanTratamiento
-      -1, // recuperadoDeshidratacion
-      -1, // numeroSobresvsoTratamiento
+      varClinica(record, 'Pediatrics', 'ninoSanoRT'), // ninosAnort
+      varClinica(record, 'Pediatrics', 'pruebaEDI'), // pruebaEdi
+      varClinica(record, 'Pediatrics', 'resultadoEDI'), // resultadoEdi
+      varClinica(record, 'Pediatrics', 'resultadoBattelle'), // resultadoBattelle
+      varClinica(record, 'Pediatrics', 'edasRT'), // edasRt
+      varClinica(record, 'Pediatrics', 'edasPlanTratamiento'), // edasPlanTratamiento
+      varClinica(record, 'Pediatrics', 'recuperadoDeshidratacion'), // recuperadoDeshidratacion
+      varClinica(record, 'Pediatrics', 'numeroSobresVSOTratamiento'), // numeroSobresvsoTratamiento
 
       // 85-87 — IRAS / Neumonia
-      -1, // irasRt
-      -1, // irasPlantTratamiento
-      -1, // neumoniaRt
+      varClinica(record, 'Pediatrics', 'irasRT'), // irasRt
+      varClinica(record, 'Pediatrics', 'irasPlanTratamiento'), // irasPlantTratamiento
+      varClinica(record, 'Pediatrics', 'neumoniaRT'), // neumoniaRt
 
       // 88-96 — Acciones preventivas y adulto mayor
-      -1, // aplicacionCedulaCancer
-      -1, // informaPrevencionAccidentes
-      -1, // sintomaDepresiva
-      -1, // alteracionMemoria
-      -1, // aivdAbvd
-      -1, // sindromeCaidas
-      -1, // incontinenciaUrinaria
-      -1, // motricidad
-      -1, // asesorianutricional
+      varClinica(record, 'Pediatrics', 'aplicacionCedulaCancer'), // aplicacionCedulaCancer
+      varClinica(record, 'Pediatrics', 'informaPrevencionAccidentes'), // informaPrevencionAccidentes
+      varClinica(record, 'Geriatrics', 'sintomaDepresiva'), // sintomaDepresiva
+      varClinica(record, 'Geriatrics', 'alteracionMemoria'), // alteracionMemoria
+      varClinica(record, 'Geriatrics', 'aivd-ABVD'), // aivdAbvd
+      varClinica(record, 'Geriatrics', 'sindromeCaidas'), // sindromeCaidas
+      varClinica(record, 'Geriatrics', 'incontinenciaUrinaria'), // incontinenciaUrinaria
+      varClinica(record, 'Geriatrics', 'motricidad'), // motricidad
+      varClinica(record, 'Geriatrics', 'asesoriaNutricional'), // asesorianutricional
 
       // 97-100 — Promoción y cartillas
-      -1, // numeroSobresvsoPromocion
-      0, // lineaVida
-      0, // cartillaSalud
-      0, // esquemaVacunacion
+      varClinica(record, 'Administrativas', 'numeroSobresVSOPromocion'), // numeroSobresvsoPromocion
+      varClinica(record, 'Administrativas', 'lineaVida'), // lineaVida
+      varClinica(record, 'Administrativas', 'cartillaSalud'), // cartillaSalud
+      varClinica(record, 'Administrativas', 'esquemaVacunacion'), // esquemaVacunacion
 
       // 101-106 — Referencia y modalidad
-      0, // referidoPor
-      -1, // contraReferido
-      0, // telemedicina
-      0, // teleconsulta
-      0, // estudiosTeleconsulta
-      0 // modalidadConsulDist
+      varClinica(record, 'Administrativas', 'referidoPor'), // referidoPor
+      varClinica(record, 'Administrativas', 'contrarreferido'), // contraReferido
+      varClinica(record, 'Administrativas', 'telemedicina'), // telemedicina
+      varClinica(record, 'Administrativas', 'teleconsulta'), // teleconsulta
+      varClinica(record, 'Administrativas', 'estudiosTeleconsulta'), // estudiosTeleconsulta
+      varClinica(record, 'Administrativas', 'modalidadConsulDist') // modalidadConsulDist
     ]
 
     return {
@@ -313,8 +393,92 @@ export class ExchangeFileService<ServiceParams extends ExchangeFileParams = Exch
     }
   }
 
+  /**
+   * El médico dueño del paciente.
+   *
+   * La relación vive en `users.patientsList` y no en el paciente, así que se
+   * busca al revés: en qué lista cae este id. El id puede estar guardado como
+   * ObjectId o como cadena según por dónde se haya dado de alta, de ahí que se
+   * consulten las dos formas.
+   */
+  private async medicoDelPaciente(patientId: string): Promise<User | undefined> {
+    const db = await this.options.app.get('mongodbClient')
+    const posibles: any[] = [patientId]
+    if (ObjectId.isValid(patientId)) posibles.push(new ObjectId(patientId))
+    const owner = await db.collection('users').findOne({ patientsList: { $in: posibles } })
+    return (owner as unknown as User) ?? undefined
+  }
+
+  /**
+   * Archivo de intercambio para una lista de pacientes.
+   *
+   * De cada paciente se toma su PRIMERA consulta dentro del rango de fechas
+   * —ordenando por `_id`, cuyos primeros bytes son la marca de tiempo—, un
+   * renglón por paciente. Los que no tengan consulta en el rango se reportan en
+   * `omitted` en lugar de abortar el archivo entero.
+   */
+  private async crearPorLote(data: ExchangeFileData, params?: ServiceParams): Promise<ExchangeFile> {
+    const app = this.options.app
+    const patientIds = data.patientIds ?? []
+    if (patientIds.length === 0) throw new BadRequest('La lista de pacientes viene vacía')
+    if (patientIds.length > MAX_PACIENTES_POR_ARCHIVO) {
+      throw new BadRequest(
+        `Demasiados pacientes en una sola descarga (máximo ${MAX_PACIENTES_POR_ARCHIVO})`
+      )
+    }
+
+    const rangoIds = rangoDeObjectIds(data.from, data.to)
+    const renglones: string[] = []
+    const omitted: Array<{ patientId: string; reason: string }> = []
+
+    // En serie y no en paralelo: cada paciente dispara varias consultas y una
+    // ráfaga de cincuenta a la vez satura el pool de conexiones de Mongo.
+    for (const patientId of patientIds) {
+      try {
+        const encontrados = (await app.service('records').find({
+          provider: undefined,
+          query: { patientId, ...rangoIds, $sort: { _id: 1 }, $limit: 1 }
+        })) as unknown as { data: Records[] }
+
+        const record = encontrados.data?.[0]
+        if (!record) {
+          omitted.push({ patientId, reason: 'Sin consultas en el periodo seleccionado' })
+          continue
+        }
+
+        // El prestador del renglón es el médico que atendió, NO quien descarga
+        // el archivo. Generándolo desde la consola de administración, usar
+        // `params.user` habría firmado las consultas de todos los médicos con el
+        // nombre, la CURP y la CLUES del administrador.
+        const medico = await this.medicoDelPaciente(patientId)
+        if (!medico) {
+          omitted.push({ patientId, reason: 'No se pudo resolver el médico que lo atendió' })
+          continue
+        }
+
+        const fila = (await this.create({ patientId, recordId: String(record._id) }, {
+          ...(params ?? {}),
+          user: medico
+        } as ServiceParams)) as ExchangeFile
+        renglones.push(fila.fileRow)
+      } catch (error: any) {
+        omitted.push({ patientId, reason: error?.message ?? 'Error desconocido' })
+      }
+    }
+
+    return {
+      id: 0,
+      patientId: '',
+      recordId: '',
+      fileRow: '',
+      fileContent: renglones.join('\n'),
+      total: renglones.length,
+      omitted
+    }
+  }
+
   async update(_id: NullableId, data: ExchangeFileData, _params?: ServiceParams): Promise<ExchangeFile> {
-    return { id: 0, patientId: data.patientId, recordId: data.recordId, fileRow: '' }
+    return { id: 0, patientId: data.patientId ?? '', recordId: data.recordId ?? '', fileRow: '' }
   }
 
   async patch(_id: NullableId, data: ExchangeFilePatch, _params?: ServiceParams): Promise<ExchangeFile> {
