@@ -20,7 +20,7 @@
     ],
     "jwtOptions": {
       "header": {
-        "typ": "access"
+        "type": "access"
       },
       "audience": "https://temis-frontend-git-dev-silver0401s-projects.vercel.app",
       "algorithm": "HS256",
