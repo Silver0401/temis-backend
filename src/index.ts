@@ -8,5 +8,5 @@ process.on('unhandledRejection', (reason) => logger.error('Unhandled Rejection %
 
 app.listen(port).then(() => {
   logger.info(`Feathers app listening on http://${host}:${port}`)
-  logger.info(`${process.env.NOT_MONGODB_URL}`)
+  // logger.info(`${process.env.NOT_MONGODB_URL}`)
 })

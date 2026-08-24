@@ -193,3 +193,38 @@ Ahora cada `git commit` pregunta el tipo de cambio y sube `package.json` en el n
 ```bash
 bash scripts/install-version-hook.sh
 ```
+
+## 2026-08-24 — Encabezado de variables en el archivo de intercambio (GIIS)
+
+La guía `GIIS-B015-04-11` v4.11 (`~/Documents/ClaudeAssets/GIIS-B015-04-11.txt`, apartado **CONFORMACIÓN DEL DOCUMENTO ELECTRÓNICO**) exige que el archivo de intercambio lleve como primer renglón **los nombres de todas las variables**, separados por `|`, en el orden del Diccionario de Datos. El archivo salía sin él.
+
+**Qué se agregó:**
+
+- `GIIS_FIELD_NAMES` en `exchange-file.constants.ts`: las 106 variables en orden, y `GIIS_HEADER_ROW` con el renglón ya armado.
+- `crearPorLote` ahora emite `[GIIS_HEADER_ROW, ...renglones]`.
+- Guarda en `create`: si el renglón deja de tener exactamente 106 campos, revienta con mensaje en vez de generar un archivo desalineado.
+
+**Los nombres van con las erratas de la guía, a propósito.** El validador del SINBA compara contra el nombre literal, así que corregirlos rompería la carga:
+
+| Campo | Nombre en la guía | Lo "correcto" |
+|---|---|---|
+| 64 | `hipertensionarterialprexistente` | falta la segunda `e` de "preexistente" |
+| 66 | `otrasAccApoyoTranslado` | "Translado" con `n` |
+| 67 | `otrasACCApoyoTransladoAME` | igual, y con `ACC` en mayúsculas |
+| 92 | `aivd-ABVD` | lleva guion, no es camelCase |
+| 37 | `resultadoObtenidoaTravesde` | `a` minúscula |
+| 102 | `contrarreferido` | todo en minúsculas |
+
+Los nombres se reconstruyeron del TXT de la guía; la extracción del PDF los parte a media palabra (`hipertensionarterialp` + `rexistente`), de ahí que haya que armarlos a mano. **Ojo:** `GIIS_FIELD_NAMES` en `cronos-backend` tiene mal los campos 64, 66 y 67 (`preexistente`, `Traslado`, `TrasladoAME`); ahí se usa solo para mensajes de validación, pero si algún día se emite el encabezado en Cronos hay que corregirlos.
+
+Se verificó posición por posición que las 106 columnas del renglón corresponden a los 106 nombres del encabezado. De paso se alinearon 7 comentarios del arreglo `fields` que usaban abreviaturas (`complicacionPorInfUri`, `contraReferido`, …) y ahora contradecían la lista autoritativa.
+
+**Pendiente, fuera de este cambio:** la guía pide el archivo en **ANSI**, y `AdminPatients.tsx` arma el Blob con `charset=utf-8`. Con acentos en nombres de pacientes eso puede tronar la carga. No se tocó porque es frontend.
+
+**Implementado por Claude, no por Codex:** el trabajo real fue leer la guía y reconstruir los nombres partidos del PDF; el cambio de código son tres puntos.
+
+**Verificación de los 106 nombres.** Se re-extrajo el PDF original con `pdftotext -layout`, que conserva las columnas de la tabla. 90 nombres aparecen literales; los 16 restantes están partidos dentro de la propia celda del PDF (no es culpa del extractor) y se reconstruyeron uno por uno confirmando prefijo, continuación y número de campo: 18, 38, 39, 52, 57, 64, 65, 66, 67, 84, 88, 89 y 97. Los 106 quedan confirmados contra la guía.
+
+El archivo `CEX-EJEMPLOS-2410.txt` que la guía dice anexar —y que traería el encabezado listo— no está en el equipo; el ZIP `~/Downloads/GIIS B018.zip` solo trae el de otra guía (`CPF-EJEMPLOS-2410.txt`). Si aparece, vale la pena cotejar su primer renglón contra `GIIS_HEADER_ROW`.
+
+`fileRow` (renglón suelto de un solo paciente) no se usa en el frontend, así que no hay ninguna ruta que descargue un archivo sin encabezado.

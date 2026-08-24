@@ -6,6 +6,132 @@
  * en MongoDB. Los números de la derecha son CATALOG_KEY del SIS.
  */
 
+/**
+ * Nombres de las 106 variables, en el orden del Diccionario de Datos de la
+ * GIIS-B015-04-11 v4.11.
+ *
+ * La guía (apartado "CONFORMACIÓN DEL DOCUMENTO ELECTRÓNICO") exige que el
+ * archivo de intercambio lleve como PRIMER renglón los nombres de todas las
+ * variables, separados por "|", en este mismo orden.
+ *
+ * Los nombres se transcriben tal cual aparecen en la guía, erratas incluidas:
+ * `hipertensionarterialprexistente` (sin la segunda "e" de "preexistente"),
+ * `otrasAccApoyoTranslado` y `otrasACCApoyoTransladoAME` (con "Translado"), y
+ * `aivd-ABVD` con guion. El validador del SINBA compara contra el nombre
+ * literal de la guía, así que "corregirlos" rompería la carga.
+ */
+export const GIIS_FIELD_NAMES = [
+  'clues',
+  'paisNacimiento',
+  'curpPrestador',
+  'nombrePrestador',
+  'primerApellidoPrestador',
+  'segundoApellidoPrestador',
+  'tipoPersonal',
+  'programaSMyMG',
+  'curpPaciente',
+  'nombre',
+  'primerApellido',
+  'segundoApellido',
+  'fechaNacimiento',
+  'paisNacPaciente',
+  'entidadNacimiento',
+  'sexoCURP',
+  'sexoBiologico',
+  'seAutodenominaAfromexicano',
+  'seConsideraIndigena',
+  'migrante',
+  'paisProcedencia',
+  'genero',
+  'derechohabiencia',
+  'fechaConsulta',
+  'servicioAtencion',
+  'peso',
+  'talla',
+  'circunferenciaCintura',
+  'sistolica',
+  'diastolica',
+  'frecuenciaCardiaca',
+  'frecuenciaRespiratoria',
+  'temperatura',
+  'saturacionOxigeno',
+  'glucemia',
+  'tipoMedicion',
+  'resultadoObtenidoaTravesde',
+  'embarazadaSinDiabetes',
+  'sintomaticoRespiratorioTb',
+  'primeraVezAnio',
+  'primeraVezUneme',
+  'relacionTemporal',
+  'codigoCIEDiagnostico1',
+  'confirmacionDiagnostica1',
+  'primeraVezDiagnostico2',
+  'codigoCIEDiagnostico2',
+  'confirmacionDiagnostica2',
+  'primeraVezDiagnostico3',
+  'codigoCIEDiagnostico3',
+  'confirmacionDiagnostica3',
+  'intervencionesSMyA',
+  'atencionPregestacionalRT',
+  'riesgo',
+  'relacionTemporalEmbarazo',
+  'planSeguridad',
+  'trimestreGestacional',
+  'primeraVezAltoRiesgo',
+  'complicacionPorDiabetes',
+  'complicacionPorInfeccionUrinaria',
+  'complicacionPorPreeclampsiaEclampsia',
+  'complicacionPorHemorragia',
+  'sospechaCovid19',
+  'covid19Confirmado',
+  'hipertensionarterialprexistente',
+  'otrasAccPrescAcidoFolico',
+  'otrasAccApoyoTranslado',
+  'otrasACCApoyoTransladoAME',
+  'puerpera',
+  'infeccionPuerperal',
+  'terapiaHormonal',
+  'periPostMenopausia',
+  'its',
+  'patologiaMamariaBenigna',
+  'cancerMamario',
+  'colposcopia',
+  'cancerCervicouterino',
+  'ninoSanoRT',
+  'pruebaEDI',
+  'resultadoEDI',
+  'resultadoBattelle',
+  'edasRT',
+  'edasPlanTratamiento',
+  'recuperadoDeshidratacion',
+  'numeroSobresVSOTratamiento',
+  'irasRT',
+  'irasPlanTratamiento',
+  'neumoniaRT',
+  'aplicacionCedulaCancer',
+  'informaPrevencionAccidentes',
+  'sintomaDepresiva',
+  'alteracionMemoria',
+  'aivd-ABVD',
+  'sindromeCaidas',
+  'incontinenciaUrinaria',
+  'motricidad',
+  'asesoriaNutricional',
+  'numeroSobresVSOPromocion',
+  'lineaVida',
+  'cartillaSalud',
+  'esquemaVacunacion',
+  'referidoPor',
+  'contrarreferido',
+  'telemedicina',
+  'teleconsulta',
+  'estudiosTeleconsulta',
+  'modalidadConsulDist'
+] as const
+
+/** Primer renglón del archivo de intercambio. */
+export const GIIS_HEADER_ROW = GIIS_FIELD_NAMES.join('|')
+
 // ------- tipoPersonal (GIIS campo 7) -------
 // Catálogo TIPO PERSONAL–SIS. Solo los tipos activos en CronosMD.
 // Fuente strings: TipoPersonal[] en cronos-frontend/src/scripts/Constants.ts

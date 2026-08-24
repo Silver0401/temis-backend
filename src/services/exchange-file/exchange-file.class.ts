@@ -14,7 +14,15 @@ import type { User } from '../users/users.schema'
 import type { Patients } from '../patients/patients.schema'
 import type { Records } from '../records/records.schema'
 import type { Somas } from '../somas/somas.schema'
-import { GENERO, SEXO_BIOLOGICO, SEXO_CURP, TIPO_PERSONAL, VACIO } from './exchange-file.constants'
+import {
+  GENERO,
+  GIIS_FIELD_NAMES,
+  GIIS_HEADER_ROW,
+  SEXO_BIOLOGICO,
+  SEXO_CURP,
+  TIPO_PERSONAL,
+  VACIO
+} from './exchange-file.constants'
 import { primaryDerechohabienciaKey } from '../../utils/afiliaciones'
 
 export type { ExchangeFile, ExchangeFileData, ExchangeFilePatch, ExchangeFileQuery }
@@ -321,8 +329,8 @@ export class ExchangeFileService<ServiceParams extends ExchangeFileParams = Exch
       varClinica(record, 'Gynecology', 'trimestreGestacional'), // trimestreGestacional
       varClinica(record, 'Gynecology', 'primeraVezAltoRiesgo'), // primeraVezAltoRiesgo
       varClinica(record, 'Gynecology', 'complicacionPorDiabetes'), // complicacionPorDiabetes
-      varClinica(record, 'Gynecology', 'complicacionPorInfeccionUrinaria'), // complicacionPorInfUri
-      varClinica(record, 'Gynecology', 'complicacionPorPreeclampsiaEclampsia'), // complicacionPorPreEecla
+      varClinica(record, 'Gynecology', 'complicacionPorInfeccionUrinaria'), // complicacionPorInfeccionUrinaria
+      varClinica(record, 'Gynecology', 'complicacionPorPreeclampsiaEclampsia'), // complicacionPorPreeclampsiaEclampsia
       varClinica(record, 'Gynecology', 'complicacionPorHemorragia'), // complicacionPorHemorragia
 
       // 62-76 — COVID-19, hipertensión, salud reproductiva femenina
@@ -330,10 +338,10 @@ export class ExchangeFileService<ServiceParams extends ExchangeFileParams = Exch
       // No hay variable de confirmación de COVID en el record: no se captura en
       // ningún formulario, así que la columna va vacía y no inventada.
       VACIO, // covid19Confirmado
-      varClinica(record, 'Gynecology', 'hipertensionarterialprexistente'), // hipertensionArtPrexistente
+      varClinica(record, 'Gynecology', 'hipertensionarterialprexistente'), // hipertensionarterialprexistente
       varClinica(record, 'Gynecology', 'otrasAccPrescAcidoFolico'), // otrasAccPrescAcidoFolico
-      varClinica(record, 'Gynecology', 'otrasAccApoyoTraslado'), // otrasAccApoyoTraslado
-      varClinica(record, 'Gynecology', 'otrasACCApoyoTrasladoAME'), // otrasAccApoyoTrasladoAme
+      varClinica(record, 'Gynecology', 'otrasAccApoyoTraslado'), // otrasAccApoyoTranslado
+      varClinica(record, 'Gynecology', 'otrasACCApoyoTrasladoAME'), // otrasACCApoyoTransladoAME
       varClinica(record, 'Gynecology', 'puerpera'), // puerpera
       varClinica(record, 'Gynecology', 'infeccionPuerperal'), // infeccionPuerperal
       varClinica(record, 'Gynecology', 'terapiaHormonal'), // terapiaHormonal
@@ -356,7 +364,7 @@ export class ExchangeFileService<ServiceParams extends ExchangeFileParams = Exch
 
       // 85-87 — IRAS / Neumonia
       varClinica(record, 'Pediatrics', 'irasRT'), // irasRt
-      varClinica(record, 'Pediatrics', 'irasPlanTratamiento'), // irasPlantTratamiento
+      varClinica(record, 'Pediatrics', 'irasPlanTratamiento'), // irasPlanTratamiento
       varClinica(record, 'Pediatrics', 'neumoniaRT'), // neumoniaRt
 
       // 88-96 — Acciones preventivas y adulto mayor
@@ -378,12 +386,20 @@ export class ExchangeFileService<ServiceParams extends ExchangeFileParams = Exch
 
       // 101-106 — Referencia y modalidad
       varClinica(record, 'Administrativas', 'referidoPor'), // referidoPor
-      varClinica(record, 'Administrativas', 'contrarreferido'), // contraReferido
+      varClinica(record, 'Administrativas', 'contrarreferido'), // contrarreferido
       varClinica(record, 'Administrativas', 'telemedicina'), // telemedicina
       varClinica(record, 'Administrativas', 'teleconsulta'), // teleconsulta
       varClinica(record, 'Administrativas', 'estudiosTeleconsulta'), // estudiosTeleconsulta
       varClinica(record, 'Administrativas', 'modalidadConsulDist') // modalidadConsulDist
     ]
+
+    // El encabezado del archivo nombra 106 columnas; si el renglón dejara de
+    // tener exactamente esas, el archivo saldría desalineado sin avisar.
+    if (fields.length !== GIIS_FIELD_NAMES.length) {
+      throw new Error(
+        `GIIS: se generaron ${fields.length} campos y el encabezado declara ${GIIS_FIELD_NAMES.length}`
+      )
+    }
 
     return {
       id: 0,
@@ -471,7 +487,8 @@ export class ExchangeFileService<ServiceParams extends ExchangeFileParams = Exch
       patientId: '',
       recordId: '',
       fileRow: '',
-      fileContent: renglones.join('\n'),
+      // GIIS-B015-04-11: el archivo abre con los nombres de las variables.
+      fileContent: [GIIS_HEADER_ROW, ...renglones].join('\n'),
       total: renglones.length,
       omitted
     }
