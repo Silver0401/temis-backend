@@ -25,7 +25,7 @@ export const catalogoDxcie10Schema = Type.Object(
     CLAVE_CAPITULO: Type.Optional(Type.String()),
     CAPITULO: Type.Optional(Type.String()),
     ES_SUIVE_MORB: Type.Optional(Type.String()),
-    EPI_CLAVE: Type.Optional(Type.Number()),
+    EPI_CLAVE: Type.Optional(Type.String()),
     'EPI_CLAVE_DESC 2024': Type.Optional(Type.String()),
     TIPO_PERSONAL_1VEZ_CE: Type.Optional(Type.String()),
     TIPO_PERSONAL_SUBSEC_CE: Type.Optional(Type.String()),
@@ -46,7 +46,28 @@ export const catalogoDxcie10ExternalResolver = resolve<CatalogoDxcie10, HookCont
 // Schema for creating new entries
 export const catalogoDxcie10DataSchema = Type.Pick(
   catalogoDxcie10Schema,
-  ['CONSECUTIVO', 'LETRA', 'CATALOG_KEY', 'NOMBRE', 'DIA_CRONICOS', 'DIA_CAINFANTIL', 'LSEX', 'LINF', 'LSUP', 'CLAVE_PROGRAMA_SIS', 'CLAVE_CAPITULO', 'CAPITULO', 'ES_SUIVE_MORB', 'EPI_CLAVE', 'EPI_CLAVE_DESC 2024', 'TIPO_PERSONAL_1VEZ_CE', 'TIPO_PERSONAL_SUBSEC_CE', 'VALIDO_SM', 'VALIDO_SB', 'VALIDO_PF'],
+  [
+    'CONSECUTIVO',
+    'LETRA',
+    'CATALOG_KEY',
+    'NOMBRE',
+    'DIA_CRONICOS',
+    'DIA_CAINFANTIL',
+    'LSEX',
+    'LINF',
+    'LSUP',
+    'CLAVE_PROGRAMA_SIS',
+    'CLAVE_CAPITULO',
+    'CAPITULO',
+    'ES_SUIVE_MORB',
+    'EPI_CLAVE',
+    'EPI_CLAVE_DESC 2024',
+    'TIPO_PERSONAL_1VEZ_CE',
+    'TIPO_PERSONAL_SUBSEC_CE',
+    'VALIDO_SM',
+    'VALIDO_SB',
+    'VALIDO_PF'
+  ],
   { $id: 'CatalogoDxcie10Data' }
 )
 export type CatalogoDxcie10Data = Static<typeof catalogoDxcie10DataSchema>
@@ -67,7 +88,12 @@ export const catalogoDxcie10PatchResolver = resolve<
 >({})
 
 // Schema for allowed query properties
-export const catalogoDxcie10QueryProperties = Type.Pick(catalogoDxcie10Schema, ['_id', 'CATALOG_KEY', 'NOMBRE', 'LETRA'])
+export const catalogoDxcie10QueryProperties = Type.Pick(catalogoDxcie10Schema, [
+  '_id',
+  'CATALOG_KEY',
+  'NOMBRE',
+  'LETRA'
+])
 export const catalogoDxcie10QuerySchema = Type.Intersect(
   [
     querySyntax(catalogoDxcie10QueryProperties),

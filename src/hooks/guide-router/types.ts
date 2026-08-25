@@ -30,7 +30,7 @@ export interface DiagnosticoCatalogo {
   LETRA?: string
   CLAVE_CAPITULO?: string
   CAPITULO?: string
-  EPI_CLAVE?: number
+  EPI_CLAVE?: string
   DIA_CRONICOS?: string
   DIA_CAINFANTIL?: string
   LSEX?: string

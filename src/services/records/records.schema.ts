@@ -310,7 +310,7 @@ const DiagnosticoCatalogoSchema = Type.Object(
     CLAVE_CAPITULO: Type.Optional(Type.String()),
     CAPITULO: Type.Optional(Type.String()),
     ES_SUIVE_MORB: Type.Optional(Type.String()),
-    EPI_CLAVE: Type.Optional(Type.Number()),
+    EPI_CLAVE: Type.Optional(Type.String()),
     'EPI_CLAVE_DESC 2024': Type.Optional(Type.String()),
     TIPO_PERSONAL_1VEZ_CE: Type.Optional(Type.String()),
     TIPO_PERSONAL_SUBSEC_CE: Type.Optional(Type.String()),
