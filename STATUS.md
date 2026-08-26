@@ -33,3 +33,11 @@ del dashboard (los iconos sustituyeron animaciones que ocupaban otro espacio) y 
 nuevo editor de laboratorios.
 
 Siguiente: implementación COFEPRIS (consulta externa, detecciones).
+
+## Enfermería multi-tutor — 2026-08-25
+
+Implementado en backend y frontend, **sin probar en runtime** y sin migrar
+datos. `tutorIds` + `teamAssignments` conviven con el `tutorId` singular de las
+cuentas viejas, así que nada se rompe sin correr la migración.
+Pendientes: selector de médico en la pantalla de agenda y estilo de
+`.NurseTutorSelect`. Detalle en DECISIONS.md.

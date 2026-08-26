@@ -62,7 +62,39 @@ export const userSchema = Type.Object(
     clues: Type.Array(Type.String()),
     role: Type.Optional(userRoleSchema),
     // Medico tutor del integrante de equipo; ausente en un medico.
+    // LEGACY y singular: se conserva para las cuentas creadas antes del multi-
+    // tutor. No se escribe mas; se normaliza en lectura con normalizeTutorIds.
     tutorId: Type.Optional(ObjectIdSchema()),
+    // Medicos tutores del integrante de equipo. Una enfermera atiende
+    // normalmente a uno o dos medicos.
+    tutorIds: Type.Optional(Type.Array(ObjectIdSchema())),
+    // Fuente de verdad de que pacientes le asigno CADA medico. Indexado por
+    // tutor a proposito: con un arreglo plano, el medico A al guardar borraba
+    // las asignaciones del medico B y veia sus pacientes.
+    teamAssignments: Type.Optional(
+      Type.Array(
+        Type.Object({
+          tutorId: ObjectIdSchema(),
+          patientIds: Type.Array(ObjectIdSchema())
+        })
+      )
+    ),
+    // Invitaciones que un medico manda a una cuenta de enfermeria que ya
+    // existe. El enganche nunca es unilateral: se agrega el tutor solo cuando
+    // ella acepta.
+    teamInvites: Type.Optional(
+      Type.Array(
+        Type.Object({
+          tutorId: ObjectIdSchema(),
+          status: Type.Union([
+            Type.Literal('pending'),
+            Type.Literal('accepted'),
+            Type.Literal('rejected')
+          ]),
+          createdAt: Type.String()
+        })
+      )
+    ),
     teamAccessStatus: Type.Optional(
       Type.Union([Type.Literal('active'), Type.Literal('suspended'), Type.Literal('revoked')])
     ),
@@ -167,7 +199,11 @@ export const userDataResolver = resolve<User, HookContext<UserService>>({
   groups: () => [],
   status: () => ({ devices: [], recording: false }),
   role: (_value, _data, context) => context.params.internalSubuserRole ?? 'medico',
-  tutorId: (_value, _data, context) => context.params.internalTutorId,
+  // El alta de un integrante nace ya en plural; `tutorId` singular no se
+  // escribe nunca mas.
+  tutorIds: (_value, _data, context) =>
+    context.params.internalTutorId ? [context.params.internalTutorId] : undefined,
+  teamAssignments: (_value, _data, context) => (context.params.internalTutorId ? [] : undefined),
   teamAccessStatus: (_value, _data, context) =>
     context.params.internalSubuserRole ? 'active' : undefined
 })
@@ -200,6 +236,11 @@ export const userPatchResolver = resolve<User, HookContext<UserService>>({
   role: (value, _user, context) =>
     context.params.internalSubuserRole ?? (context.params.provider ? undefined : (value as any)),
   tutorId: stripIfExternal,
+  // Sin esto un PATCH externo podria auto-asignarse tutores o pacientes de
+  // otro medico: es la misma escalada de privilegios que cubre `role`.
+  tutorIds: stripIfExternal,
+  teamAssignments: stripIfExternal,
+  teamInvites: stripIfExternal,
   teamAccessStatus: stripIfExternal,
   groups: stripIfExternal,
   clues: stripIfExternal,
@@ -225,6 +266,7 @@ export const userQueryProperties = Type.Pick(userSchema, [
   'groups',
   'role',
   'tutorId',
+  'tutorIds',
   'teamAccessStatus'
 ])
 export const userQuerySchema = Type.Intersect(

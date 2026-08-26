@@ -228,3 +228,135 @@ Se verificó posición por posición que las 106 columnas del renglón correspon
 El archivo `CEX-EJEMPLOS-2410.txt` que la guía dice anexar —y que traería el encabezado listo— no está en el equipo; el ZIP `~/Downloads/GIIS B018.zip` solo trae el de otra guía (`CPF-EJEMPLOS-2410.txt`). Si aparece, vale la pena cotejar su primer renglón contra `GIIS_HEADER_ROW`.
 
 `fileRow` (renglón suelto de un solo paciente) no se usa en el frontend, así que no hay ninguna ruta que descargue un archivo sin encabezado.
+
+## 2026-08-25 — Enfermería ligada a varios médicos (multi-tutor)
+
+Contexto: el vínculo enfermera→médico ya existía como `tutorId` **singular** en
+`users.schema.ts`, y `hooks/generic/scope-by-role-and-tutor.ts` lo resolvía para
+dar alcance a pacientes. En la realidad una enfermera atiende a uno o dos
+médicos, así que el campo tenía que volverse plural. Esto es una migración, no
+un feature nuevo.
+
+### Forma de los campos
+
+- `tutorIds: ObjectId[]` — lista de médicos tutores. **`tutorId` (singular) se
+  conserva** para las cuentas viejas: se normaliza en lectura con
+  `normalizeTutorIds()`, mismo patrón que `normalizeClues` en
+  `hooks/generic/scope-by-clues.ts`. Nunca se escribe de nuevo.
+- `teamAssignments: [{ tutorId, patientIds[] }]` — **fuente de verdad** de qué
+  pacientes le asignó cada médico. Indexado por médico, no plano.
+- `patientsList` — se conserva como **unión derivada** de todos los
+  `teamAssignments`. No es autoridad: se recalcula. Se mantiene porque medio
+  backend (scope-by-clues, updateUserPatients, filtros de pacientes) ya lo lee.
+- `teamInvites: [{ tutorId, status: 'pending'|'accepted'|'rejected', createdAt }]`
+  — invitaciones que un médico le manda a una cuenta de enfermería que ya existe.
+
+Todos los campos nuevos pasan por `stripIfExternal` en `userPatchResolver`: un
+PATCH externo no puede auto-asignarse tutores ni pacientes.
+
+### Por qué `teamAssignments` y no dejar `patientsList` plano
+
+`medical-team.class.ts` reemplazaba `patientsList` **completo** en cada `patch`
+(`validateAssignments`). Con varios tutores sobre un arreglo plano, el médico A
+al guardar borraba las asignaciones del médico B, y `present()` le devolvía a A
+los IDs de pacientes de B. Fuga de datos clínicos entre médicos. Con el mapa por
+tutor, cada endpoint lee y escribe **solo la rebanada del médico que llama**.
+
+La unión se recalcula en **un solo helper** (`unionAssignedPatients`) al que
+llaman todos los escritores. Si dos sitios la calcularan por separado y
+divergieran, el alcance quedaría mal en silencio.
+
+### Lectura vs escritura: alcance distinto
+
+- **Lectura** (listar pacientes, abrir expediente, agenda): unión de los
+  pacientes asignados por todos sus tutores, cada uno intersectado con el
+  `patientsList` real de ese tutor. CLUES: unión de las de todos los tutores.
+- **Escritura** (alta de paciente, cita, somatometría): **no puede ser unión**.
+  Requiere médico destino explícito (`tutorId` en query o body), validado como
+  tutor suyo. Si la enfermera tiene un solo tutor se usa ese por omisión, y las
+  cuentas de un solo médico siguen funcionando sin tocar nada. Con dos o más y
+  sin `tutorId` → error, y el front le pinta un selector de médico.
+
+### Flujo "el usuario ya existe" → invitación, no enganche directo
+
+Pedido: al dar de alta a una enfermera que ya tiene cuenta, ofrecer al médico
+agregarla a su equipo. Hoy eso colapsaba en `BadRequest('El correo ya está
+registrado')` (error 11000 de Mongo).
+
+**No se implementó como enganche unilateral.** Si cualquier médico que conoce un
+correo pudiera anexarse una cuenta ajena, le daría a un desconocido acceso a su
+lista de pacientes, y el endpoint se volvería un oráculo de existencia de
+correos. Con NOM-024 de por medio es una ruta de PHI.
+
+Se implementó como **invitación pendiente**: el médico manda la solicitud
+(`create` con `inviteExisting`), queda `pending` en `teamInvites` de la
+enfermera, ella la ve y la acepta o rechaza desde su cuenta, y **solo al aceptar**
+se agrega el tutor. Estados `pending / accepted / rejected`.
+
+Dos guardas adicionales:
+- Si el correo que colisiona pertenece a un `medico` o a un `admin`, se rechaza
+  de plano; no se ofrece invitación. Si no, un médico podría anexarse una cuenta
+  de administrador.
+- El cuerpo del 409 no revela el rol ni el nombre del dueño de la cuenta, para no
+  sumarle un oráculo de roles al de existencia.
+
+### Excepción necesaria en `scope-by-role-and-tutor.ts`
+
+Ese hook prohibía a enfermería **toda** escritura sobre `medical-team`
+(«La administración de grupos y equipos es exclusiva del médico tutor»), lo que
+bloqueaba a la enfermera aceptar su propia invitación. Se abrió una excepción
+estrecha: enfermería puede `get` sus invitaciones y `patch` **únicamente** con
+`inviteResponse` sobre una invitación dirigida a ella. Todo lo demás sigue
+prohibido.
+
+### Migración
+
+Queda `src/scripts/backfill-team-assignments.ts` **sin ejecutar**: convierte
+`tutorId` → `tutorIds` y `patientsList` → `teamAssignments` de las cuentas de
+enfermería existentes. Temis y Cronos comparten cluster, así que no se corre sin
+autorización explícita.
+
+### Agenda: el médico se deduce, no se pregunta
+
+En una cita no hace falta selector: el paciente ya pertenece a la rebanada de
+uno solo de sus tutores, así que el hook deduce el médico a partir del
+`patientId` de la cita. Si una misma petición mezclara pacientes de dos médicos
+se rechaza («Las citas de médicos distintos se agendan por separado»).
+
+### Tres correcciones encontradas al verificar (no las veía el compilador)
+
+1. **`tutorId` legacy revivía un vínculo ya cortado.** `userPatchResolver` tiene
+   `tutorId: stripIfExternal`, y un resolver que devuelve `undefined` **omite la
+   propiedad del patch**: el campo viejo no se puede borrar escribiendo
+   `undefined`. Sumado a que `normalizeTutorIds` unía plural + legacy, el
+   escenario era: enfermera legacy con `tutorId: A` acepta la invitación de B →
+   queda con `tutorIds: [A,B]` y `tutorId: A`; A la saca de su equipo → quedan
+   tutores, así que no se revoca, y al normalizar volvía a salir A.
+   **Seguía viendo los pacientes de A después de que A la sacó.**
+   Arreglo: `tutorIds` y `teamAssignments` **mandan en cuanto existen**, aunque
+   vengan vacíos; el campo legacy solo se lee mientras la cuenta nunca haya
+   tocado el camino plural. Verificado con un ejercicio de los cuatro pasos.
+
+2. **`{ tutorIds: <id> }` no pasa `validateQuery`.** `querySyntax` deriva el
+   esquema de `Array(ObjectIdSchema())` y rechaza el escalar suelto: «Mi Equipo»
+   habría salido rota para todos los médicos. Se consulta con
+   `{ tutorIds: { $in: [id] } }`, que sí valida y en Mongo significa lo mismo.
+
+3. **`tutorId` también hay que quitarlo de la query**, no solo del body, o
+   `validateQuery` del servicio destino lo rechaza por no estar en su esquema.
+
+### Pendientes conocidos
+
+- **Estilos de `.NurseTutorSelect`.** La clase existe en `SavePatientForm.tsx`
+  pero no tiene regla en Stylus: otra sesión estaba editando los `.styl` y
+  recompilando `Index.css` en paralelo, y dos procesos escribiendo ese archivo
+  se pisan. Hereda los estilos de formulario del contenedor; queda pendiente
+  darle regla propia.
+
+### Agenda de enfermería: resuelto, no pendiente
+
+`Get_User_Agenda` acepta `tutorId` y la pantalla de agenda pinta el selector de
+médico cuando la enfermera tiene dos o más. La consulta no se dispara hasta que
+hay médico elegido, para no mandar una petición que el backend rechazaría. Las
+escrituras de agenda no necesitan selector: el médico se deduce del paciente de
+la cita.

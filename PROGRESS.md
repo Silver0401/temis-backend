@@ -60,3 +60,20 @@ Las 9 colecciones de catálogo que consulta `src/` quedaron pobladas en `test`:
 
 Total: 324,269 documentos. Ver `DECISIONS.md` para el cambio de rutas de los
 scripts y el detalle del entorno.
+
+## 2026-08-25 — Multi-tutor de enfermería (backend)
+
+- `hooks/generic/team-tutors.ts` (nuevo): normaliza `tutorId` legacy → `tutorIds`,
+  lee y escribe `teamAssignments` por tutor y calcula la unión de `patientsList`
+  en un solo lugar.
+- `users.schema.ts`: campos `tutorIds`, `teamAssignments` y `teamInvites`, todos
+  cubiertos por `stripIfExternal`.
+- `medical-team.class.ts`: todo el servicio scopeado a la rebanada del médico que
+  llama; `get('invitations')` y `get('tutors')`; 409 tipado `TEAM_MEMBER_EXISTS`;
+  invitación pendiente con aceptar/rechazar; `remove` saca de un equipo sin
+  revocar la cuenta si le quedan otros tutores.
+- `scope-by-role-and-tutor.ts`: lectura por unión de tutores, escritura con
+  médico destino explícito, excepción para que enfermería responda invitaciones.
+- `scripts/backfill-team-assignments.ts` (nuevo): **sin ejecutar**, simula por
+  defecto y solo escribe con `--apply`.
+- `npx tsc --noEmit` limpio en backend y frontend.

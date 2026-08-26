@@ -1,7 +1,13 @@
-import { Forbidden, NotFound } from '@feathersjs/errors'
+import { BadRequest, Forbidden, NotFound } from '@feathersjs/errors'
 import { ObjectId } from 'mongodb'
 
 import type { HookContext } from '../../declarations'
+import {
+  assignedByTutor,
+  normalizeTutorIds,
+  unionAssignedPatients,
+  withTutorAssignment
+} from './team-tutors'
 
 // Enfermeria es el unico rol de equipo que existe (ver users.schema.ts).
 const TEAM_ROLES = new Set(['enfermeria'])
@@ -52,6 +58,19 @@ export const scopeByRoleAndTutor = async (context: HookContext, next: () => Prom
   if (RESTRICTED_TEAM_PATHS.has(path)) {
     throw new Forbidden('Esta operación es exclusiva del médico tutor')
   }
+  // Administrar el equipo sigue siendo exclusivo del médico, pero la enfermera
+  // tiene que poder ver sus invitaciones y responderlas: es la contraparte del
+  // vínculo, y sin esto no habría forma de aceptar.
+  if (path === 'medical-team') {
+    const isInviteResponse =
+      method === 'patch' && (context.data as any)?.inviteResponse !== undefined
+    if (method === 'get' || isInviteResponse) return next()
+    throw new Forbidden('La administración de equipos es exclusiva del médico tutor')
+  }
+  // El alta de paciente entra por `records.create` sin `patientId`; se resuelve
+  // más abajo, cuando ya se conocen los tutores.
+  const isPatientRegistration =
+    path === 'records' && method === 'create' && !(context.data as any)?.patientId
   if (WRITE_METHODS.has(method)) {
     if (
       method === 'patch' &&
@@ -59,7 +78,7 @@ export const scopeByRoleAndTutor = async (context: HookContext, next: () => Prom
     ) {
       throw new Forbidden('No se puede reasignar un recurso clínico')
     }
-    if (path === 'medical-team' || path === 'groups') {
+    if (path === 'groups') {
       throw new Forbidden('La administración de grupos y equipos es exclusiva del médico tutor')
     }
     if (method === 'remove') {
@@ -71,8 +90,6 @@ export const scopeByRoleAndTutor = async (context: HookContext, next: () => Prom
     // El alta de paciente entra por `records.create` sin `patientId`: el hook
     // persist-new-patient crea el paciente y cuelga de él el registro inicial.
     // Un `records.create` CON `patientId` ya es una nota de evolución.
-    const isPatientRegistration =
-      path === 'records' && method === 'create' && !(context.data as any)?.patientId
     const nurseWritable =
       path === 'agenda' ||
       path === 'somas' ||
@@ -83,35 +100,121 @@ export const scopeByRoleAndTutor = async (context: HookContext, next: () => Prom
     if (!nurseWritable) {
       throw new Forbidden('Enfermería solo puede registrar pacientes y somatometrías')
     }
-    // El alta salta el filtro por paciente asignado: el paciente todavía no existe.
-    if (isPatientRegistration) return next()
   }
-  if (!user.tutorId) throw new Forbidden('La cuenta no tiene un médico tutor asignado')
+  // `tutorId` singular es la forma vieja del vínculo; normalizeTutorIds cubre
+  // las dos y deja las cuentas antiguas funcionando sin migrar.
+  const tutorIds = normalizeTutorIds(user)
+  if (!tutorIds.length) throw new Forbidden('La cuenta no tiene un médico tutor asignado')
 
-  const tutor: any = await context.app.service('users').get(user.tutorId, { provider: undefined })
-  if (!tutor || (tutor.role ?? 'medico') !== 'medico') {
-    throw new Forbidden('El médico tutor asignado no es válido')
-  }
+  const tutors = (
+    await Promise.all(
+      tutorIds.map((tutorId) =>
+        context.app
+          .service('users')
+          .get(tutorId, { provider: undefined })
+          .catch(() => null)
+      )
+    )
+  ).filter((candidate: any) => candidate && (candidate.role ?? 'medico') === 'medico') as any[]
+  if (!tutors.length) throw new Forbidden('El médico tutor asignado no es válido')
 
-  const tutorPatientIds = new Set<string>(
-    (tutor.patientsList ?? []).map((patientId: unknown) => String(patientId))
+  // LECTURA: unión de lo que le asignó cada médico, y de cada uno solo lo que
+  // ese médico realmente tiene. La intersección evita que una asignación vieja
+  // le deje abierto un paciente que el médico ya no lleva.
+  const assignedPatientIds = unionAssignedPatients(
+    tutors.map((tutor) => {
+      const owned = new Set((tutor.patientsList ?? []).map((patientId: unknown) => String(patientId)))
+      return {
+        tutorId: String(tutor._id),
+        patientIds: assignedByTutor(user, tutor._id).filter((patientId) => owned.has(patientId))
+      }
+    })
   )
-  const assignedPatientIds = (user.patientsList ?? [])
-    .map((patientId: unknown) => String(patientId))
-    .filter((patientId: string) => tutorPatientIds.has(patientId))
+  const tutorClues = [...new Set(tutors.flatMap((tutor) => tutor.clues ?? []))]
 
-  // Conserva al actor y usa solo CLUES del tutor + asignaciones explícitas del integrante.
-  params.user = { ...user, clues: tutor.clues, patientsList: assignedPatientIds }
+  // ESCRITURA: no puede ser unión. El registro tiene que quedar a nombre de UN
+  // médico, así que la petición trae `tutorId`. Con un solo tutor se usa ese y
+  // las cuentas de siempre no cambian; con dos o más hay que elegir.
+  const requestedTutorId = String(
+    (context.data as any)?.tutorId ?? (params.query as any)?.tutorId ?? ''
+  )
+  const resolveTargetTutor = () => {
+    if (requestedTutorId) {
+      const found = tutors.find((tutor) => String(tutor._id) === requestedTutorId)
+      if (!found) throw new Forbidden('El médico indicado no es tu tutor')
+      return found
+    }
+    if (tutors.length === 1) return tutors[0]
+    // El front pinta un selector de médico con `medical-team` get('tutors').
+    throw new BadRequest('Indica para qué médico es el registro (falta tutorId)')
+  }
+  // `tutorId` es de enrutamiento, no del recurso: no debe llegar al documento
+  // ni a la query, donde `validateQuery` lo rechazaría por no estar en el
+  // esquema del servicio.
+  if ((context.data as any)?.tutorId !== undefined) delete (context.data as any).tutorId
+  if ((params.query as any)?.tutorId !== undefined) delete (params.query as any).tutorId
+
+  // Deja al paciente recién dado de alta dentro de la rebanada de ESE médico,
+  // si no el filtro le cerraría el paciente que acaba de registrar.
+  const adoptPatient = async (createdId: string, tutorId: string) => {
+    const usersService = context.app.service('users')
+    const fresh: any = await usersService.get(String(user._id), { provider: undefined })
+    const teamAssignments = withTutorAssignment(fresh, tutorId, [
+      ...assignedByTutor(fresh, tutorId),
+      String(createdId)
+    ])
+    await usersService.patch(
+      String(user._id),
+      { teamAssignments, patientsList: unionAssignedPatients(teamAssignments) } as any,
+      { provider: undefined }
+    )
+  }
+
+  if (isPatientRegistration) {
+    // El alta salta el filtro por paciente asignado: el paciente no existe aún.
+    const target = resolveTargetTutor()
+    params.user = target
+    await next()
+    const createdId =
+      (context.result as any)?.patientId ??
+      (context.result as any)?._id ??
+      (context.result as any)?.data?._id
+    if (createdId) await adoptPatient(String(createdId), String(target._id))
+    return
+  }
+
+  // Conserva al actor y usa solo CLUES de sus tutores + asignaciones explícitas.
+  params.user = { ...user, clues: tutorClues, patientsList: assignedPatientIds }
   if (path === 'agenda') {
+    const appointmentPatientIds: string[] = ((context.data as any)?.appointments ?? []).map(
+      (appointment: any) => String(appointment.patientId)
+    )
     if (
       WRITE_METHODS.has(method) &&
-      (context.data as any)?.appointments?.some(
-        (appointment: any) => !assignedPatientIds.includes(String(appointment.patientId))
-      )
+      appointmentPatientIds.some((patientId) => !assignedPatientIds.includes(patientId))
     ) {
       throw new Forbidden('La cita pertenece a un paciente no asignado')
     }
-    params.user = tutor
+    // En una cita el médico destino no hace falta preguntarlo: el paciente ya
+    // pertenece a la lista de uno solo de sus tutores.
+    const tutorsOfAppointment = [
+      ...new Set(
+        appointmentPatientIds
+          .map(
+            (patientId) =>
+              tutors.find((tutor) => assignedByTutor(user, tutor._id).includes(patientId))?._id
+          )
+          .filter(Boolean)
+          .map(String)
+      )
+    ]
+    if (tutorsOfAppointment.length > 1) {
+      throw new BadRequest('Las citas de médicos distintos se agendan por separado')
+    }
+    const agendaTutor = tutorsOfAppointment.length
+      ? tutors.find((tutor) => String(tutor._id) === tutorsOfAppointment[0])
+      : undefined
+    params.user = agendaTutor ?? resolveTargetTutor()
     await next()
     const agendaIds = new Set(assignedPatientIds)
     const filterAgenda = (agenda: any) => ({
@@ -139,16 +242,11 @@ export const scopeByRoleAndTutor = async (context: HookContext, next: () => Prom
     // Después de crearlo se adopta también en la lista de la enfermera, si no
     // el filtro `user.patientsList ∩ tutor.patientsList` le cerraría el paciente
     // que acaba de registrar y no podría capturarle la somatometría.
-    params.user = tutor
+    const target = resolveTargetTutor()
+    params.user = target
     await next()
     const createdId = (context.result as any)?._id ?? (context.result as any)?.data?._id
-    if (createdId) {
-      await context.app.service('users').patch(
-        user._id,
-        { patientsList: [...assignedPatientIds, String(createdId)] } as any,
-        { provider: undefined }
-      )
-    }
+    if (createdId) await adoptPatient(String(createdId), String(target._id))
     return
   } else if (CHILD_PATHS.has(path)) {
     if (method === 'get' && id != null) {
