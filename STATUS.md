@@ -1,5 +1,11 @@
 # Estado
 
+## 2026-09-03 - Expediente clínico para admin
+
+- `admin-console` entrega el paciente completo y sus notas en los resultados de búsqueda.
+- El rol admin puede leer servicios clínicos para renderizar el expediente, pero las escrituras continúan bloqueadas.
+- Pendiente de verificación visual por Ismael.
+
 ## 2026-07-23 - Alta externa por QR / link
 
 - **Estado actual:** investigacion completa; iniciado el contrato `create` del servicio `external-patient-registration`.

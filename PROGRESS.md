@@ -1,5 +1,10 @@
 # Progreso
 
+## 2026-09-03 - Tarea 1: expediente clínico desde admin
+
+- La búsqueda de pacientes de `admin-console` agrega las notas mediante `$lookup` y devuelve el documento completo en `patient`.
+- `scope-by-role-and-tutor.ts` reemplaza el bloqueo total del admin por acceso clínico de solo lectura.
+
 ## 2026-07-23 - Alta externa de paciente por QR / link
 
 - Se revisaron `patients`, `users`, `updateUserPatients`, `patientsDataResolver`, `giisPatientValidator` y el scope por CLUES.

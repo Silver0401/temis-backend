@@ -1,5 +1,10 @@
 # Decisiones
 
+## 2026-09-03 - Lectura clínica del administrador
+
+- El administrador cruza establecimientos únicamente para consulta, coherente con `admin-console`; cualquier `create`, `update`, `patch` o `remove` clínico sigue rechazado.
+- Las notas se agregan en la consulta paginada de admin para reutilizar `ClinicalHistory` sin crear un endpoint o una vista clínica alternativa.
+
 ## 2026-07-23 - Endpoint publico de alta externa
 
 - Se usara un servicio separado `external-patient-registration` sin JWT y con metodo externo unico `create`; no se abrira el servicio `patients` existente.

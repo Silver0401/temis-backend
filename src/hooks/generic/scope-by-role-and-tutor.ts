@@ -45,8 +45,8 @@ export const scopeByRoleAndTutor = async (context: HookContext, next: () => Prom
 
   if (!params.provider || !user) return next()
   if (user.role === 'admin') {
-    if (CLINICAL_PATHS.has(path)) {
-      throw new Forbidden('La administración de plataforma no abre expedientes clínicos')
+    if (CLINICAL_PATHS.has(path) && WRITE_METHODS.has(method)) {
+      throw new Forbidden('La administración de plataforma solo puede consultar expedientes clínicos')
     }
     return next()
   }

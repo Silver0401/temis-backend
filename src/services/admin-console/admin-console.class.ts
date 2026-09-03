@@ -164,10 +164,20 @@ export class AdminConsoleService {
     const [total, rows] = await Promise.all([
       collection.countDocuments(filter),
       collection
-        .find(filter, { projection: { personalInfo: 1, clues: 1, LUID: 1 } })
-        .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limit)
+        .aggregate([
+          { $match: filter },
+          { $sort: { _id: -1 } },
+          { $skip: skip },
+          { $limit: limit },
+          {
+            $lookup: {
+              from: 'records',
+              localField: '_id',
+              foreignField: 'patientId',
+              as: 'records'
+            }
+          }
+        ])
         .toArray()
     ])
 
@@ -209,7 +219,16 @@ export class AdminConsoleService {
         birthDate: row.personalInfo?.birthDate ?? '',
         clues: Array.isArray(row.clues) ? row.clues : row.clues ? [row.clues] : [],
         registeredAt: row._id.getTimestamp(),
-        doctorName: ownerByPatient.get(String(row._id)) ?? null
+        doctorName: ownerByPatient.get(String(row._id)) ?? null,
+        patient: {
+          ...row,
+          _id: String(row._id),
+          records: (row.records ?? []).map((record: any) => ({
+            ...record,
+            _id: String(record._id),
+            patientId: String(record.patientId)
+          }))
+        }
       }))
     }
   }
