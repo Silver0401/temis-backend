@@ -1,5 +1,10 @@
 # Progreso
 
+## 2026-09-03 - Tarea 3: historia clínica en notas de primera vez
+
+- `recordEntryType` amplía la derivación existente de `Entry.type` usando `Temporality` y los campos estructurados que ya identifican CNS, Crónicos, CPN, Puerperio y PF.
+- Se agregó cobertura unitaria de los cinco casos y de una atención subsecuente.
+
 ## 2026-09-03 - Tarea 1: expediente clínico desde admin
 
 - La búsqueda de pacientes de `admin-console` agrega las notas mediante `$lookup` y devuelve el documento completo en `patient`.

@@ -1,5 +1,11 @@
 # Decisiones
 
+## 2026-09-03 - Tipos que abren historia clínica
+
+- No se agregó otro enum de tipo de nota: se reutilizan los datos que ya produce el router de guías.
+- CNS se reconoce por `Pediatrics.ninoSanoRT`; Crónicos por `DIA_CRONICOS` del diagnóstico; CPN y Puerperio por `Gynecology.relacionTemporalEmbarazo` y `Gynecology.puerpera`; PF por la presencia de `FamilyPlanning`.
+- La regla solo aplica con `Temporality: PrimeraVez`; la ausencia de `patientId` sigue abriendo historia como antes.
+
 ## 2026-09-03 - Lectura clínica del administrador
 
 - El administrador cruza establecimientos únicamente para consulta, coherente con `admin-console`; cualquier `create`, `update`, `patch` o `remove` clínico sigue rechazado.

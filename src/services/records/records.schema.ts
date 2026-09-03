@@ -363,14 +363,30 @@ export const recordsDataSchema = Type.Object(
 )
 export type RecordsData = Static<typeof recordsDataSchema>
 export const recordsDataValidator = getValidator(recordsDataSchema, dataValidator)
+
+export const recordEntryType = (data: Record<string, any>) => {
+  if (!data.patientId) return 'ClinicalHistoryInit'
+  if (data.Temporality !== 'PrimeraVez') return 'EvolutionNote'
+
+  const opensClinicalHistory =
+    data.Pediatrics?.ninoSanoRT === 0 ||
+    data.diagnosisCatalog?.some((diagnosis: any) => String(diagnosis.DIA_CRONICOS) === '1') ||
+    data.Gynecology?.relacionTemporalEmbarazo === 0 ||
+    data.Gynecology?.puerpera === 0 ||
+    data.FamilyPlanning !== undefined
+
+  return opensClinicalHistory ? 'ClinicalHistoryInit' : 'EvolutionNote'
+}
+
 // Sin default: NOM-024 prohíbe rellenar ServiceArea con un valor fijo cuando
 // el usuario no lo elige explícitamente (ver record_doc_type.ts, rama de alta nueva).
 export const recordsDataResolver = resolve<Records, HookContext<RecordsService>>({
-  // Sin `patientId` el registro abre expediente; con él, lo continúa.
+  // Las notas de primera vez de CNS, Crónicos, CPN, Puerperio y PF también
+  // abren historia, aunque el paciente ya exista.
   Entry: async (value, data) =>
     (value as any) ??
     ({
-      type: (data as any)?.patientId ? 'EvolutionNote' : 'ClinicalHistoryInit',
+      type: recordEntryType(data as any),
       text: 'NA'
     } as any)
 })

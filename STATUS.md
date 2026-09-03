@@ -6,6 +6,11 @@
 - El rol admin puede leer servicios clínicos para renderizar el expediente, pero las escrituras continúan bloqueadas.
 - Pendiente de verificación visual por Ismael.
 
+## 2026-09-03 - Historia clínica por primera vez
+
+- El resolver de records clasifica como `ClinicalHistoryInit` CNS, Crónicos, CPN, Puerperio y PF cuando `Temporality` es `PrimeraVez`.
+- Las atenciones subsecuentes continúan como `EvolutionNote`.
+
 ## 2026-07-23 - Alta externa por QR / link
 
 - **Estado actual:** investigacion completa; iniciado el contrato `create` del servicio `external-patient-registration`.
