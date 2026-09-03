@@ -9,6 +9,7 @@
 
 - La búsqueda de pacientes de `admin-console` agrega las notas mediante `$lookup` y devuelve el documento completo en `patient`.
 - `scope-by-role-and-tutor.ts` reemplaza el bloqueo total del admin por acceso clínico de solo lectura.
+- `scope-by-clues.ts` respeta esa autorización al consultar anexos por paciente; sin esta excepción, el expediente abría pero somatometrías, laboratorios, fármacos, imágenes y órdenes quedaban bloqueados por las CLUES vacías del admin.
 
 ## 2026-07-23 - Alta externa de paciente por QR / link
 
