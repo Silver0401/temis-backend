@@ -1,5 +1,6 @@
 import { BadRequest } from '@feathersjs/errors'
 import type { HookContext } from '../../declarations'
+import { esTipoPersonalOdontologia, mapTipoPersonal } from '../guide-router/context'
 
 interface GIISValidationError {
   field: string
@@ -89,13 +90,14 @@ export const cieDiagnosticValidator = async (context: HookContext) => {
 
   const diagnosis: any[] = context.data.Diagnosis ?? []
 
-  console.log(diagnosis)
-
   if (diagnosis.length === 0) return context
 
   const info = context.params.patientData?.personalInfo
   const ageYears = calcularEdad(info?.birthDate)
   const patientSex: string | undefined = info?.sex
+  const user = context.params.user
+  const tipoPersonal = mapTipoPersonal(user?.professionType)
+  const atencionBucal = user?.role === 'odontologo' || esTipoPersonalOdontologia(tipoPersonal)
 
   // No se registran context.params.patientData ni info: contienen PII del paciente.
 
@@ -153,18 +155,30 @@ export const cieDiagnosticValidator = async (context: HookContext) => {
     // Valores del catálogo: "HOMBRE" | "MUJER" | "NO" (sin restricción)
     const lsex: string | undefined = catalogEntry.LSEX
 
-    console.log(lsex)
-    console.log(patientSex)
-
     // Intersexual: la guía sólo restringe por edad cuando sexoBiologico es 3.
     if (lsex && lsex !== 'NO' && patientSex && patientSex !== 'Intersexual') {
       const expectedSex = lsex === 'HOMBRE' ? 'Masculino' : 'Femenino'
-      console.log(expectedSex)
       if (patientSex !== expectedSex) {
         const sexLabel = lsex === 'HOMBRE' ? 'masculino' : 'femenino'
         errors.push({
           field: `codigoCIEDiagnostico${fieldNum}`,
           message: `El diagnóstico "${dx.Name}" (${cieCode}) solo aplica para pacientes de sexo ${sexLabel}`,
+          section: sectionDx
+        })
+      }
+    }
+
+    // B016 exige que el tipo de prestador aparezca en VALIDO_SB. El catálogo
+    // de desarrollo usa tanto números como listas separadas por comas.
+    if (atencionBucal) {
+      const validosSB = String(catalogEntry.VALIDO_SB ?? '')
+        .split(',')
+        .map((valor) => Number(valor.trim()))
+        .filter(Number.isFinite)
+      if (tipoPersonal === null || !validosSB.includes(tipoPersonal)) {
+        errors.push({
+          field: `codigoCIEDiagnostico${fieldNum}`,
+          message: `El diagnóstico "${dx.Name}" (${cieCode}) no está habilitado para el tipo de personal odontológico`,
           section: sectionDx
         })
       }

@@ -206,6 +206,35 @@ const FamilyPlanningClinicalVariablesSchema = {
   OycOtrasSSRA: Type.Optional(Type.Integer()) // 63
 }
 
+// --- Salud Bucal - GIIS-B016-04-08 (campos 44-68) ---
+const SaludBucalClinicalVariablesSchema = {
+  placaBacteriana: Type.Optional(Type.Integer()),
+  cepillado: Type.Optional(Type.Integer()),
+  hiloDental: Type.Optional(Type.Integer()),
+  limpiezaDental: Type.Optional(Type.Integer()),
+  protesis: Type.Optional(Type.Integer()),
+  tejidosBucales: Type.Optional(Type.Integer()),
+  autoExamen: Type.Optional(Type.Integer()),
+  fluor: Type.Optional(Type.Integer()),
+  raspadoAlisadoPeriodontal: Type.Optional(Type.Integer()),
+  barnizFluor: Type.Optional(Type.Integer()),
+  fosetasFisuras: Type.Optional(Type.Integer()),
+  amalgamas: Type.Optional(Type.Integer()),
+  resinas: Type.Optional(Type.Integer()),
+  ionomeroVidrio: Type.Optional(Type.Integer()),
+  alcasite: Type.Optional(Type.Integer()),
+  obturacionTemporal: Type.Optional(Type.Integer()),
+  dienteTemp: Type.Optional(Type.Integer()),
+  dientePerm: Type.Optional(Type.Integer()),
+  pulpar: Type.Optional(Type.Integer()),
+  cirugiaBucal: Type.Optional(Type.Integer()),
+  farmacoTerapia: Type.Optional(Type.Integer()),
+  otrasAtenciones: Type.Optional(Type.Integer()),
+  radiografias: Type.Optional(Type.Integer()),
+  orientacionSaludBucal: Type.Optional(Type.Integer()),
+  tratamientoIntegral: Type.Optional(Type.Integer())
+}
+
 // --- Administrativas de la atención (sector público) ---
 // Huérfanas de grupo: aplican a toda atención, se piden siempre.
 const AdministrativeClinicalVariablesSchema = {
@@ -229,6 +258,7 @@ const ClinicalVariablesSchema = {
   Pediatrics: Type.Optional(Type.Object(PediatricsClinicalVariablesSchema)),
   Detections: Type.Optional(Type.Object(DetectionsClinicalVariablesSchema)),
   FamilyPlanning: Type.Optional(Type.Object(FamilyPlanningClinicalVariablesSchema)),
+  SaludBucal: Type.Optional(Type.Object(SaludBucalClinicalVariablesSchema)),
   Administrativas: Type.Optional(Type.Object(AdministrativeClinicalVariablesSchema))
 }
 
@@ -310,7 +340,7 @@ const DiagnosticoCatalogoSchema = Type.Object(
     CLAVE_CAPITULO: Type.Optional(Type.String()),
     CAPITULO: Type.Optional(Type.String()),
     ES_SUIVE_MORB: Type.Optional(Type.String()),
-    EPI_CLAVE: Type.Optional(Type.Number()),
+    EPI_CLAVE: Type.Optional(Type.String()),
     'EPI_CLAVE_DESC 2024': Type.Optional(Type.String()),
     TIPO_PERSONAL_1VEZ_CE: Type.Optional(Type.String()),
     TIPO_PERSONAL_SUBSEC_CE: Type.Optional(Type.String()),
@@ -363,14 +393,30 @@ export const recordsDataSchema = Type.Object(
 )
 export type RecordsData = Static<typeof recordsDataSchema>
 export const recordsDataValidator = getValidator(recordsDataSchema, dataValidator)
+
+export const recordEntryType = (data: Record<string, any>) => {
+  if (!data.patientId) return 'ClinicalHistoryInit'
+  if (data.Temporality !== 'PrimeraVez') return 'EvolutionNote'
+
+  const opensClinicalHistory =
+    data.Pediatrics?.ninoSanoRT === 0 ||
+    data.diagnosisCatalog?.some((diagnosis: any) => String(diagnosis.DIA_CRONICOS) === '1') ||
+    data.Gynecology?.relacionTemporalEmbarazo === 0 ||
+    data.Gynecology?.puerpera === 0 ||
+    data.FamilyPlanning !== undefined
+
+  return opensClinicalHistory ? 'ClinicalHistoryInit' : 'EvolutionNote'
+}
+
 // Sin default: NOM-024 prohíbe rellenar ServiceArea con un valor fijo cuando
 // el usuario no lo elige explícitamente (ver record_doc_type.ts, rama de alta nueva).
 export const recordsDataResolver = resolve<Records, HookContext<RecordsService>>({
-  // Sin `patientId` el registro abre expediente; con él, lo continúa.
+  // Las notas de primera vez de CNS, Crónicos, CPN, Puerperio y PF también
+  // abren historia, aunque el paciente ya exista.
   Entry: async (value, data) =>
     (value as any) ??
     ({
-      type: (data as any)?.patientId ? 'EvolutionNote' : 'ClinicalHistoryInit',
+      type: recordEntryType(data as any),
       text: 'NA'
     } as any)
 })

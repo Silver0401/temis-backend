@@ -1,5 +1,16 @@
 # Progreso
 
+## 2026-09-03 - Tarea 3: historia clínica en notas de primera vez
+
+- `recordEntryType` amplía la derivación existente de `Entry.type` usando `Temporality` y los campos estructurados que ya identifican CNS, Crónicos, CPN, Puerperio y PF.
+- Se agregó cobertura unitaria de los cinco casos y de una atención subsecuente.
+
+## 2026-09-03 - Tarea 1: expediente clínico desde admin
+
+- La búsqueda de pacientes de `admin-console` agrega las notas mediante `$lookup` y devuelve el documento completo en `patient`.
+- `scope-by-role-and-tutor.ts` reemplaza el bloqueo total del admin por acceso clínico de solo lectura.
+- `scope-by-clues.ts` respeta esa autorización al consultar anexos por paciente; sin esta excepción, el expediente abría pero somatometrías, laboratorios, fármacos, imágenes y órdenes quedaban bloqueados por las CLUES vacías del admin.
+
 ## 2026-07-23 - Alta externa de paciente por QR / link
 
 - Se revisaron `patients`, `users`, `updateUserPatients`, `patientsDataResolver`, `giisPatientValidator` y el scope por CLUES.
@@ -60,3 +71,20 @@ Las 9 colecciones de catálogo que consulta `src/` quedaron pobladas en `test`:
 
 Total: 324,269 documentos. Ver `DECISIONS.md` para el cambio de rutas de los
 scripts y el detalle del entorno.
+
+## 2026-08-25 — Multi-tutor de enfermería (backend)
+
+- `hooks/generic/team-tutors.ts` (nuevo): normaliza `tutorId` legacy → `tutorIds`,
+  lee y escribe `teamAssignments` por tutor y calcula la unión de `patientsList`
+  en un solo lugar.
+- `users.schema.ts`: campos `tutorIds`, `teamAssignments` y `teamInvites`, todos
+  cubiertos por `stripIfExternal`.
+- `medical-team.class.ts`: todo el servicio scopeado a la rebanada del médico que
+  llama; `get('invitations')` y `get('tutors')`; 409 tipado `TEAM_MEMBER_EXISTS`;
+  invitación pendiente con aceptar/rechazar; `remove` saca de un equipo sin
+  revocar la cuenta si le quedan otros tutores.
+- `scope-by-role-and-tutor.ts`: lectura por unión de tutores, escritura con
+  médico destino explícito, excepción para que enfermería responda invitaciones.
+- `scripts/backfill-team-assignments.ts` (nuevo): **sin ejecutar**, simula por
+  defecto y solo escribe con `--apply`.
+- `npx tsc --noEmit` limpio en backend y frontend.

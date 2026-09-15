@@ -50,6 +50,9 @@ export const NORMAL_ANORMAL: Opcion[] = [NO_APLICA, o(0, 'Normal'), o(1, 'Anorma
 /** Sí/No estándar de B015 (cartillas, línea de vida, telemedicina...). */
 export const SI_NO: Opcion[] = [NO_APLICA, o(0, 'No'), o(1, 'Sí')]
 
+/** Sí/No de B016: estas variables no admiten -1. */
+export const BUCAL_SI_NO: Opcion[] = [o(0, 'No'), o(1, 'Sí')]
+
 /** Relación temporal de B015: 0 primera vez, 1 subsecuente. */
 export const RELACION_TEMPORAL: Opcion[] = [NO_APLICA, o(0, 'Primera vez'), o(1, 'Subsecuente')]
 

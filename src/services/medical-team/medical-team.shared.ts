@@ -1,8 +1,20 @@
 import type { ClientApplication } from '../../client'
 import type { MedicalTeamService } from './medical-team.class'
-import type { MedicalTeamData, MedicalTeamMember, MedicalTeamPatch } from './medical-team.schema'
+import type {
+  MedicalTeamData,
+  MedicalTeamInvite,
+  MedicalTeamMember,
+  MedicalTeamPatch,
+  MedicalTeamTutor
+} from './medical-team.schema'
 
-export type { MedicalTeamData, MedicalTeamMember, MedicalTeamPatch }
+export type {
+  MedicalTeamData,
+  MedicalTeamInvite,
+  MedicalTeamMember,
+  MedicalTeamPatch,
+  MedicalTeamTutor
+}
 export type MedicalTeamClientService = Pick<MedicalTeamService, 'get' | 'create' | 'patch' | 'remove'>
 
 export const medicalTeamPath = 'medical-team'

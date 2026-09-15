@@ -13,9 +13,10 @@
  */
 import type { z } from 'zod'
 import type { ValueType } from './shared'
+import type { UserRole } from '../../services/users/users.schema'
 
 /** Códigos de guía de intercambio. */
-export type GuideCode = 'CEX' | 'DET' | 'CPF'
+export type GuideCode = 'CEX' | 'DET' | 'CPF' | 'CSB'
 
 /** Sexo biológico según catálogo GIIS B015 campo 17. */
 export type SexoBiologico = 1 | 2 | 3
@@ -30,7 +31,7 @@ export interface DiagnosticoCatalogo {
   LETRA?: string
   CLAVE_CAPITULO?: string
   CAPITULO?: string
-  EPI_CLAVE?: number
+  EPI_CLAVE?: string
   DIA_CRONICOS?: string
   DIA_CAINFANTIL?: string
   LSEX?: string
@@ -44,6 +45,8 @@ export interface DiagnosticoCatalogo {
  * Se arma una sola vez por atención en context.ts.
  */
 export interface RoutingContext {
+  /** Rol de acceso. null conserva soporte para cuentas legacy. */
+  role: UserRole | null
   /** Edad en años cumplidos. null si no se pudo calcular. */
   edad: number | null
   /** 1 HOMBRE, 2 MUJER, 3 INTERSEXUAL. null si falta el dato. */
@@ -103,7 +106,8 @@ export interface GuideNode {
     | 'Pediatrics'
     | 'Geriatrics'
     | 'Detections'
-    | 'FamilyPlanning'
+     | 'FamilyPlanning'
+    | 'SaludBucal'
     | 'Administrativas'
 }
 

@@ -18,10 +18,11 @@ import { zodResponseFormat } from 'openai/helpers/zod'
 import type { HookContext } from '../../declarations'
 import { esSintesis } from '../records/synthesize-preview'
 import { sanitizeForAI } from '../../json/Generator'
-import { buildRoutingContext } from './context'
+import { buildRoutingContext, esOdontologo } from './context'
 import { resolveConsultaExternaNodes } from './consulta-externa'
 import { resolveDetectionNodes } from './detecciones'
 import { planificacionFamiliarNode, edadPermitidaCPF } from './planificacion-familiar'
+import { saludBucalNode } from './salud-bucal'
 import { mergeInputList, calcularSteps, agruparPorTarget, mapFieldTargets, mapFieldTypes } from './merge'
 import type { GuideCode, GuideNode, RoutingContext, RoutingResult } from './types'
 
@@ -58,8 +59,16 @@ Marca true SÓLO si la nota lo documenta:
 No infieras por la edad ni el sexo del paciente: eso ya lo resuelve el sistema.
 `
 
+const SinFlagsSchema = z.object({}).strict()
+const PROMPT_SALUD_BUCAL = `
+Extrae únicamente las acciones odontológicas documentadas en la nota para el reporte GIIS-B016.
+No clasifiques embarazo, pediatría, detecciones ni planificación familiar.
+`
+
 /** Paso 1: gates deterministas. Qué hojas son posibles antes de leer la nota. */
 export const hojasPosibles = (ctx: RoutingContext): GuideNode[] => {
+  if (esOdontologo(ctx)) return [saludBucalNode]
+
   const permisivo: RoutingContext = {
     ...ctx,
     aiFlags: {
@@ -80,11 +89,14 @@ export const hojasPosibles = (ctx: RoutingContext): GuideNode[] => {
 }
 
 /** Paso 3: hojas definitivas, ya con las señales de la IA aplicadas. */
-export const hojasActivas = (ctx: RoutingContext): GuideNode[] => [
-  ...resolveConsultaExternaNodes(ctx),
-  ...(ctx.aiFlags.detecciones === true ? resolveDetectionNodes(ctx) : []),
-  ...(planificacionFamiliarNode.appliesTo(ctx) ? [planificacionFamiliarNode] : [])
-]
+export const hojasActivas = (ctx: RoutingContext): GuideNode[] => {
+  if (esOdontologo(ctx)) return [saludBucalNode]
+  return [
+    ...resolveConsultaExternaNodes(ctx),
+    ...(ctx.aiFlags.detecciones === true ? resolveDetectionNodes(ctx) : []),
+    ...(planificacionFamiliarNode.appliesTo(ctx) ? [planificacionFamiliarNode] : [])
+  ]
+}
 
 /**
  * PASO 4 del alta: decide qué guías aplican y arma el formulario que el médico
@@ -126,6 +138,7 @@ export const guideRouter = async (context: HookContext): Promise<HookContext> =>
 
   if (!context.data?.ClinicalHistory) return context
   const posibles = hojasPosibles(ctx)
+  const odontologo = esOdontologo(ctx)
 
   // Schema dinámico: sólo se le pide a la IA lo que puede aplicar.
   const shape: Record<string, z.ZodTypeAny> = {}
@@ -133,14 +146,16 @@ export const guideRouter = async (context: HookContext): Promise<HookContext> =>
     Object.assign(shape, (node.schema as any).shape ?? {})
   }
 
-  const Respuesta = z.object({ flags: FlagsSchema, variables: z.object(shape).partial() }).strict()
+  const Respuesta = z
+    .object({ flags: odontologo ? SinFlagsSchema : FlagsSchema, variables: z.object(shape).partial() })
+    .strict()
 
   const completion = await openai.beta.chat.completions.parse({
     model: 'gpt-4o-2024-08-06',
     messages: [
       {
         role: 'system',
-        content: `${PROMPT_FLAGS}\n\nReglas de extracción por bloque:\n${posibles
+        content: `${odontologo ? PROMPT_SALUD_BUCAL : PROMPT_FLAGS}\n\nReglas de extracción por bloque:\n${posibles
           .map((n) => n.promptFragment)
           .join(
             '\n\n'

@@ -18,6 +18,7 @@ import type { Application } from '../../declarations'
 import { LabsService, getOptions } from './labs.class'
 import { labsPath, labsMethods } from './labs.shared'
 import { scopeByPatientId, scopeByResourceId } from '../../hooks/generic/scope-by-clues'
+import { format_labs } from '../../hooks/labs/format_labs'
 
 export * from './labs.class'
 export * from './labs.schema'
@@ -46,7 +47,8 @@ export const labs = (app: Application) => {
       get: [scopeByPatientId],
       create: [
         schemaHooks.validateData(labsDataValidator),
-        schemaHooks.resolveData(labsDataResolver)
+        schemaHooks.resolveData(labsDataResolver),
+        format_labs
       ],
       patch: [
         scopeByResourceId,

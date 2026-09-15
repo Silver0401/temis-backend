@@ -1,7 +1,7 @@
 {
   "name": "temis-backend",
   "description": "Temis backend api",
-  "version": "1.1.4.6",
+  "version": "1.1.5.1",
   "homepage": "",
   "private": true,
   "keywords": [

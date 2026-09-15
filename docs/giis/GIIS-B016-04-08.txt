@@ -1,0 +1,2133 @@
+           SECRETARÍA DE SALUD
+      SUBSECRETARÍA DE PREVENCIÓN Y
+          PROMOCIÓN DE LA SALUD
+DIRECCIÓN GENERAL DE INFORMACIÓN EN SALUD
+
+
+
+              GIIS-B016-04-08
+
+
+     GUÍA Y FORMATOS PARA EL
+ INTERCAMBIO DE INFORMACIÓN EN
+ SALUD REFERENTE AL REPORTE DE
+  INFORMACIÓN AL SUBSISTEMA DE
+  PRESTACIÓN DE SERVICIOS “SIS” –
+CONSULTA EXTERNA DE SALUD BUCAL
+                                  GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                  SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                  SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                  EXTERNA DE SALUD BUCAL
+                                  CLAVE DEL DOCUMENTO:     VERSIÓN DEL DOCUMENTO:      FECHA DEL DOCUMENTO:
+                                     GIIS-B016-04-08                 4.8              01 de noviembre de 2024
+
+
+
+
+PREFACIO
+
+Información de contacto
+Para mayor información sobre el documento que se muestra a continuación, favor de contactar a la
+Dirección General de Información en Salud, ubicada en Homero No. 213, Piso 2, Col. Chapultepec
+Morales, Alcaldía Miguel Hidalgo, C.P. 11570, Ciudad de México, México; Teléfono. +52 (55) 6392 2300,
+Ext. 52584, o bien, por medio de correo electrónico a dgis@salud.gob.mx con el asunto “GUÍAS DE
+INTERCAMBIO DE INFORMACIÓN 2023”.
+
+
+
+Historial de revisiones
+
+     Fecha         Versión     Madurez                     Descripción                         Autor
+                                               Actualización de diccionario de datos,
+    02/03/2023        4.0    Versión Inicial                                               BRE, AMS, KMO
+                                               incorporación de nuevas variables.
+                             Revisión de       Revisión de reglas de validación y         BLPM, AGS, AYG,
+    21/04/2023        4.1
+                             borrador          catálogos.                                 MTU, JARS, KMO
+                             Revisión de                                                  KMO, JARS, ACT,
+    31/05/2023        4.2                      Versión preliminar para aplicación.
+                             borrador                                                           AMS
+                                                                                          BLPM, BRE, AGS,
+                             Revisión de
+    14/07/2023        4.3                      Revisión de reglas de validación.          AYG, AMS, MTU,
+                             borrador
+                                                                                                KMO
+                                                                                          BLPM, BRE, AGS,
+                             Versión
+    24/11/2023        4.4                      Versión para publicación preliminar.       AYG, AMS, MTU,
+                             Preliminar
+                                                                                                KMO
+                             Versión                                                       AGS, ACT, AMS,
+    02/01/2024        4.5                      Versión para publicación preliminar.
+                             Preliminar                                                         KMO
+                                               Versión final para publicación oficial.    BLPM, BRE, AGS,
+    08/01/2024        4.6    Versión Final     Integra archivo de ejemplo y se libera      ACT, AYG, AMS,
+                                               módulo de carga masiva de pruebas.            MTU, KMO
+                             Revisión de       Revisión de variables y precisión de las
+    16/05/2024        4.7                                                                     AGS, AMS
+                             reglas            reglas de validación.
+                                               Versión final para publicación oficial.
+                                               Fe de erratas en la variable               BLPM, BRE, AGS,
+    01/11/2024        4.8    Versión Final
+                                               programaSMyMG y la sección:                   ACT, AMS
+                                               SALUD BUCAL
+
+
+
+
+                                                 2 de 35
+                                GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                EXTERNA DE SALUD BUCAL
+                                CLAVE DEL DOCUMENTO:    VERSIÓN DEL DOCUMENTO:    FECHA DEL DOCUMENTO:
+                                   GIIS-B016-04-08               4.8             01 de noviembre de 2024
+
+
+Participantes
+ Institución,
+dependencia                               Nombre y Cargo                                     Iniciales
+u organismo
+                Ing. Blanca Leticia Pinette Medina. Directora de Administración y
+                                                                                               BLPM
+                Prestación de Servicios de Salud Electrónicos
+                Lic. Bonifacio Rugerio Escobar. Director de Sistemas de Información de
+                                                                                                BRE
+                Servicios de Salud
+                Lic. Angel González Serrano. Subdirector de Información en Recursos
+                                                                                                AGS
+                Humanos y Materiales
+   Dirección    Ing. Arturo Colin Torres. Subdirector de Procesos Electrónicos en Salud         ACT
+  General de    TPEG. Alicia Mercado Sandoval. Jefa de Departamento de
+ Información                                                                                    AMS
+                Procesamiento de la Información Hospitalaria
+   en Salud     Lic. José Augusto Rosales Soto. Jefe de Departamento de Seguridad de
+                                                                                               JARS
+                la Información
+                Lic. Alejandra Yépez Gómez. Jefa de Departamento de Primer Nivel                AYG
+                Lic. Mariana Terán Uribe. Enlace Administrativo de Bases de Datos
+                                                                                                MTU
+                Hospitalarios
+                Dra. Karina Monroy Olvera. Personal Médico                                     KMO
+
+
+
+
+                                              3 de 35
+                             GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                             SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                             SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                             EXTERNA DE SALUD BUCAL
+                             CLAVE DEL DOCUMENTO:   VERSIÓN DEL DOCUMENTO:    FECHA DEL DOCUMENTO:
+                                GIIS-B016-04-08              4.8             01 de noviembre de 2024
+
+
+CONTENIDO
+
+Prefacio                                                                                    2
+   Información de contacto                                                                  2
+   Historial de revisiones                                                                  2
+   Participantes                                                                            3
+
+Contenido                                                                                   4
+
+Presentación de la Guía                                                                     5
+   Introducción                                                                             5
+   Audiencia                                                                                6
+   Alcance                                                                                  6
+   Justificación                                                                            6
+   Términos y Definiciones                                                                  7
+
+Consideraciones Especiales                                                                 10
+
+Modelo de Información                                                                      12
+  Diccionario de Datos                                                                     12
+  Fe de erratas                                                                           30
+  Catálogos                                                                               30
+
+Conformación del Documento Electrónico                                                    31
+   Cifrado                                                                                32
+   Nomenclatura de archivos                                                               32
+
+Mecanismo de Entrega de la Información (Interconexión Basada en
+Estándares)                                                   33
+   Seguridad                                                  33
+
+Verificación de Apego a esta Guía                                                         34
+
+Referencias                                                                               35
+   Ligas Web                                                                              35
+   Bibliografía                                                                           35
+   Archivos anexos                                                                        35
+
+
+
+
+                                          4 de 35
+                                     GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                     SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                     SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                     EXTERNA DE SALUD BUCAL
+                                     CLAVE DEL DOCUMENTO:     VERSIÓN DEL DOCUMENTO:    FECHA DEL DOCUMENTO:
+                                        GIIS-B016-04-08                4.8             01 de noviembre de 2024
+
+
+PRESENTACIÓN DE LA GUÍA
+
+Introducción
+De conformidad con el artículo 109 bis de la Ley General de Salud, le corresponde a la Secretaría de
+Salud emitir la normatividad a que deben sujetarse los sistemas de información de registro
+electrónico que utilicen las instituciones del Sistema Nacional de Salud (SNS), a fin de facilitar la
+interoperabilidad, procesamiento, interpretación y seguridad de la información contenida en los
+expedientes clínicos electrónicos.
+
+En concordancia con lo anterior, la Norma Oficial Mexicana NOM-024-SSA3-2012 Sistemas de
+Registro Electrónico para la Salud. Intercambio de Información en Salud, tiene por objeto regular los
+Sistemas de Información de Registro Electrónico para la Salud (SIRES), así como establecer los
+mecanismos para que los Prestadores de Servicios de Salud del SNS registren, intercambien y
+consoliden información.
+
+Asimismo, prevé que a la Secretaría de Salud a través de la Dirección General de Información en
+Salud (DGIS), le corresponde establecer conforme a las disposiciones jurídicas aplicables y criterios
+médicos, la elaboración de Guías y Formatos, los cuales son documentos técnicos enfocados en
+lograr la interoperabilidad técnica e interoperabilidad semántica, compuestos tanto en formatos de
+texto, diagramas, archivos anexos e incluyen en su contenido al menos: a) el alcance de tipos de
+sistemas, tipos de Prestadores de Servicios de Salud y tipos de intercambio para los que aplica; b) el
+diccionario de variables, distinguiendo aquellas de tratamiento confidencial, catálogos y reglas de
+validación; c) la conformación del documento electrónico, mensaje de datos o servicio; d) el
+mecanismo de interconexión basado en estándares y, e) ejemplos, referencias y bibliografía.
+
+Los prestadores de salud que utilicen SIRES deben tomar las medidas de seguridad (acciones,
+actividades, controles o mecanismos administrativos, técnicos y físicos) necesarias que garanticen la
+protección y confidencialidad de los datos personales y datos personales sensibles de los pacientes
+a fin de evitar el uso ilícito o ilegítimo que pueda lesionar la esfera jurídica del titular de la información,
+cumpliendo también con lo establecido en la Ley General de Protección de Datos Personales en
+Posesión de Sujetos Obligados y demás normatividad aplicable en la materia.
+
+Por otro lado, la Norma Oficial Mexicana NOM-035-SSA3-2012 en Materia de Información en Salud,
+tiene por objeto establecer los criterios y procedimientos que se deben seguir para producir, captar,
+integrar, procesar, sistematizar, evaluar y divulgar la Información en Salud.
+
+En el numeral 5.8 se establece que la Secretaría de Salud a través de la DGIS, podrá bajo los
+mecanismos, procedimientos, protocolos, plataformas y plazos que defina, incorporar al Sistema
+Nacional de Información en Salud la información contenida en los diferentes sistemas, programas,
+plataformas y/o aplicaciones de los integrantes del SNS.
+
+En ese sentido, el Sistema Nacional de Información en Salud cuenta con cinco componentes, entre
+ellos se encuentra el de Servicios para la Salud, el cual incluye la información sobre los servicios
+otorgados personales y no personales, de acuerdo a los términos y procedimientos establecidos por
+la Secretaría a través de la DGIS.
+
+
+
+                                                    5 de 35
+                                 GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                 SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                 SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                 EXTERNA DE SALUD BUCAL
+                                 CLAVE DEL DOCUMENTO:   VERSIÓN DEL DOCUMENTO:    FECHA DEL DOCUMENTO:
+                                    GIIS-B016-04-08              4.8             01 de noviembre de 2024
+
+
+
+Los servicios personales incluyen entre otros:
+   • Consulta externa;
+   • Hospitalización;
+   • Urgencias;
+   • Servicios de corta estancia;
+   • Servicios auxiliares de diagnóstico y tratamiento, y
+   • Actividades que se realizan en la comunidad por personal auxiliar de salud.
+
+
+
+Audiencia
+El presente documento está dirigido al personal con conocimientos en Tecnologías de la
+Información, los Prestadores de Servicios del SNS que utilicen o deseen implementar un SIRES, así
+como empresas desarrolladoras de software, proveedoras de dichos sistemas, también para aquellas
+organizaciones interesadas en el desarrollo e implementación de estándares para el intercambio de
+información en salud, específicamente en lo relativo al reporte de información de Consulta Externa
+de Salud Bucal.
+
+
+
+Alcance
+Aplica para todos los establecimientos de salud que presten servicio de consulta externa de salud
+bucal al paciente independientemente del Tipo, Tipología y/o Subtipología y que cuenten con un
+SIRES que contemple servicios de consulta externa y que genere información de la atención médica
+brindada referente a salud bucal o atención odontológica.
+
+
+
+Justificación
+
+En cumplimiento a lo previsto en la NOM-024-SSA3-2012 y la NOM-035-SSA3-2012, para que de
+manera efectiva se pueda contar con información estandarizada, comparable y oportuna
+procedente de los Sistemas de Información de Registro Electrónico para la Salud, entre los que se
+encuentran los Expedientes Clínicos Electrónicos; y mediante esta Guía se habilite la
+interoperabilidad e intercambio con el Sistema Nacional de Información Básica en Materia de Salud
+para el acopio, conservación, procesamiento, generación de información útil, con base a los
+requerimientos de los programas de salud del nivel federal, que les permita contar con información
+de salud bucal para la adecuada toma de decisiones, la planeación, asignación de recursos y
+evaluación de la calidad y de los servicios proporcionados; asimismo sea fuente de información para
+la investigación clínica y epidemiológica.
+
+
+
+
+                                              6 de 35
+                                    GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                    SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                    SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                    EXTERNA DE SALUD BUCAL
+                                    CLAVE DEL DOCUMENTO:   VERSIÓN DEL DOCUMENTO:      FECHA DEL DOCUMENTO:
+                                       GIIS-B016-04-08              4.8               01 de noviembre de 2024
+
+
+Términos y Definiciones
+            Término                             Acrónimo                              Definición
+
+                                                                          Identificador único, consecutivo e
+                                                                          intransferible que asigna la DGIS
+                                                                          de manera obligatoria en términos
+                                                                          de las disposiciones jurídicas
+                                                                          aplicables a cada establecimiento
+                                                                          de salud (unidad médica fija o
+                                                                          móvil,      laboratorio,  farmacia,
+Clave Única de Establecimientos                                           centros de diagnóstico, centros de
+                                                 CLUES
+de Salud                                                                  tratamiento,                oficinas
+                                                                          administrativas) que exista en el
+                                                                          territorio nacional, sea público o
+                                                                          privado, y con la cual se identifica
+                                                                          todo     lo    reportado   por     el
+                                                                          establecimiento a cada uno de los
+                                                                          subsistemas de información del
+                                                                          SINAIS.
+                                                                          Atención otorgada a una persona,
+                                                                          por personal de salud, cuando
+                                                                          acude a la primera consulta por
+                                                                          una enfermedad o cuando el
+                                                                          motivo de la consulta sea nuevo.
+                                                                          En el caso de que la o el paciente
+                                                                          se haya curado y solicite atención
+Consulta de primera vez                                                   por         haber       presentado
+                                                                          nuevamente el mismo u otro
+                                                                          padecimiento,        también     se
+                                                                          considerará nuevamente primera
+                                                                          vez después de que la o el paciente
+                                                                          ha sido dado de alta de forma
+                                                                          integral o que haya dejado de
+                                                                          asistir al servicio por más de dos
+                                                                          años en la unidad.
+                                                                          Es la primera consulta que se
+                                                                          brinda a un paciente en el año
+                                                                          calendario en la unidad médica,
+Consulta de primera vez en el año                                         sin importar la temporalidad o
+o Cobertura o Población usuaria                                           causa de la consulta. Esta
+                                                                          información es de utilidad para
+                                                                          saber el total de población que
+                                                                          está haciendo uso de los servicios.
+
+
+
+
+                                                 7 de 35
+                        GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                        SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                        SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                        EXTERNA DE SALUD BUCAL
+                        CLAVE DEL DOCUMENTO:   VERSIÓN DEL DOCUMENTO:      FECHA DEL DOCUMENTO:
+                           GIIS-B016-04-08              4.8               01 de noviembre de 2024
+
+
+              Término               Acrónimo                              Definición
+
+                                                              Atención médica que se otorga al
+                                                              paciente ambulatorio, en un
+                                                              consultorio o en el domicilio de
+                                                              dicho paciente, que consiste en
+Consulta externa                                              realizar un interrogatorio y una
+                                                              exploración física para integrar un
+                                                              diagnóstico y/o dar seguimiento a
+                                                              una enfermedad diagnosticada
+                                                              previamente.
+                                                              Atención otorgada al paciente, por
+                                                              personal de salud, cuando asiste
+Consulta subsecuente                                          por la misma enfermedad o
+                                                              motivo por el que ya se le otorgó
+                                                              una consulta en la unidad.
+
+                                                              Cuando el paciente es enviado a la
+Contrarreferido                                               unidad que lo refirió después de
+                                                              haber recibido tratamiento.
+                                                              Derecho que tienen las personas
+                                                              para recibir servicios, entre los que
+                                                              se encuentran la atención médica,
+                                                              que pueden ser provistos por
+Derechohabiencia                                              instituciones de seguridad social
+                                                              dado que cumplen con lo
+                                                              establecido en las disposiciones
+                                                              jurídicas aplicables que rigen a
+                                                              dichas instituciones.
+ECE                                    ECE                    Expediente Clínico Electrónico.
+
+                                                              Es un término que hace referencia
+                                                              a características biológicas que no
+                                                              obedecen al estándar binario
+                                                              mujer/hombre. Estas variaciones
+                                                              pueden       ser    evidentes     al
+                                                              nacimiento           o        pasar
+Intersexual
+                                                              desapercibidas         hasta      la
+                                                              adolescencia     o    vida   adulta,
+                                                              además de que cada corporalidad
+                                                              es única; por lo que, sus
+                                                              necesidades       sanitarias    son
+                                                              específicas.
+
+
+
+
+                                     8 de 35
+                                  GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                  SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                  SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                  EXTERNA DE SALUD BUCAL
+                                  CLAVE DEL DOCUMENTO:   VERSIÓN DEL DOCUMENTO:     FECHA DEL DOCUMENTO:
+                                     GIIS-B016-04-08              4.8              01 de noviembre de 2024
+
+
+           Término                            Acrónimo                              Definición
+
+                                                                        Entiéndase por migrante todo
+                                                                        individuo, sólo o acompañado, de
+                                                                        cualquier grupo de edad y sexo,
+                                                                        que se mueve por tiempos
+                                                                        variables de su lugar de residencia
+                                                                        habitual a otro de residencia
+                                                                        temporal      y    que     no   ha
+Migrante                                                                permanecido en el mismo lugar
+                                                                        de manera continua por un lapso
+                                                                        igual o mayor de 5 años.
+                                                                        Fuente: Consejo Nacional de
+                                                                        Población (s.f). Prontuario de
+                                                                        migración interna. Recuperado de
+                                                                        http://www.conapo.gob.mx.
+                                                                        Conjunto de personas que, bajo
+                                                                        cualquier     autodenominación,
+                                                                        reconocen     un     origen     o
+                                                                        ascendencia     de      personas
+                                                                        procedentes    del    continente
+                                                                        africano en una condición que
+                                                                        pudo ser o no forzada, antes o
+                                                                        después de constituirse el estado
+Pueblos Afromexicanos                                                   nacional; y forman una unidad
+                                                                        social, económica y cultural.
+                                                                        Oficina de Comunicación del
+                                                                        Senado     de    la    República.
+                                                                        Reconocen derechos a pueblos y
+                                                                        comunidades indígenas.
+                                                                        Ciudad de México: Boletín 1821;
+                                                                        2019. (CNEGSR)
+                                                                        Identifica a los prestadores de
+                                                                        servicio   que    se   encuentran
+                                                                        contratados bajo el programa
+                                                                        PU013 creado en el ejercicio fiscal
+                                                                        2019, que tiene como objetivo
+                                                                        garantizar el acceso y continuidad
+                                                                        en la prestación de servicios de
+                                                                        salud con calidad que demanda la
+Programa U013 Servicios Médicos                                         población en condiciones de
+                                              PSMyMG
+y Medicamentos Gratuitos                                                vulnerabilidad y sin seguridad
+                                                                        social,    preferentemente      en
+                                                                        regiones, municipios y localidades
+                                                                        con bajo Índice de Desarrollo
+                                                                        Humano (IDH) y de alta o muy alta
+                                                                        marginación,     a    través    del
+                                                                        fortalecimiento de las redes de
+                                                                        servicios de salud de primer nivel
+                                                                        de atención y de hospitales
+
+
+
+                                               9 de 35
+                                     GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                     SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                     SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                     EXTERNA DE SALUD BUCAL
+                                     CLAVE DEL DOCUMENTO:     VERSIÓN DEL DOCUMENTO:      FECHA DEL DOCUMENTO:
+                                        GIIS-B016-04-08                4.8               01 de noviembre de 2024
+
+
+              Término                            Acrónimo                                Definición
+
+                                                                             comunitarios de los Servicios de
+                                                                             Salud.
+                                                                             Procedimiento             médico
+                                                                             administrativo entre unidades
+                                                                             operativas de los tres niveles de
+                                                                             atención para facilitar el envío-
+ Referencia y Contrarreferencia
+                                                                             recepción-regreso de pacientes,
+                                                                             con el propósito de brindar
+                                                                             atención      médica    oportuna,
+                                                                             integral y de calidad.
+                                                                             Es cuando el paciente durante la
+                                                                             consulta es enviado a una unidad
+ Referido
+                                                                             de mayor complejidad para su
+                                                                             atención.
+                                                   SINAIS                    Sistema Nacional de Información
+ SINAIS
+                                                                             en Salud
+                                                    SIRES                    Sistemas de Información de
+ SIRES
+                                                                             Registro Electrónico para la Salud
+                                                                             Subsistema de Prestación          de
+ SIS                                                 SIS                     Servicios   del    Sistema        de
+                                                                             Información en Salud
+                                                                             Sistema Nacional de Información
+ SINBA (SNIBMS)                                    SINBA
+                                                                             Básica en Materia de Salud.
+                                                                             Prestación de servicios de salud
+                                                                             (en los que la distancia es un factor
+                                                                             determinante) por parte de
+                                                                             profesionales sanitarios a través de
+                                                                             la utilización de tecnologías de la
+ Telemedicina                                        TM                      información y comunicaciones
+                                                                             para      el     intercambio      de
+                                                                             información       válida   para    el
+                                                                             diagnóstico, el tratamiento, la
+                                                                             prevención, la investigación y la
+                                                                             evaluación.
+
+
+
+CONSIDERACIONES ESPECIALES
+Debido a que para los diferentes programas federales de salud y la DGIS es indispensable contar con los datos
+de identificación de las personas que reciben atención en las unidades, el registro de información con CURP
+genérica para los datos del paciente será considerada como una excepción, por lo tanto, se aceptará un
+máximo de 15% de registros con CURP genérica en cada carga realizada a excepción de tipologías especificas
+con requerimientos especiales por lo que se deben realizar las acciones necesarias para obtener la CURP de los
+pacientes, considerando que esta se puede consultar y validar desde la página web del RENAPO
+(https://www.gob.mx/curp/).
+
+
+
+                                                   10 de 35
+                                      GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                      SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                      SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                      EXTERNA DE SALUD BUCAL
+                                      CLAVE DEL DOCUMENTO:      VERSIÓN DEL DOCUMENTO:    FECHA DEL DOCUMENTO:
+                                         GIIS-B016-04-08                 4.8             01 de noviembre de 2024
+
+
+
+Asimismo, con la finalidad de mejorar la calidad del registro de los diagnósticos y, poder contar con información
+que permita el análisis de la morbilidad, se aceptará un máximo de 5% de los registros con Código CIE-10
+“R69X – CAUSAS DE MORBILIDAD DESCONOCIDAS Y NO ESPECIFICADAS”.
+
+
+
+
+                                                     11 de 35
+                                      GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                      SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                      SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                      EXTERNA DE SALUD BUCAL
+                                      CLAVE DEL DOCUMENTO:        VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                         GIIS-B016-04-08                                    4.8                01 de noviembre de 2024
+
+
+MODELO DE INFORMACIÓN
+
+Diccionario de Datos
+La siguiente tabla corresponde a la estructura que se debe reportar en las bases nominales
+procedentes de los distintos SIRES.
+
+Para la generación del archivo de intercambio, todos los campos son obligatorios y se debe
+mantener en el la estructura y la totalidad de los campos, ya sea que contengan valores registrados
+o valores por defecto. Las únicas variables que podrán reportarse como nulas son:
+codigoCIEDiagnostico2 y codigoCIEDiagnostico3.
+
+Cabe señalar que la columna “Obligatorio” solo hace referencia al llenado del registro bajo ciertas
+condiciones y no implica que debe omitirse ni en el SIRES, ni en el archivo de intercambio.
+
+
+
+
+                                                                   OBLIGATORIO   CONFIDENCIAL
+ ID           VARIABLE        DESCRIPCIÓN              TIPO                                                   VALIDACIÓN
+
+
+
+
+                                         IDENTIFICACIÓN DE LA UNIDAD
+
+                                                                                                Se debe registrar el valor del campo clues
+                                                                                                que corresponda a la Unidad Médica
+                                                                                                donde se otorgó la atención de acuerdo al
+                                                                                                catálogo ESTABLECIMIENTO DE SALUD
+                                                                                                SIS.
+                         Clave Única de
+ 1    clues                                          Texto (11)      Sí          No             Se debe validar que para la CLUES
+                         Establecimientos en Salud
+                                                                                                registrada, el  valor  del  campo
+                                                                                                en_operacion sea igual a “1 – EN
+                                                                                                OPERACIÓN”.
+                                                                                                En caso contrario, no se debe permitir el
+                                                                                                registro.
+
+                                     DATOS DEL PRESTADOR DE SERVICIOS
+
+                                                                                                Se debe registrar el valor del campo
+                         País de nacimiento del
+                                                                                                CATALOG_KEY que corresponda al País
+ 2    paisNacimiento     prestador de servicio de    Numérico        Sí          No             de Nacimiento del prestador de servicios
+                         salud
+                                                                                                de acuerdo al catálogo PAIS.
+
+                                                                                                Se debe realizar la validación de
+                         Clave Única de Registro                                                conformidad con el Instructivo Normativo
+                         de Población del                                                       para la Asignación de la Clave Única de
+ 3    curpPrestador                                  Texto (18)      Sí          No
+                         prestador de servicio de                                               Registro de Población emitido por
+                         salud                                                                  RENAPO, tomando en cuenta todos los
+                                                                                                elementos que conforman la misma.
+
+
+
+
+                                                     12 de 35
+                                       GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                       SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                       SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                       EXTERNA DE SALUD BUCAL
+                                       CLAVE DEL DOCUMENTO:         VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                          GIIS-B016-04-08                                     4.8                01 de noviembre de 2024
+
+
+
+
+                                                                     OBLIGATORIO   CONFIDENCIAL
+ID       VARIABLE               DESCRIPCIÓN              TIPO                                                   VALIDACIÓN
+
+
+
+
+                                                                                                  Si el valor registrado en la variable
+                                                                                                  “paisNacimiento” es diferente de “142 –
+                                                                                                  MÉXICO”, se podrá registrar el valor
+                                                                                                  genérico   “XXXX999999XXXXXX99”      (4
+                                                                                                  equis, 6 nueves, 6 equis y 2 nueves) y
+                                                                                                  omitir la validación con las variables
+                                                                                                  asociadas
+                                                                                                  Se debe validar que la edad del prestador
+                                                                                                  de servicios, se encuentre entre los 18 y 90
+                                                                                                  años.
+
+                                                                                                  Se debe de validar que el nombre:
+                                                                                                  Tenga una longitud mínima de dos
+                                                                                                  caracteres y máxima de 50 caracteres
+                                                                                                  Se deben omitir espacios en blanco al
+                                                                                                  inicio y al final de la variable y no se
+                                                                                                  permite más de un espacio consecutivo.
+                                                                                                  Los caracteres válidos son sólo de A – Z
+                                                                                                  incluyendo Ñ, en mayúsculas.
+                                                                                                  Los caracteres especiales permitidos son:
+                                                                                                  guion medio “-”, coma “,”, punto “.”,
+                                                                                                  diagonal “/”, apóstrofe “'” y diéresis “¨”
+                                                                                                  En caso de nombres compuestos, pueden
+                           Nombre del prestador de                                                ir separados por un espacio o guion
+4    nombrePrestador                                   Texto (50)      Sí          No
+                           servicio de salud                                                      medio “-” o coma “,” o punto “.” o diagonal
+                                                                                                  “/”.
+                                                                                                  No se acepta ningún otro tipo de caracter
+                                                                                                  especial, ni acentos.
+                                                                                                  El espacio no debe ser considerado como
+                                                                                                  un caracter especial.
+                                                                                                  No se permite el registro de más de un
+                                                                                                  caracter especial de manera consecutiva
+                                                                                                  Si el valor registrado en la variable
+                                                                                                  “curpPrestador” es diferente al valor
+                                                                                                  genérico, el valor registrado en esta
+                                                                                                  variable debe corresponder con dicho
+                                                                                                  valor.
+
+                                                                                                  Se debe de validar que el primer apellido:
+                                                                                                  Tenga una longitud mínima de dos
+                                                                                                  caracteres y máxima de 50 caracteres.
+                           Primer    apellido    del
+     primerApellidoPrest                                                                          Se deben omitir espacios en blanco al
+5                          prestador de servicio de    Texto (50)      Sí          No
+     ador                                                                                         inicio y al final de la variable y no se
+                           salud                                                                  permite más de un espacio consecutivo.
+                                                                                                  Los caracteres válidos son sólo de A – Z,
+                                                                                                  incluyendo Ñ, en mayúsculas.
+
+
+
+
+                                                       13 de 35
+                                      GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                      SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                      SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                      EXTERNA DE SALUD BUCAL
+                                      CLAVE DEL DOCUMENTO:         VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                         GIIS-B016-04-08                                     4.8                01 de noviembre de 2024
+
+
+
+
+                                                                    OBLIGATORIO   CONFIDENCIAL
+ID       VARIABLE              DESCRIPCIÓN              TIPO                                                   VALIDACIÓN
+
+
+
+
+                                                                                                 En caso de apellidos compuestos, pueden
+                                                                                                 ir separados por un espacio o guion
+                                                                                                 medio “-” o coma “,” o punto “.” o diagonal
+                                                                                                 “/”.
+                                                                                                 Los caracteres especiales permitidos son:
+                                                                                                 guion medio “-”, coma “,”, punto “.”,
+                                                                                                 diagonal “/”, apóstrofe “'” y diéresis “¨”
+                                                                                                 No se acepta ningún otro tipo de caracter
+                                                                                                 especial, ni acentos.
+                                                                                                 El espacio no debe ser considerado como
+                                                                                                 un caracter especial.
+                                                                                                 No se permite el registro de más de un
+                                                                                                 caracter especial de manera consecutiva.
+                                                                                                 Si el valor registrado en la variable
+                                                                                                 “curpPrestador” es diferente al valor
+                                                                                                 genérico, el valor registrado en esta
+                                                                                                 variable debe corresponder con dicho
+                                                                                                 valor.
+
+                                                                                                 Se debe de validar que el segundo
+                                                                                                 apellido:
+                                                                                                 Tenga una longitud mínima de dos
+                                                                                                 caracteres y máxima de 50 caracteres
+                                                                                                 Se deben omitir espacios en blanco al
+                                                                                                 inicio y al final de la variable.
+                                                                                                 Los caracteres válidos son sólo de A – Z,
+                                                                                                 incluyendo Ñ, en mayúsculas.
+                                                                                                 Los caracteres especiales permitidos son:
+                                                                                                 guion medio “-”, coma “,”, punto “.”,
+                                                                                                 diagonal “/”, apóstrofe “'” y diéresis “¨”
+                                                                                                 En caso de apellidos compuestos, pueden
+                          Segundo    apellido   del                                              ir separados por un espacio o guion
+     segundoApellidoPre                                                                          medio “-” o coma “,” o punto “.” o diagonal
+6                         prestador de servicio de    Texto (50)      Sí          No
+     stador                                                                                      “/”.
+                          salud
+                                                                                                 No se acepta ningún otro tipo de caracter
+                                                                                                 especial, ni acentos.
+                                                                                                 El espacio no debe ser considerado como
+                                                                                                 un caracter especial.
+                                                                                                 No se permite el registro de más de un
+                                                                                                 caracter especial de manera consecutiva.
+                                                                                                 Si el valor registrado en la variable
+                                                                                                 “curpPrestador” es diferente al valor
+                                                                                                 genérico, el valor registrado en esta
+                                                                                                 variable debe corresponder con dicho
+                                                                                                 valor.
+                                                                                                 En caso de no contar con el segundo
+                                                                                                 apellido, se debe registrar el valor “XX”.
+
+
+
+
+                                                      14 de 35
+                                 GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                 SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                 SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                 EXTERNA DE SALUD BUCAL
+                                 CLAVE DEL DOCUMENTO:          VERSIÓN DEL DOCUMENTO:                         FECHA DEL DOCUMENTO:
+                                    GIIS-B016-04-08                                      4.8                 01 de noviembre de 2024
+
+
+
+
+                                                                OBLIGATORIO   CONFIDENCIAL
+ID       VARIABLE         DESCRIPCIÓN               TIPO                                                    VALIDACIÓN
+
+
+
+
+                                                                                             Con base en el catálogo TIPO
+                                                                                             PERSONAL–SIS se debe registrar una de
+                                                                                             las siguientes opciones:
+                     Tipo de profesional de la
+7    tipoPersonal                                 Numérico        Sí          No             12 – PASANTE EN ODONTOLOGÍA
+                     salud.
+                                                                                             13 – ODONTÓLOGA (O)
+                                                                                             14 – ODONTÓLOGA (O) ESPECIALISTA
+                                                                                             23 – TÉCNICA(O) EN ODONTOLOGÍA
+                                                                                             Si el valor registrado en la variable “clues”,
+                                                                                             en la columna de institucion es igual a
+                                                                                             “SSA” o “IMB” de acuerdo al catálogo de
+                                                                                             ESTABLECIMIENTO DE SALUD SIS, se
+                                                                                             debe registrar una de las siguientes
+                                                                                             opciones:
+                     Indica si el prestador de
+                     servicios está contratado                                               0 – NO
+8    programaSMyMG   para el Programa U013 de Numérico                                       1 – SI
+                                                                  Sí          No
+                     Servicios    Médicos    y                                               En caso contrario, se debe registrar el
+                     Medicamentos Gratuitos                                                  valor “0 – NO”.
+                                                                                             El valor registrado, deberá estar asociado
+                                                                                             al tipo de contratación del Prestador de
+                                                                                             Servicios de Salud y, se deberá registrar el
+                                                                                             mismo valor para todas las atenciones
+                                                                                             registradas por el prestador por contrato.
+
+                                          DATOS DEL PACIENTE
+
+                                                                                             Se debe realizar la validación de
+                                                                                             conformidad con el Instructivo Normativo
+                                                                                             para la Asignación de la Clave Única de
+                                                                                             Registro de Población emitido por
+                                                                                             RENAPO, tomando en cuenta todos los
+                                                                                             elementos que conforman la misma.
+                                                                                             El valor registrado, debe ser diferente al
+                                                                                             registrado    en    la  variable    CURP,
+                                                                                             correspondiente al Prestador de Servicio
+                     Clave Única de Registro de                                              de Salud, a excepción del valor genérico.
+9    curpPaciente                                 Texto (18)      Sí            Sí
+                     Población del paciente                                                  Por excepción, si no se cuenta con la
+                                                                                             información de la CURP, se debe registrar
+                                                                                             el valor genérico “XXXX999999XXXXXX99”
+                                                                                             (4 equis, 6 nueves, 6 equis y 2 nueves) y
+                                                                                             omitir la validación con las variables
+                                                                                             “nombre”, “primerApellido”,
+                                                                                             “segundoApellido”,
+                                                                                             “fechaNacimiento”,
+                                                                                             “entidadNacimiento” y
+                                                                                             “sexoCURP”.
+
+                                                                                             Se debe de validar que el nombre:
+10   nombre          Nombre(s) del paciente       Texto (50)      Sí            Sí           Tenga una longitud mínima de dos
+                                                                                             caracteres y máxima de 50 caracteres.
+
+
+
+
+                                                  15 de 35
+                                  GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                  SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                  SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                  EXTERNA DE SALUD BUCAL
+                                  CLAVE DEL DOCUMENTO:         VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                     GIIS-B016-04-08                                     4.8                01 de noviembre de 2024
+
+
+
+
+                                                                OBLIGATORIO   CONFIDENCIAL
+ID       VARIABLE          DESCRIPCIÓN              TIPO                                                   VALIDACIÓN
+
+
+
+
+                                                                                             Se deben omitir espacios en blanco al
+                                                                                             inicio y al final de la variable y no se
+                                                                                             permite más de un espacio consecutivo.
+                                                                                             Los caracteres válidos son sólo de A – Z
+                                                                                             incluyendo Ñ, en mayúsculas.
+                                                                                             Los caracteres especiales permitidos son:
+                                                                                             guion medio “-”, coma “,”, punto “.”,
+                                                                                             diagonal “/”, apóstrofe “'” y diéresis “¨”
+                                                                                             En caso de nombres compuestos, pueden
+                                                                                             ir separados por un espacio o guion
+                                                                                             medio “-” o coma “,” o punto “.” o diagonal
+                                                                                             “/”.
+                                                                                             No se acepta ningún otro tipo de caracter
+                                                                                             especial, ni acentos.
+                                                                                             El espacio no debe ser considerado como
+                                                                                             un caracter especial.
+                                                                                             No debe permitir el registro de más de un
+                                                                                             caracter especial de manera consecutiva.
+                                                                                             Si el valor registrado en la variable
+                                                                                             “curpPaciente” es diferente al valor
+                                                                                             genérico, el valor registrado en esta
+                                                                                             variable debe corresponder con dicho
+                                                                                             valor
+
+                                                                                             Se debe de validar que el primer apellido.
+                                                                                             Tenga una longitud mínima de dos
+                                                                                             caracteres y máxima de 50 caracteres.
+                                                                                             Se deben omitir espacios en blanco al
+                                                                                             inicio y al final de la variable.
+                                                                                             Los caracteres válidos son sólo de A – Z,
+                                                                                             incluyendo Ñ, en mayúsculas.
+                                                                                             Los caracteres especiales permitidos son:
+                                                                                             guion medio “-”, coma “,”, punto “.”,
+                      Primer     apellido   del                                              diagonal “/”, apóstrofe “'” y diéresis “¨”
+11   primerApellido                               Texto (50)      Sí            Sí
+                      paciente                                                               En caso de apellidos compuestos, pueden
+                                                                                             ir separados por un espacio o guion
+                                                                                             medio “-” o coma “,” o punto “.” o diagonal
+                                                                                             “/”.
+                                                                                             No se acepta ningún otro tipo de caracter
+                                                                                             especial, ni acentos.
+                                                                                             El espacio no debe ser considerado como
+                                                                                             un caracter especial.
+                                                                                             No se permite el registro de más de un
+                                                                                             caracter especial de manera consecutiva.
+
+
+
+
+                                                  16 de 35
+                                  GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                  SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                  SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                  EXTERNA DE SALUD BUCAL
+                                  CLAVE DEL DOCUMENTO:          VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                     GIIS-B016-04-08                                      4.8                01 de noviembre de 2024
+
+
+
+
+                                                                 OBLIGATORIO   CONFIDENCIAL
+ID       VARIABLE           DESCRIPCIÓN              TIPO                                                   VALIDACIÓN
+
+
+
+
+                                                                                              Si el valor registrado en la variable
+                                                                                              “curpPaciente” es diferente al valor
+                                                                                              genérico, el valor registrado en esta
+                                                                                              variable debe corresponder con dicho
+                                                                                              valor.
+                                                                                              En caso de no contar con el primer
+                                                                                              apellido, se debe registrar el valor “XX”.
+
+                                                                                              Se debe de validar que el segundo
+                                                                                              apellido:
+                                                                                              Tenga una longitud mínima de dos
+                                                                                              caracteres y máxima de 50 caracteres
+                                                                                              Se deben omitir espacios en blanco al
+                                                                                              inicio y al final de la variable.
+                                                                                              Los caracteres válidos son sólo de A – Z,
+                                                                                              incluyendo Ñ, en mayúsculas.
+                                                                                              Los caracteres especiales permitidos son:
+                                                                                              guion medio “-”, coma “,”, punto “.”,
+                                                                                              diagonal “/”, apóstrofe “'” y diéresis “¨”
+                                                                                              En caso de apellidos compuestos, pueden
+                                                                                              ir separados por un espacio o guion
+                                                                                              medio “-” o coma “,” o punto “.” o diagonal
+                       Segundo    apellido   del
+12   segundoApellido                               Texto (50)      Sí            Sí           “/”.
+                       paciente
+                                                                                              No se permite ningún otro tipo de
+                                                                                              caracter especial, ni acentos.
+                                                                                              El espacio no debe ser considerado como
+                                                                                              un caracter especial.
+                                                                                              No se permite el registro de más de un
+                                                                                              mismo o diferente caracter especial de
+                                                                                              manera consecutiva.
+                                                                                              Si el valor registrado en la variable
+                                                                                              “curpPaciente” es diferente al valor
+                                                                                              genérico, el valor registrado en esta
+                                                                                              variable debe corresponder con dicho
+                                                                                              valor.
+                                                                                              En caso de no contar con el segundo
+                                                                                              apellido, se debe registrar el valor “XX”.
+
+                                                                                              Se deben omitir espacios en blanco al
+                                                                                              inicio y al final de la variable.
+                                                                                              Debe contener el día, mes y año bajo el
+                                                                                              siguiente formato: dd/mm/aaaa.
+                       Fecha de nacimiento del
+13   fechaNacimiento                               Texto (10)      Sí          No             La longitud es de 8 dígitos y 2 caracteres
+                       paciente
+                                                                                              especiales “/”.
+                                                                                              El valor registrado en esta variable, no
+                                                                                              puede ser mayor al registrado en la
+                                                                                              variable “fechaConsulta”.
+
+
+
+
+                                                   17 de 35
+                                     GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                     SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                     SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                     EXTERNA DE SALUD BUCAL
+                                     CLAVE DEL DOCUMENTO:        VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                        GIIS-B016-04-08                                    4.8                01 de noviembre de 2024
+
+
+
+
+                                                                  OBLIGATORIO   CONFIDENCIAL
+ID       VARIABLE             DESCRIPCIÓN             TIPO                                                   VALIDACIÓN
+
+
+
+
+                                                                                               La edad del paciente se calculará a partir
+                                                                                               de la fecha de nacimiento con respecto a
+                                                                                               la fecha de la consulta y esta no debe ser
+                                                                                               mayor a 120 años.
+                                                                                               Si se desconoce la fecha precisa de
+                                                                                               nacimiento, se deberá registrar el valor:
+                                                                                               “30/06/[Año aproximado de nacimiento]”
+                                                                                               (fecha estimada, cuando la CURP sea
+                                                                                               genérica).
+                                                                                               Si el valor registrado en la variable
+                                                                                               “curpPaciente” es diferente al valor
+                                                                                               genérico, el valor registrado en esta
+                                                                                               variable debe corresponder con dicho
+                                                                                               valor.
+
+                                                                                               Se debe registrar el valor del campo
+                         País de nacimiento del                                                CATALOG_KEY que corresponda al País
+14   paisNacPaciente                                 Numérico       Sí          No
+                         paciente                                                              de Nacimiento del prestador de servicios
+                                                                                               de acuerdo al catálogo PAIS.
+
+                                                                                               Si el valor registrado en la variable
+                                                                                               “paisNacPaciente” es “142 – MÉXICO”, se
+                                                                                               debe registrar el valor del campo
+                                                                                               CATALOG_KEY que corresponda a la
+                                                                                               entidad de nacimiento del paciente de
+                                                                                               acuerdo    al    catálogo     ENTIDAD
+                                                                                               FEDERATIVA o bien:
+                                                                                               99 – SE IGNORA (si se desconoce el dato)
+                         Entidad   federativa   de                                             00 – NO ESPECIFICADO (Si no está
+15   entidadNacimiento                               Texto (2)      Sí          No
+                         nacimiento del paciente                                                 descrito en la hoja diaria).
+                                                                                               En caso contrario, se debe registrar:
+                                                                                               88 – NO APLICA (si es extranjero).
+                                                                                               Si el valor registrado en la variable
+                                                                                               “curpPaciente” es diferente al valor
+                                                                                               genérico, el valor registrado en esta
+                                                                                               variable debe corresponder con dicho
+                                                                                               valor.
+
+                                                                                               Si el valor registrado en la variable
+                                                                                               “curpPaciente” es diferente al valor
+                                                                                               genérico, se debe registrar uno de los
+                                                                                               siguientes valores, de acuerdo al carácter
+                                                                                               en la posición 11 registrado en dicha
+                         Sexo      del    paciente                                             variable:
+16   sexoCURP                                        Numérico       Sí          No
+                         registrado ante RENAPO.
+                                                                                               • Si es “M”, se debe registrar “2 – MUJER”.
+                                                                                               • Si es “H”, se debe registrar “1 –
+                                                                                                 HOMBRE”.
+                                                                                               • Si es “X”, se debe registrar “3 – NO
+                                                                                                 BINARIO”.
+
+
+
+
+                                                     18 de 35
+                                        GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                        SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                        SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                        EXTERNA DE SALUD BUCAL
+                                        CLAVE DEL DOCUMENTO:        VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                           GIIS-B016-04-08                                    4.8                01 de noviembre de 2024
+
+
+
+
+                                                                     OBLIGATORIO   CONFIDENCIAL
+ID        VARIABLE               DESCRIPCIÓN              TIPO                                                  VALIDACIÓN
+
+
+
+
+                                                                                                  En caso contrario, se deberá registrar una
+                                                                                                  de las siguientes opciones:
+                                                                                                  1 – HOMBRE
+                                                                                                  2 – MUJER
+                                                                                                  3 – NO BINARIO
+
+                                                                                                  Se debe registrar una de las siguientes
+17                         Sexo del paciente, es decir                                            opciones:
+     sexoBiologico         la condición biológica y      Numérico      Sí          No             1 – HOMBRE
+                           fisiológica de nacimiento.                                             2 – MUJER
+                                                                                                  3 – INTERSEXUAL
+
+                                                                                                  Se puede registrar una de las siguientes
+                                                                                                  opciones:
+                                                                                                  0 – NO
+     seAutodenominaAfr     Autodenominación como                                                  1 – SI
+18                                               Numérico              Sí          No
+     omexicano             afromexicano                                                           2 – NO RESPONDE
+                                                                                                  3 – NO SABE
+                                                                                                  Si se desconoce el dato, se debe registrar
+                                                                                                  el valor “-1”.
+
+                                                                                                  Se puede registrar una de las siguientes
+                                                                                                  opciones:
+                                                                                                  0 – NO
+                         Identifica si el paciente se                                             1 – SI
+19   seConsideraIndigena                                 Numérico      Sí          No
+                         considera indígena                                                       2 – NO RESPONDE
+                                                                                                  3 – NO SABE
+                                                                                                  Si se desconoce el dato, se debe registrar
+                                                                                                  el valor “-1”.
+
+                                                                                                  Se puede registrar una de las siguientes
+                                                                                                  opciones:
+                                                                                                  0 – NO
+                           Identifica el paciente se                                              1 – NACIONAL
+20 migrante                                              Numérico      Sí          No
+                           considera migrante                                                     2 – INTERNACIONAL
+                                                                                                  3 – RETORNADO (Sólo nacional)
+                                                                                                  Si se desconoce el dato, se debe registrar
+                                                                                                  el valor “-1”
+
+                                                                                                  Si el valor registrado en la variable
+                                                                                                  “migrante” es “2 – INTERNACIONAL” se
+                                                                                                  debe registrar el valor del campo
+                                                                                                  CATALOG_KEY que corresponda al País
+                                                                                                  de procedencia del paciente, de acuerdo
+                           País de procedencia de la                                              al catálogo PAIS, dicho valor debe ser
+21   paisProcedencia                                     Numérico      Sí          No
+                           persona migrante.                                                      diferente a “142 – MÉXICO”.
+                                                                                                  Si el valor registrado en la variable
+                                                                                                  “migrante” es “1 – NACIONAL” o “3 –
+                                                                                                  RETORNADO” se debe registrar el valor
+                                                                                                  “142 – MÉXICO”.
+
+
+
+
+                                                         19 de 35
+                                     GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                     SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                     SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                     EXTERNA DE SALUD BUCAL
+                                     CLAVE DEL DOCUMENTO:           VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                        GIIS-B016-04-08                                       4.8                01 de noviembre de 2024
+
+
+
+
+                                                                     OBLIGATORIO   CONFIDENCIAL
+ID       VARIABLE             DESCRIPCIÓN                TIPO                                                   VALIDACIÓN
+
+
+
+
+                                                                                                  Si el valor registrado en la variable
+                                                                                                  “migrante” es “0 – NO”, o “-1”, se debe
+                                                                                                  registrar el valor “-1”.
+
+                                                                                                  Se debe registrar una de las siguientes
+                                                                                                  opciones:
+                                                                                                  0 – NO ESPECIFICADO
+                        Identidad de género del                                                   1 – MASCULINO
+                        paciente   o     atributos                                                2 – FEMENINO
+22   genero                                        Numérico            Sí          No
+                        sociales  aprendidos     o                                                3 – TRANSGÉNERO
+                        adoptados por la persona.                                                 4 – TRANSEXUAL
+                                                                                                  5 – TRAVESTI
+                                                                                                  6 – INTERSEXUAL
+                                                                                                  88 – OTRO
+
+                                                                                                  Con base en el catálogo AFILIACION debe
+                                                                                                  registrar una o hasta 9 de las siguientes
+                                                                                                  opciones:
+                                                                                                  0 – NO ESPECIFICADO
+                                                                                                  1 – NINGUNA
+                                                                                                  2 – IMSS
+                                                                                                  3 – ISSSTE
+                                                                                                  4 – PEMEX
+                                                                                                  5 – SEDENA
+                        Institución (es) del SNS en                                               6 – SEMAR
+                        la(s)      cual(es)       se                                              8 – OTRA
+23   derechohabiencia   encuentran afiliados los       Texto (20)      Sí          No             10 – IMSS Bienestar
+                        usuarios de los servicios de                                              11 – ISSFAM
+                        salud                                                                     14 – OPD IMSS BIENESTAR
+                                                                                                  99 – SE IGNORA
+                                                                                                  Si se identifican más de una afiliación, los
+                                                                                                  valores deben ir separados por “&”.
+                                                                                                  Se podrá registrar más de una afiliación
+                                                                                                  excepto cuando se seleccione alguno de
+                                                                                                  los siguientes valores: “0”, “1” o “99”.
+                                                                                                  No se deberá registrar el mismo valor más
+                                                                                                  de una vez.
+
+                          CONSULTA, SOMATOMETRÍA Y OTRAS MEDICIONES
+                                                                                                  Se deben omitir espacios en blanco al
+                                                                                                  inicio y al final de la variable.
+                                                                                                  Formato: dd/mm/aaaa con una longitud
+                                                                                                  de 8 dígitos y 2 caracteres especiales.
+24 fechaConsulta        Fecha de la consulta           Texto (10)      Sí          No
+                                                                                                  El valor registrado no debe ser posterior a
+                                                                                                  la fecha de registro y no puede ser
+                                                                                                  anterior al valor registrado en la variable
+                                                                                                  “fechaNacimiento”.
+
+
+
+
+                                                       20 de 35
+                                          GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                          SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                          SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                          EXTERNA DE SALUD BUCAL
+                                          CLAVE DEL DOCUMENTO:      VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                             GIIS-B016-04-08                                  4.8                01 de noviembre de 2024
+
+
+
+
+                                                                     OBLIGATORIO   CONFIDENCIAL
+ID           VARIABLE             DESCRIPCIÓN             TIPO                                                  VALIDACIÓN
+
+
+
+
+                                                                                                  Con base en el valor registrado en la
+                                                                                                  variable “tipoPersonal” se debe registrar
+                                                                                                  una de las siguientes opciones de
+                            Tipo de servicio que se                                               acuerdo al catálogo SERVICIOS DE
+                            proporciona durante la                                                ATENCIÓN POR TIPO DE PERSONAL SIS-
+25   servicioAtencion       atención     al paciente,    Numérico      Sí          No             SB.
+                            independientemente del
+                            espacio físico.                                                       Si el valor registrado es “12 –
+                                                                                                  ODONTOPEDIATRIA”, se debe validar que
+                                                                                                  la edad del paciente sea menor a “18
+                                                                                                  años”.
+
+                                                                                                  El valor registrado, debe tener una
+                                                                                                  longitud máxima de 7 caracteres en
+                                                                                                  formato ###.### con un máximo de 3
+                                                                                                  dígitos en la parte entera y 3 dígitos en la
+                                                                                                  parte decimal.
+26   peso                   Peso del paciente (kg)       Numérico      Sí          No             Debe registrarse un valor que se
+                                                                                                  encuentre dentro del rango mayor o igual
+                                                                                                  “1” y menor o igual a “400” kilogramos.
+                                                                                                  Si se desconoce el dato, se debe registrar
+                                                                                                  el valor “999”.
+
+                                                                                                  El valor registrado, debe tener una
+                                                                                                  longitud máxima de 3 dígitos.
+                                                                                                  Debe registrarse un valor que se
+27   talla                  Registro de la talla (cm)    Numérico      Sí          No             encuentre dentro del rango mayor o igual
+                                                                                                  a “30” y menor o igual “220” centímetros.
+                                                                                                  Si se desconoce el dato, se debe registrar
+                                                                                                  el valor “999”.
+
+                                                                                                  El valor registrado, debe tener una
+                                                                                                  longitud máxima de 3 dígitos.
+                                                                                                  Puede registrarse un valor que se
+     circunferenciaCintur   Registro de circunferencia
+28                                                       Numérico      Sí          No             encuentre dentro del rango mayor o igual
+     a                      de cintura (cm)
+                                                                                                  a “20” y menor o igual “300” centímetros.
+                                                                                                  Si se desconoce el dato, se debe registrar
+                                                                                                  el valor “0”.
+
+                                                                                                  El valor registrado, debe tener una
+                                                                                                  longitud máxima de 3 dígitos.
+                                                                                                  Si el valor registrado en la variable
+                                                                                                  “diastolica” es diferente a “0”, puede
+                            Presión arterial sistólica                                            registrarse un valor que se encuentre
+29   sistolica                                           Numérico      Sí          No
+                            (mm/Hg)                                                               dentro del rango mayor o igual a “50” y
+                                                                                                  menor o igual “300” milímetros de
+                                                                                                  mercurio.
+                                                                                                  El valor no puede ser menor que el
+                                                                                                  registrado en la variable “diastolica”.
+
+
+
+
+                                                         21 de 35
+                                         GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                         SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                         SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                         EXTERNA DE SALUD BUCAL
+                                         CLAVE DEL DOCUMENTO:        VERSIÓN DEL DOCUMENTO:                         FECHA DEL DOCUMENTO:
+                                            GIIS-B016-04-08                                    4.8                 01 de noviembre de 2024
+
+
+
+
+                                                                      OBLIGATORIO   CONFIDENCIAL
+ID        VARIABLE                DESCRIPCIÓN               TIPO                                                  VALIDACIÓN
+
+
+
+
+                                                                                                   Si se desconoce el dato o el valor
+                                                                                                   registrado en la variable “diastolica” es
+                                                                                                   “0”, se debe registrar el valor “0”.
+
+                                                                                                   El valor registrado, debe tener una
+                                                                                                   longitud máxima de 3 dígitos.
+                                                                                                   Si el valor registrado en la variable
+                                                                                                   “sistolica” es diferente a “0”, puede
+                                                                                                   registrarse un valor que se encuentre
+                                                                                                   dentro del rango mayor o igual a “20” y
+                            Presión arterial diastólica                                            menor o igual “200” milímetros de
+30 diastolica                                             Numérico      Sí          No
+                            (mm/Hg)                                                                mercurio.
+                                                                                                   El valor no puede ser mayor que el
+                                                                                                   registrado en la variable “sistolica”.
+                                                                                                   Si se desconoce el dato o el valor
+                                                                                                   registrado en la variable “sistolica” es “0”,
+                                                                                                   se debe registrar el valor “0”.
+
+                                                                                                   El valor registrado, debe tener una
+                                                                                                   longitud máxima de 3 dígitos.
+                                                                                                   Puede registrarse un valor que se
+                            Cantidad de latidos por                                                encuentre dentro del rango mayor o igual
+31   frecuenciaCardiaca                                   Numérico      Sí          No
+                            minuto                                                                 a “40” y menor o igual “220” latidos por
+                                                                                                   minuto.
+                                                                                                   Si se desconoce el dato, se debe registrar
+                                                                                                   el valor “0”.
+
+                                                                                                   El valor registrado, debe tener una
+                                                                                                   longitud máxima de 2 dígitos.
+                                                                                                   Puede registrarse un valor que se
+     frecuenciaRespirator   Cantidad de respiraciones                                              encuentre dentro del rango mayor o igual
+32                                                        Numérico      Sí          No
+     ia                     por minuto                                                             a “10” y menor o igual “99” respiraciones
+                                                                                                   por minuto.
+                                                                                                   Si se desconoce el dato, se debe registrar
+                                                                                                   el valor “0”.
+
+                                                                                                   El valor registrado, debe tener una
+                                                                                                   longitud máxima de 4 dígitos en formato
+                                                                                                   ##.# con un máximo de 2 dígitos en la
+                                                                                                   parte entera y 1 dígito en la parte decimal.
+                                                                                                   Puede registrarse un valor que se
+33   temperatura            Temperatura corporal (ºC)     Numérico      Sí          No             encuentre dentro del rango mayor o igual
+                                                                                                   “30” y menor o igual a “44” grados
+                                                                                                   centígrados.
+                                                                                                   Si se desconoce el dato, se debe registrar
+                                                                                                   el valor “0”.
+                            Porcentaje de saturación
+                                                                                                   El valor registrado, debe tener una
+34 saturacionOxigeno        de oxígeno en sangre          Numérico      Sí          No             longitud máxima de 3 dígitos.
+                            (SpO2)
+
+
+
+
+                                                          22 de 35
+                                       GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                       SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                       SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                       EXTERNA DE SALUD BUCAL
+                                       CLAVE DEL DOCUMENTO:          VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                          GIIS-B016-04-08                                      4.8                01 de noviembre de 2024
+
+
+
+
+                                                                      OBLIGATORIO   CONFIDENCIAL
+ID       VARIABLE               DESCRIPCIÓN                TIPO                                                  VALIDACIÓN
+
+
+
+
+                                                                                                   Puede registrarse un valor que se
+                                                                                                   encuentre dentro del rango mayor o igual
+                                                                                                   a “1” y menor o igual “100” % de SpO2.
+                                                                                                   Si se desconoce el dato, se debe registrar
+                                                                                                   el valor “0”.
+
+                                                                                                   El valor registrado, debe tener una
+                                                                                                   longitud máxima de 3 dígitos.
+                                                                                                   Puede registrarse un valor que se
+                          Glucosa en sangre
+35   glucemia                                            Numérico       Sí          No             encuentre dentro del rango mayor o igual
+                          mg/dl                                                                    a “20” y menor o igual “999”.
+                                                                                                   Si se desconoce el dato, se debe registrar
+                                                                                                   el valor “0”.
+
+                                                                                                   Si el valor registrado en la variable
+                                                                                                   “glucemia” es diferente de “0”, se puede
+                                                                                                   registrar una de las siguientes opciones:
+                          Identifica si la medición de
+36   tipoMedicion                                        Numérico       Sí          No             0 – NO
+                          la glucosa es en ayunas
+                                                                                                   1 – SI
+                                                                                                   En caso contrario, o si se desconoce el
+                                                                                                   dato, se debe registrar el valor “-1”.
+
+                                                                                                   Se debe validar la existencia de una
+                                                                                                   consulta o atención previa en el año de
+                                                                                                   acuerdo a la fecha de consulta para el
+                                                                                                   mismo paciente en la misma unidad
+                          Identificación   de      la                                              médica, independientemente del tipo:
+                          primera consulta en el año                                               externa, bucal, mental, planificación
+37   primeraVezAnio       para el mismo paciente en Numérico                                       familiar o detección.
+                                                                        Sí          No
+                          el mismo establecimiento                                                 Se debe registrar el valor de acuerdo a
+                          (cobertura).                                                             cada caso:
+                                                                                                   • Si no existe una consulta previa, se
+                                                                                                     debe registrar el valor “1 – SI”.
+                                                                                                   • Si existe una consulta previa, se debe
+                                                                                                     registrar el valor “0 – NO”.
+
+                                                                                                   Se debe registrar una de las siguientes
+                                                                                                   opciones:
+                                                                                                   0 – PRIMERA VEZ
+                          Relación temporal por
+38 relacionTemporal                                      Numérico       Sí          No             1 – SUBSECUENTE
+                          motivo de consulta
+                                                                                                   Esta variable se encuentra directamente
+                                                                                                   relacionada con el Primer Diagnóstico
+                                                                                                   registrado.
+
+                                                                                                   Se debe registrar el valor del campo
+                         Código CIE del                                                            CATALOG_KEY que corresponda al
+     codigoCIEDiagnostic                                                                           código del diagnóstico de acuerdo al
+39                       diagnóstico que motivó la       Texto (4)      Sí          No
+     o1                                                                                            catálogo DIAGNOSTICO_SIS.
+                         consulta
+                                                                                                   • Los códigos deben ser de 4 caracteres.
+
+
+
+
+                                                         23 de 35
+                                      GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                      SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                      SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                      EXTERNA DE SALUD BUCAL
+                                      CLAVE DEL DOCUMENTO:        VERSIÓN DEL DOCUMENTO:                          FECHA DEL DOCUMENTO:
+                                         GIIS-B016-04-08                                    4.8                  01 de noviembre de 2024
+
+
+
+
+                                                                   OBLIGATORIO   CONFIDENCIAL
+ID       VARIABLE              DESCRIPCIÓN              TIPO                                                   VALIDACIÓN
+
+
+
+
+                                                                                                • Se debe validar que se cumplan las
+                                                                                                  restricciones por sexo y edad que se
+                                                                                                  tengan para el código registrado, de
+                                                                                                  acuerdo a las columnas LSEX, LINF y
+                                                                                                  LSUP del catálogo DIAGNOSTICO_SIS.
+                                                                                                • Si   el   valor    de     la  variable
+                                                                                                  “sexoBiologico” es “3 – INTERSEXUAL”,
+                                                                                                  únicamente se debe validar que se
+                                                                                                  cumplan las restricciones por edad de
+                                                                                                  acuerdo con las columnas LINF y LSUP.
+                                                                                                • Se debe validar que, el valor registrado
+                                                                                                  en la variable “tipoPersonal” se
+                                                                                                  encuentre     en   la     relación    de
+                                                                                                  prestadores de la celda asociada al
+                                                                                                  código CIE en la columna VALIDO_SB
+                                                                                                  del catálogo DIAGNOSTICO_SIS.
+
+                                                                                                Se puede registrar una de las siguientes
+                          Identificación de primera                                             opciones:
+     primeraVezDiagnost
+40                        vez del segundo             Numérico       Sí          No             0 – NO
+     ico2
+                          diagnóstico                                                           1 – SI
+                                                                                                Si no aplica, se debe registrar el valor “-1”.
+
+                                                                                                *   Si     el   valor   de      la   variable
+                                                                                                “primeraVezDiagnostico2” es diferente
+                                                                                                de “-1” se debe registrar el valor del campo
+                                                                                                CATALOG_KEY que corresponda al
+                                                                                                código del diagnóstico de acuerdo al
+                                                                                                catálogo DIAGNOSTICO_SIS.
+                                                                                                • Se debe validar que la clave del
+                                                                                                  diagnóstico sea diferente al registrado
+                                                                                                  en               la            variable
+                                                                                                  “codigoCIEDiagnostico1”, excepto si el
+                                                                                                  valor registrado es “R69X”.
+                                                                                                • Los códigos deben ser de 4 caracteres.
+     codigoCIEDiagnostic Código CIE del segundo
+41                                                    Texto (4)   No *           No • Se debe validar que se cumplan las
+     o2                  diagnóstico
+                                                                                      restricciones por sexo y edad que se
+                                                                                      tengan para el código registrado de
+                                                                                      acuerdo a las columnas LSEX, LINF y
+                                                                                      LSUP del catálogo DIAGNOSTICO_SIS.
+                                                                                                • Si   el   valor    de     la  variable
+                                                                                                  “sexoBiologico” es “3 – INTERSEXUAL”,
+                                                                                                  únicamente se debe validar que se
+                                                                                                  cumplan las restricciones por edad de
+                                                                                                  acuerdo con las columnas LINF y LSUP.
+                                                                                                • Si   el   valor     de   la variable
+                                                                                                  “primeraVezDiagnostico2” es “-1”, se
+                                                                                                  debe dejar vacío el campo.
+
+
+
+
+                                                      24 de 35
+                                        GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                        SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                        SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                        EXTERNA DE SALUD BUCAL
+                                        CLAVE DEL DOCUMENTO:        VERSIÓN DEL DOCUMENTO:                          FECHA DEL DOCUMENTO:
+                                           GIIS-B016-04-08                                    4.8                  01 de noviembre de 2024
+
+
+
+
+                                                                     OBLIGATORIO   CONFIDENCIAL
+ID       VARIABLE                DESCRIPCIÓN              TIPO                                                   VALIDACIÓN
+
+
+
+
+                                                                                                  Se debe registrar una de las siguientes
+                                                                                                  opciones:
+     primeraVezDiagnost    Identificación de primera
+42                                                      Numérico       Sí          No             0 – NO
+     ico3                  vez del tercer diagnóstico                                             1 – SI
+                                                                                                  Si no aplica, se debe registrar el valor “-1”.
+
+                                                                                                  *   Si     el   valor   de      la   variable
+                                                                                                  “primeraVezDiagnostico3” es diferente
+                                                                                                  de “-1” se debe registrar el valor del campo
+                                                                                                  CATALOG_KEY que corresponda al
+                                                                                                  código del diagnóstico de acuerdo al
+                                                                                                  catálogo DIAGNOSTICO_SIS.
+                                                                                                  • Se debe validar que el código del
+                                                                                                    diagnóstico sea diferente al registrado
+                                                                                                    en             las             variables
+                                                                                                    “codigoCIEDiagnostico1”                y
+                                                                                                    “codigoCIEDiagnostico2” excepto si el
+                                                                                                    valor registrado es “R69X”.
+     codigoCIEDiagnostic Código CIE del tercer                                                    • Los códigos deben ser de 4 caracteres.
+43                                                        Texto      No *          No
+     o3                  diagnóstico                                                              • Se debe validar que se cumplan las
+                                                                                                    restricciones por sexo y edad que se
+                                                                                                    tengan para el código registrado de
+                                                                                                    acuerdo a las columnas LSEX, LINF y
+                                                                                                    LSUP del catálogo DIAGNOSTICO_SIS.
+                                                                                                  • Si   el   valor    de     la  variable
+                                                                                                    “sexoBiologico” es “3 – INTERSEXUAL”,
+                                                                                                    únicamente se debe validar que se
+                                                                                                    cumplan las restricciones por edad de
+                                                                                                    acuerdo con las columnas LINF y LSUP.
+                                                                                                  • Si   el   valor     de   la variable
+                                                                                                    “primeraVezDiagnostico3” es “-1”, se
+                                                                                                    debe dejar vacío el campo.
+
+                                                    SALUD BUCAL
+Se debe validar que al menos una de las acciones realizadas en éste apartado tenga un valor diferente de “0”; para el caso
+                  particular de “hiloDental” se debe validar que sea diferente tanto de “0” como de “-1”.
+
+                                                                                                  Se debe registrar una de las siguientes
+                           Identifica si se detectó                                               opciones:
+44 placaBacteriana                                      Numérico       Sí          No
+                           placa bacteriana                                                       0 – NO
+                                                                                                  1 – SI
+
+                                                                                                  Se debe registrar una de las siguientes
+                           Identifica si se dio                                                   opciones:
+45 cepillado               Instrucción en Técnica de    Numérico       Sí          No
+                           Cepillado                                                              0 – NO
+                                                                                                  1 – SI
+
+
+
+
+                                                        25 de 35
+                                         GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                         SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                         SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                         EXTERNA DE SALUD BUCAL
+                                         CLAVE DEL DOCUMENTO:       VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                            GIIS-B016-04-08                                   4.8                01 de noviembre de 2024
+
+
+
+
+                                                                     OBLIGATORIO   CONFIDENCIAL
+ID           VARIABLE            DESCRIPCIÓN               TIPO                                                 VALIDACIÓN
+
+
+
+
+                                                                                                  Si la edad del paciente es mayor o igual a
+                                                                                                  “6 años”, se debe registrar una de las
+                           Identifica si se dio                                                   siguientes opciones:
+46 hiloDental              Instrucción del Uso de        Numérico      Sí          No             0 – NO
+                           Hilo Dental                                                            1 – SI
+                                                                                                  En caso contrario, se debe registrar el
+                                                                                                  valor “-1”.
+
+                                                                                                  Se debe registrar una de las siguientes
+                           Identifica si se realizó                                               opciones:
+47 limpiezaDental                                        Numérico      Sí          No
+                           limpieza dental                                                        0 – NO
+                                                                                                  1 – SI
+
+                           Identifica si se realizó la                                            Se debe registrar una de las siguientes
+                           revisión e instrucción de                                              opciones:
+48 protesis                                              Numérico      Sí          No
+                           higiene de prótesis                                                    0 – NO
+                           bucales                                                                1 – SI
+
+                                                                                                  Se debe registrar una de las siguientes
+                           Identifica si se realizó el                                            opciones:
+49 tejidosBucales          examen de tejidos             Numérico      Sí          No
+                           bucales                                                                0 – NO
+                                                                                                  1 – SI
+
+                                                                                                  Se debe registrar una de las siguientes
+                           Identifica si se realizó                                               opciones:
+50 autoExamen              autoexamen de cavidad         Numérico      Sí          No
+                           bucal                                                                  0 – NO
+                                                                                                  1 – SI
+
+                                                                                                  Se debe registrar una de las siguientes
+                           Identifica si se realizó                                               opciones:
+51   fluor                                               Numérico      Sí          No
+                           aplicación tópica de Flúor                                             0 – NO
+                                                                                                  1 – SI
+
+                           Identifica si se realizó                                               Se debe registrar una de las siguientes
+     raspadoAlisadoPerio   raspado y alisado                                                      opciones:
+52                                                       Numérico      Sí          No
+     dontal                periodontal (antes                                                     0 – NO
+                           Odontoxesis)                                                           1 – SI
+
+                                                                                                  Se debe registrar una de las siguientes
+                           Identifica si se realizó                                               opciones:
+53   barnizFluor           aplicación de Barniz de       Numérico      Sí          No
+                           Flúor                                                                  0 – NO
+                                                                                                  1 – SI
+
+                                                                                                  Se puede registrar un valor de entre “1”
+                           Identifica el número de                                                hasta “32”.
+54 fosetasFisuras                                        Numérico      Sí          No
+                           fosetas y fisuras selladas                                             Si se desconoce el dato o no aplica, se
+                                                                                                  debe registrar el valor “0”.
+                           Identifica el número de
+                                                                                                  Se puede registrar un valor de entre “1”
+55   amalgamas             Obturaciones con              Numérico      Sí          No             hasta “32”.
+                           amalgamas
+
+
+
+
+                                                         26 de 35
+                                       GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                       SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                       SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                       EXTERNA DE SALUD BUCAL
+                                       CLAVE DEL DOCUMENTO:        VERSIÓN DEL DOCUMENTO:                       FECHA DEL DOCUMENTO:
+                                          GIIS-B016-04-08                                    4.8               01 de noviembre de 2024
+
+
+
+
+                                                                    OBLIGATORIO   CONFIDENCIAL
+ID        VARIABLE              DESCRIPCIÓN               TIPO                                                VALIDACIÓN
+
+
+
+
+                                                                                                 Si se desconoce el dato o no aplica, se
+                                                                                                 debe registrar el valor “0”.
+
+                                                                                                 Se puede registrar un valor de entre “1”
+                          Identifica el número de                                                hasta “32”.
+56   resinas                                            Numérico      Sí          No
+                          Obturaciones con resinas                                               Si se desconoce el dato o no aplica, se
+                                                                                                 debe registrar el valor “0”.
+
+                                                                                                 Se puede registrar un valor de entre “1”
+                          Identifica el número de                                                hasta “32”.
+57   ionomeroVidrio       Obturaciones con              Numérico      Sí          No
+                          Ionómero de vidrio                                                     Si se desconoce el dato o no aplica, se
+                                                                                                 debe registrar el valor “0”.
+
+                                                                                                 Se puede registrar un valor de entre “1”
+                          Identifica el número de                                                hasta “32”.
+58 alcasite                                             Numérico      Sí          No
+                          Obturaciones con alcasite                                              Si se desconoce el dato o no aplica, se
+                                                                                                 debe registrar el valor “0”.
+
+                                                                                                 Se puede registrar un valor de entre “1”
+                          Identifica el número de                                                hasta “32”.
+59   obturacionTemporal                                 Numérico      Sí          No
+                          Obturaciones temporales                                                Si se desconoce el dato o no aplica, se
+                                                                                                 debe registrar el valor “0”.
+
+                                                                                                 Se puede registrar un valor de entre “1”
+                          Identifica el número de                                                hasta “9”.
+60 dienteTemp             Extracciones de dientes       Numérico      Sí          No
+                          temporales                                                             Si se desconoce el dato o no aplica, se
+                                                                                                 debe registrar el valor “0”.
+
+                                                                                                 Se puede registrar un valor de entre “1”
+                          Identifica el número de                                                hasta “9”.
+61   dientePerm           Extracciones de dientes       Numérico      Sí          No
+                          permanentes                                                            Si se desconoce el dato o no aplica, se
+                                                                                                 debe registrar el valor “0”.
+
+                                                                                                 Se puede registrar un valor de entre “1”
+                          Identifica el número de                                                hasta “9”.
+62   pulpar               Piezas dentales tratadas      Numérico      Sí          No
+                          con terapia pulpar                                                     Si se desconoce el dato o no aplica, se
+                                                                                                 debe registrar el valor “0”.
+
+                                                                                                 Se debe registrar una de las siguientes
+                          Indica si se realizó alguna                                            opciones:
+63   cirugiaBucal         actividad        quirúrgica   Numérico      Sí          No
+                          menor                                                                  0 – NO
+                                                                                                 1 – SI
+
+                                                                                                 Se debe registrar una de las siguientes
+                          Indica si se prescribieron                                             opciones:
+64 farmacoTerapia         fármacos a través de          Numérico      Sí          No
+                          receta durante la atención                                             0 – NO
+                                                                                                 1 – SI
+                          Indica si hubo atenciones
+                          adicionales otorgadas al                                               Se puede registrar un valor de entre “1”
+65   otrasAtenciones                                    Numérico      Sí          No
+                          paciente y que no están                                                hasta “9”.
+                          en los rubros anteriores
+
+
+
+
+                                                        27 de 35
+                                       GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                       SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                       SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                       EXTERNA DE SALUD BUCAL
+                                       CLAVE DEL DOCUMENTO:       VERSIÓN DEL DOCUMENTO:                         FECHA DEL DOCUMENTO:
+                                          GIIS-B016-04-08                                   4.8                 01 de noviembre de 2024
+
+
+
+
+                                                                   OBLIGATORIO   CONFIDENCIAL
+ID        VARIABLE              DESCRIPCIÓN              TIPO                                                  VALIDACIÓN
+
+
+
+
+                                                                                                Si se desconoce el dato o no aplica, se
+                                                                                                debe registrar el valor “0”.
+
+                          Identifica el número de                                               Se puede registrar un valor de entre “1”
+                          radiografías dentales                                                 hasta “9”.
+66 radiografias                                        Numérico      Sí          No
+                          tomadas al paciente                                                   Si se desconoce el dato o no aplica, se
+                          durante la consulta                                                   debe registrar el valor “0”.
+
+                                                                                                Se debe registrar una de las siguientes
+                       Indica si al paciente se le                                              opciones:
+   orientacionSaludBuc
+67                     otorgo Orientación de           Numérico      Sí          No
+   al                                                                                           0 – NO
+                       Salud Bucal
+                                                                                                1 – SI
+
+                                                                                                Se debe registrar una de las siguientes
+                          Indica si se ha concluido                                             opciones:
+68 tratamientoIntegral    de manera integral el        Numérico      Sí          No
+                          tratamiento                                                           0 – NO
+                                                                                                1 – SI
+
+                                              PROMOCIÓN DE LA SALUD
+                          Se refiere a la consulta                                              Se debe registrar una de las siguientes
+                          donde se otorgan 5 o más                                              opciones:
+69 lineaVida              acciones para ser            Numérico      Sí          No
+                          considerada integrada del                                             0 – NO
+                          programa Línea de Vida                                                1 – SI
+
+                                                                                                Se debe registrar una de las siguientes
+                          Identifica si se presenta                                             opciones:
+70 cartillaSalud                                       Numérico      Sí          No
+                          cartilla de salud                                                     0 – NO
+                                                                                                1 – SI
+
+                       Identifica si el paciente                                                Se debe registrar una de las siguientes
+                       cuenta con esquema de                                                    opciones:
+71   esquemaVacunacion                                 Numérico      Sí          No
+                       vacunación completo o                                                    0 – NO
+                       no                                                                       1 – SI
+
+                                        REFERENCIA Y CONTRARREFERENCIA
+
+                                                                                                Si el valor de la variable “contrarreferido”
+                          Motivo por el cual el                                                 es “0 – NO”, se puede registrar el valor:
+                          paciente es referido a una
+72   referidoPor                                       Numérico      Sí          No             5 – OTRAS
+                          unidad de mayor
+                          complejidad                                                           En caso contrario, o no aplica, se debe
+                                                                                                registrar el valor “-1”.
+
+                                                                                                Si el valor de la variable “referidoPor” es
+                                                                                                “-1”, se debe registrar una de las siguientes
+                                                                                                opciones:
+                          Indica si el paciente ha
+73   contrarreferido                                   Numérico      Sí          No             0 – NO
+                          sido contrarreferido
+                                                                                                1 – SI
+                                                                                                En caso contrario, se debe registrar el
+                                                                                                valor “0 – NO”.
+
+
+
+
+                                                       28 de 35
+                                       GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                       SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                       SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                       EXTERNA DE SALUD BUCAL
+                                       CLAVE DEL DOCUMENTO:          VERSIÓN DEL DOCUMENTO:                        FECHA DEL DOCUMENTO:
+                                          GIIS-B016-04-08                                      4.8                01 de noviembre de 2024
+
+
+
+
+                                                                      OBLIGATORIO   CONFIDENCIAL
+ID        VARIABLE              DESCRIPCIÓN               TIPO                                                    VALIDACIÓN
+
+
+
+
+                                                     TELEMEDICINA
+
+                                                                                                   Si el valor de la variable “teleconsulta” es
+                          Identifica si durante la                                                 “0 – NO”, se debe registrar una de las
+                          consulta se solicita por                                                 siguientes opciones:
+                          telemedicina
+74 telemedicina                                         Numérico        Sí          No             0 – NO
+                          interconsulta a otra
+                          unidad de mayor                                                          1 – SI
+                          complejidad                                                              En caso contrario, se debe registrar el
+                                                                                                   valor “0 – NO”.
+
+                                                                                                   Si el valor de la variable “telemedicina” es
+                                                                                                   “0 – NO”, se debe registrar una de las
+                          Identifica las unidades                                                  siguientes opciones:
+                          interconsultantes, que                                                   0 – NO
+75   teleconsulta                                       Numérico        Sí          No
+                          llevaron a cabo la consulta
+                          a distancia.                                                             1 – SI
+                                                                                                   En caso contrario, se debe registrar el
+                                                                                                   valor “0 – NO”.
+
+                                                                                                   Si el valor de la variable “telemedicina” es
+                                                                                                   “0 – NO”, se puede registrar una o hasta 7
+                                                                                                   de las siguientes opciones:
+                                                                                                   1 – USG
+                                                                                                   2 – ECG
+                                                                                                   3 – RAYOS X
+                                                                                                   4 – TOMOGRAFÍA
+                          Identifica que estudios de                                               5 – RESONANCIA MAGNETICA
+76   estudiosTeleconsulta gabinete fueron valorados     Texto (15)                                 6 – MASTOGRAFÍA
+                                                                        Sí          No
+                          a distancia                                                              7 – OTROS
+                                                                                                   Si se identifican más de un estudio
+                                                                                                   valorado a distancia, los valores deben ir
+                                                                                                   separados por “&”.
+                                                                                                   No se deberá registrar el mismo valor más
+                                                                                                   de una vez.
+                                                                                                   En caso contrario o no aplica, se debe
+                                                                                                   registrar el valor “-1”.
+
+                                                                                                   Si el valor de la variable “teleconsulta” es
+                                                                                                   “1 – SI” se debe registrar el valor:
+                                                                                                   1 – EN TIEMPO REAL
+                                                                                                   Si el valor de la variable “teleconsulta” es
+                          Identifica la modalidad en
+     modalidadConsulDis                                                                            “0 – NO” y el valor de la variable
+77                        la que fue otorgada la        Numérico        Sí          No
+     t                                                                                             “estudiosTeleconsulta” es diferente a “-1”
+                          consulta a distancia
+                                                                                                   se debe registrar el valor:
+                                                                                                   2 – DIFERIDA
+                                                                                                   En caso contrario, se debe registrar el
+                                                                                                   valor “-1”.
+
+
+
+
+                                                        29 de 35
+                                            GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                            SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                            SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                            EXTERNA DE SALUD BUCAL
+                                            CLAVE DEL DOCUMENTO:          VERSIÓN DEL DOCUMENTO:            FECHA DEL DOCUMENTO:
+                                               GIIS-B016-04-08                        4.8                  01 de noviembre de 2024
+
+
+Fe de erratas
+En esta sección se describen los cambios realizados a la presente Guía, ya sea por errores detectados
+o bien para precisar, eliminar o adicionar alguna regla de validación.
+
+  Fecha de             Sección /                                                                                          Comentarios
+                Pág.                 Columna                  Decía:                              Dice:
+actualización          Variable                                                                                           Adicionales
+                                            APARTADO: DICCIONARIO DE DATOS
+                                                   Si el valor registrado en la      Si el valor registrado en la        Se agrega en la
+                                                   variable “clues”, en la columna   variable “clues”, en la columna     regla de validación
+                                                   de institucion es igual a “SSA”   de institucion es igual a “SSA” o   el acrónimo de la
+                       programaS
+ 28/08/2024      13                  Validación    de acuerdo al catálogo de         “IMB” de acuerdo al catálogo de     institución “IMB”
+                       MyMG
+                                                   ESTABLECIMIENTO DE SALUD          ESTABLECIMIENTO DE SALUD            que corresponde
+                                                   SIS…                              SIS…                                al OPD IMSS
+                                                                                                                         BIENESTAR.
+                                                   Se debe validar que al menos      Se debe validar que al menos        Se complementa
+                                     Regla que     una de las acciones realizadas    una de las acciones realizadas      la regla que aplica
+                                     aplica para   en éste apartado tenga un valor   en éste apartado tenga un valor     para la sección
+                       SALUD         todas las     diferente de “0”.                 diferente de “0”; para el caso      Salud Bucal,
+  18/04/2024     23
+                       BUCAL         variables                                       particular de “hiloDental” se       considerando el
+                                     de la                                           debe validar que sea diferente      caso particular de
+                                     sección                                         tanto de “0” como de “-1”.          la variable
+                                                                                                                         “hiloDental”.
+
+
+
+
+Catálogos
+         Identificador                                         Nombre del Catálogo                                             Fuente
+                                   Clasificación de las instituciones que tienen inscripción a sus servicios
+ AFILIACION                                                                                                                     DGIS
+                                   de salud.
+                                   Claves de Diagnóstico Específicas para el subsistema de prestación
+ DIAGNOSTICO_SIS                                                                                                                DGIS
+                                   de Servicios (SIS)
+ ENTIDAD FEDERATIVA                Entidades Federativas de México.                                                             DGIS
+ ESTABLECIMIENTOS DE               Claves únicas de establecimientos de salud específicos para Servicios
+                                                                                                                                DGIS
+ SALUD SIS                         Otorgados.
+ PAÍS                              Clasificación de países.                                                                     DGIS
+ SERVICIOS DE ATENCIÓN
+                                   Relaciones validas entre Tipo de personal vs Servicios de Atención
+ POR TIPO DE PERSONAL                                                                                                           DGIS
+                                   para Salud Bucal
+ SIS-SB
+ TIPO PERSONAL – SIS               Perfil del prestador del servicio de salud que otorga la atención.                           DGIS
+
+
+
+
+                                                              30 de 35
+                                   GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                   SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                   SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                   EXTERNA DE SALUD BUCAL
+                                   CLAVE DEL DOCUMENTO:    VERSIÓN DEL DOCUMENTO:    FECHA DEL DOCUMENTO:
+                                      GIIS-B016-04-08               4.8             01 de noviembre de 2024
+
+
+CONFORMACIÓN DEL DOCUMENTO ELECTRÓNICO
+La información debe ser reportada conforme a la estructura descrita en el Diccionario de Datos. El
+SIRES deberá registrar la información aplicando las validaciones establecidas y en el formato descrito
+en éste documento.
+
+Adicionalmente, el SIRES debe generar un archivo de texto plano (.TXT) con código de caracteres
+ANSI, con los nombres de todas las variables en el orden establecido como encabezado y, los valores
+de los registros conforme la siguiente estructura:
+
+   1.   Cada valor debe separarse por el caracter “|” en el mismo orden establecido en el diccionario
+        de datos.
+   2.   Se debe incluir un solo registro por renglón.
+        a) Si en una sección se encuentra una variable para la que puede registrarse más de un valor,
+           los valores registrados se deben separar por el caracter “&” entre cada valor registrado.
+        b) Del punto anterior, si las variables están compuestas por más de una subvariable, los
+           valores se separarán por el caracter “#”, y entre cada grupo de subvariables por el caracter
+           “&”.
+        c) En caso de que no aplique, se debe registrar el campo vacío únicamente separado por
+           pipes “|” o bien el valor especificado en la respectiva regla de validación.
+
+A continuación, se presenta de manera gráfica la estructura de los registros.
+
+
+
+
+Se anexa un archivo de texto plano con la estructura de datos y registros de ejemplo sin cifrar para
+mayor referencia (CSB-EJEMPLOS-2410.txt)
+
+
+
+                                                31 de 35
+                                      GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                      SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                      SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                      EXTERNA DE SALUD BUCAL
+                                      CLAVE DEL DOCUMENTO:      VERSIÓN DEL DOCUMENTO:           FECHA DEL DOCUMENTO:
+                                         GIIS-B016-04-08                      4.8               01 de noviembre de 2024
+
+
+Cifrado
+El cifrado de los archivos se realiza bajo el algoritmo 3DES. Para fines de pruebas y validación de los
+archivos generados, se debe cifrar usando el certificado y el módulo de cifrado que se encuentra
+disponible para su descarga en el ambiente de pruebas de carga masiva en la página:
+http://gobi.salud.gob.mx/ en la sección “Cargas SINBA v2.0”.
+
+
+
+Nomenclatura de archivos
+Una vez capturada la información de consulta externa, se debe generar el archivo y se sugiere
+nombrarlo con la siguiente nomenclatura:
+
+                 C S B        - D F S S A - 2 4 1 0                                  .    T X T
+                 1    2   3   4   5     6   7   8    9   10    11   12   13     14   15   16   17   18
+
+Como siguiente paso, llevar a cabo el cifrado del contenido del archivo mediante el uso del certificado
+y el módulo de cifrado, se debe generar el archivo con el mismo nombre con extensión “CIF”:
+
+                  C S B       - D F S S A - 2 4 1 0                                  .    C I       F
+                  1   2   3   4   5     6   7   8    9   10    11   12   13    14    15   16   17   18
+
+Posteriormente, se debe comprimir este último archivo con el mismo nombre con extensión “ZIP”:
+
+                 C S B        - D F S S A - 2 4 1 0                                  .    Z    I    P
+                  1   2   3   4   5     6   7   8    9   10    11   12   13     14   15   16   17   18
+
+Donde:
+   • Los primeros tres caracteres identifican el tipo de información que se reporta, en este caso
+      CSB corresponde a Consulta de Salud Bucal.
+   • Del 5 al 9, los dos primeros caracteres corresponden a la entidad y los últimos tres
+      corresponden a la institución a la que pertenece la información reportada, conforme a la
+      nomenclatura utilizada para la asignación de la CLUES.
+   • Del 11 al 12, corresponden a los últimos dos dígitos del año que se reporta.
+   • Del 13 al 14 corresponden a la información acumulada al mes que se reporta.
+   • Las últimas tres posiciones corresponden a la extensión del tipo de archivo que se genera
+      en cada uno de los pasos previos: TXT, CIF y compactado en ZIP.
+
+
+
+
+                                                    32 de 35
+                                  GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                  SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                  SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                  EXTERNA DE SALUD BUCAL
+                                  CLAVE DEL DOCUMENTO:     VERSIÓN DEL DOCUMENTO:    FECHA DEL DOCUMENTO:
+                                     GIIS-B016-04-08                4.8             01 de noviembre de 2024
+
+
+MECANISMO DE ENTREGA DE LA INFORMACIÓN
+(INTERCONEXIÓN BASADA EN ESTÁNDARES)
+La DGIS anualmente, durante el cuarto trimestre del año en curso, mediante los mecanismos de
+comunicación que determine, proporcionará a los Coordinadores Estatales de Información en Salud
+y a todo aquel interesado, el formato de recolección de información, los lineamientos y manuales a
+operar en el año subsecuente en caso de existir cambios en los mismos, en caso contrario seguirán
+vigentes los últimos publicados.
+
+En este sentido, para fines de cumplimiento con el procedimiento para el reporte de información, se
+debe atender a la definición que se indique en los lineamientos y manuales de operación antes
+mencionados.
+
+
+
+Seguridad
+Con el objeto de brindar mayor seguridad a los datos personales de los pacientes que se utilicen
+incluso para pruebas, las cargas de archivos en los diferentes ambientes, deben realizarse con un
+usuario registrado en el sistema, por lo tanto, aquellos interesados en la certificación de la NOM-024-
+SSA3-2012, deben solicitar un usuario y contraseña para acceder al ambiente de pruebas indicando
+CURP y datos personales del usuario a registrar, así como a los módulos que requerirá probar.
+
+Para mayor detalle consultar el manual correspondiente que se encuentra disponible en la sección
+de “Guías” en la página: http://gobi.salud.gob.mx/
+
+
+
+
+                                                33 de 35
+                                  GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                  SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                  SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                  EXTERNA DE SALUD BUCAL
+                                  CLAVE DEL DOCUMENTO:    VERSIÓN DEL DOCUMENTO:    FECHA DEL DOCUMENTO:
+                                     GIIS-B016-04-08               4.8             01 de noviembre de 2024
+
+
+VERIFICACIÓN DE APEGO A ESTA GUÍA
+Para determinar que un SIRES implementa correctamente lo descrito en la presente Guía de
+Intercambio de Información, se debe demostrar que:
+
+   •   Es capaz de generar en forma automática el documento electrónico a partir de la información
+       registrada en el SIRES.
+   •   El documento electrónico cumple con el esquema de validación proporcionado, tanto en
+       formato, estructura y conformación.
+   •   La información contenida cumple con las validaciones establecidas por variable y reglas de
+       negocio para la conformación del documento.
+
+Con la finalidad de cerciorarse que los archivos creados por un SIRES cumplan con todas las reglas
+de validación, se podrán realizar pruebas de carga de los archivos generados de acuerdo a lo
+establecido en la presente guía, utilizando el “Módulo de Carga de Información” que la DGIS pone a
+disposición de los interesados en ambiente de pruebas, siguiendo el manual de “Carga Masiva”
+publicado en la página: http://gobi.salud.gob.mx/ en la sección “Guías” y, seleccionando el icono
+“Cargas SINBA v2.0”.
+
+
+
+
+Es importante aclarar que se requiere un usuario con privilegios de registro de información en SIS el
+cual se debe solicitar a los siguientes correos: dgis@salud.gob.mx o soporte.sinba@salud.gob.mx con
+el asunto “Solicitud de Usuario para Módulo de Carga Masiva” indicando CURP y datos personales
+del usuario a registrar (nombre completo y correo electrónico), así como, la entidad federativa y las
+guías de intercambio de información para las cuales se requiere dicho usuario.
+
+
+
+
+                                               34 de 35
+                                    GUÍA Y FORMATOS PARA EL INTERCAMBIO DE INFORMACIÓN EN
+                                    SALUD REFERENTE AL REPORTE DE INFORMACIÓN AL
+                                    SUBSISTEMA DE PRESTACIÓN DE SERVICIOS “SIS” – CONSULTA
+                                    EXTERNA DE SALUD BUCAL
+                                    CLAVE DEL DOCUMENTO:     VERSIÓN DEL DOCUMENTO:    FECHA DEL DOCUMENTO:
+                                       GIIS-B016-04-08                4.8             01 de noviembre de 2024
+
+
+REFERENCIAS
+
+Ligas Web
+En la siguiente liga puede acceder a la descarga de catálogos requeridos para la conformación del archivo de
+intercambio: http://gobi.salud.gob.mx/ en la sección de “Catálogos” se encuentran aquellos que son
+transversales a los subsistemas y dentro del apartado “Catálogos SIS” se pueden encontrar los catálogos
+específicos de Consulta Externa de Salud Bucal.
+
+En la siguiente liga http://www.dgis.salud.gob.mx/contenidos/sis/sis_calendario.html se encuentran publicados
+los calendarios por año para el proceso de reporte de información mensual al Subsistema de Prestación de
+Servicios (SIS).
+
+
+
+Bibliografía
+       NORMA Oficial Mexicana NOM-004-SSA3-2012, Del expediente clínico.
+       NORMA Oficial Mexicana NOM-013-SSA2-2015, Para la prevención y control de enfermedades bucales.
+       NORMA Oficial Mexicana NOM-016-SSA3-2012, Que establece las características mínimas de
+        infraestructura y equipamiento de hospitales y consultorios de atención médica especializada.
+       NORMA Oficial Mexicana NOM-017-SSA2-2012, Para la vigilancia epidemiológica.
+       NORMA Oficial Mexicana NOM-024-SSA3-2012 Sistemas de Información de Registro Electrónico para la
+        Salud. Intercambio de Información en Salud.
+       NORMA Oficial Mexicana NOM-035-SSA3-2012 En Materia de Información en Salud.
+
+
+
+Archivos anexos
+                                                                            Formato / Aplicación para su
+  Id.     Nombre del archivo                    Descripción
+                                                                                   visualización
+  01    CSB-EJEMPLOS-2410.txt        Ejemplo de archivo de intercambio.     Texto Plano
+
+
+
+
+                                                  35 de 35
+

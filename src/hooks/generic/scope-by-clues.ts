@@ -57,6 +57,9 @@ export const scopeByPatientId = async (context: HookContext) => {
 
   // Llamadas internas (provider undefined) son de confianza: no se scopan.
   if (!params.provider) return context
+  // El administrador ya fue autorizado como lector por scopeByRoleAndTutor y
+  // necesita resolver los anexos del expediente a través de establecimientos.
+  if (params.user?.role === 'admin') return context
 
   const userClues = normalizeClues(params.user?.clues)
 

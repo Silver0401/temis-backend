@@ -1,5 +1,6 @@
 import { googleApi } from './google-api/google-api'
 import { exchangeFile } from './exchange-file/exchange-file'
+import { suive } from './suive/suive'
 import { noAuthTemplate } from './no-auth-template/no-auth-template'
 import { catalogoLocalidades } from './catalogs/catalogo-localidades/catalogo-localidades'
 import { catalogoMunicipios } from './catalogs/catalogo-municipios/catalogo-municipios'
@@ -44,6 +45,7 @@ export const services = (app: Application) => {
   app.configure(consentSign)
   app.configure(externalPatientRegistration)
   app.configure(exchangeFile)
+  app.configure(suive)
   app.configure(noAuthTemplate)
   app.configure(catalogoLocalidades)
   app.configure(catalogoMunicipios)

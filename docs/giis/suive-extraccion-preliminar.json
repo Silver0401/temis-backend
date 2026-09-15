@@ -1,0 +1,1160 @@
+[
+ {
+  "fila": 4,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "MENINGITIS TUBERCULOSA  ( * +  )  A17.0",
+  "epi": 44.0
+ },
+ {
+  "fila": 5,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "TÉTANOS  ( * + # )  A34, A35",
+  "epi": 85.0
+ },
+ {
+  "fila": 6,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "TÉTANOS NEONATAL  ( * + # )  A33",
+  "epi": 86.0
+ },
+ {
+  "fila": 7,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "DIFTERIA  ( * + # )  A36",
+  "epi": 82.0
+ },
+ {
+  "fila": 8,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "TOS FERINA  ( * + # )  A37",
+  "epi": 83.0
+ },
+ {
+  "fila": 9,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "SARAMPIÓN  ( * + # )  B05",
+  "epi": 87.0
+ },
+ {
+  "fila": 10,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "RUBÉOLA  ( * + # )  B06",
+  "epi": 32.0
+ },
+ {
+  "fila": 11,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "PAROTIDITIS INFECCIOSA  B26",
+  "epi": 42.0
+ },
+ {
+  "fila": 12,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "HEPATITIS VÍRICA B  (+ # )  B16",
+  "epi": 38.0
+ },
+ {
+  "fila": 13,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "SÍNDROME DE RUBÉOLA CONGÉNITA  ( * + # )  P35.0",
+  "epi": 100.0
+ },
+ {
+  "fila": 14,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "HEPATITIS VÍRICA A  (+ # )  B15",
+  "epi": 37.0
+ },
+ {
+  "fila": 15,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "ENTERITIS DEBIDA A ROTAVIRUS  ( * + # )  A08.0",
+  "epi": 137.0
+ },
+ {
+  "fila": 16,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "INFECCIONES INVASIVAS POR HAEMOPHILUS INFLUENZAE  ( * + # )  A41.3, G00.0, J14",
+  "epi": 99.0
+ },
+ {
+  "fila": 17,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "POLIOMIELITIS AGUDA ( * + # )  A80",
+  "epi": 75.0
+ },
+ {
+  "fila": 18,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "MENINGITIS MENINGOCÓCICA  ( * + # )  A39.0",
+  "epi": 40.0
+ },
+ {
+  "fila": 19,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "INFECCIÓN POR VIRUS DEL PAPILOMA HUMANO  B97.7",
+  "epi": 101.0
+ },
+ {
+  "fila": 20,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "ENFERMEDAD INVASIVA POR NEUMOCOCO  ( * + # )  A40.3, G00.1, J13",
+  "epi": 176.0
+ },
+ {
+  "fila": 21,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "INFLUENZA  ( * + # )  J09-J11",
+  "epi": 90.0
+ },
+ {
+  "fila": 22,
+  "grupo": "ENFERMEDADES PREVENIBLES POR VACUNACIÓN",
+  "dx": "VARICELA  ( # )  B01",
+  "epi": 33.0
+ },
+ {
+  "fila": 23,
+  "grupo": "ENFERMEDADES INFECCIOSAS Y \nPARASITARIAS DEL APARATO DIGESTIVO",
+  "dx": "CÓLERA  ( * + # )  A00",
+  "epi": "01"
+ },
+ {
+  "fila": 24,
+  "grupo": "ENFERMEDADES INFECCIOSAS Y \nPARASITARIAS DEL APARATO DIGESTIVO",
+  "dx": "FIEBRE TIFOIDEA ( # ) A01.0",
+  "epi": "06"
+ },
+ {
+  "fila": 25,
+  "grupo": "ENFERMEDADES INFECCIOSAS Y \nPARASITARIAS DEL APARATO DIGESTIVO",
+  "dx": "SHIGELOSIS  A03",
+  "epi": "05"
+ },
+ {
+  "fila": 26,
+  "grupo": "ENFERMEDADES INFECCIOSAS Y \nPARASITARIAS DEL APARATO DIGESTIVO",
+  "dx": "INFECCIONES INTESTINALES POR OTROS ORGANISMOS Y LAS MAL DEFINIDAS  A04, A08-A09 EXCEPTO A08.0",
+  "epi": "08"
+ },
+ {
+  "fila": 27,
+  "grupo": "ENFERMEDADES INFECCIOSAS Y \nPARASITARIAS DEL APARATO DIGESTIVO",
+  "dx": "INTOXICACIÓN ALIMENTARIA BACTERIANA  ( # )  A05",
+  "epi": "09"
+ },
+ {
+  "fila": 28,
+  "grupo": "ENFERMEDADES INFECCIOSAS Y \nPARASITARIAS DEL APARATO DIGESTIVO",
+  "dx": "AMEBIASIS INTESTINAL  A06.0-A06.3, A06.9",
+  "epi": "02"
+ },
+ {
+  "fila": 29,
+  "grupo": "ENFERMEDADES INFECCIOSAS Y \nPARASITARIAS DEL APARATO DIGESTIVO",
+  "dx": "GIARDIASIS  A07.1",
+  "epi": "07"
+ },
+ {
+  "fila": 30,
+  "grupo": "ENFERMEDADES INFECCIOSAS Y \nPARASITARIAS DEL APARATO DIGESTIVO",
+  "dx": "OTRAS INFECCIONES INTESTINALES DEBIDAS A PROTOZOARIOS  A07.0, A07.2, A07.9",
+  "epi": 93.0
+ },
+ {
+  "fila": 31,
+  "grupo": "ENFERMEDADES INFECCIOSAS Y \nPARASITARIAS DEL APARATO DIGESTIVO",
+  "dx": "ASCARIASIS  B77",
+  "epi": "04"
+ },
+ {
+  "fila": 32,
+  "grupo": "ENFERMEDADES INFECCIOSAS Y \nPARASITARIAS DEL APARATO DIGESTIVO",
+  "dx": "ENTEROBIASIS  B80",
+  "epi": 10.0
+ },
+ {
+  "fila": 33,
+  "grupo": "ENFERMEDADES INFECCIOSAS Y \nPARASITARIAS DEL APARATO DIGESTIVO",
+  "dx": "( * ) NOTIFICACIÓN INMEDIATA                              ( + ) HACER ESTUDIO EPIDEMIOLÓGICO                              ( # ) ESTUDIO DE BROTE",
+  "epi": null
+ },
+ {
+  "fila": 35,
+  "grupo": "Grupo",
+  "dx": "Diagnóstico y Código CIE 10a Revisión",
+  "epi": "EPI Clave"
+ },
+ {
+  "fila": 38,
+  "grupo": "ENFS INFECS Y PARASITARIAS \nDEL APARATO DIGESTIVO",
+  "dx": "OTRAS HELMINTIASIS  B65-B67, B70-B76, B78, B79, B81-B83 EXCEPTO B73 y B75",
+  "epi": 14.0
+ },
+ {
+  "fila": 39,
+  "grupo": "ENFS INFECS Y PARASITARIAS \nDEL APARATO DIGESTIVO",
+  "dx": "ABSCESO HEPÁTICO AMEBIANO  A06.4",
+  "epi": "03"
+ },
+ {
+  "fila": 40,
+  "grupo": "ENFS INFECS Y PARASITARIAS \nDEL APARATO DIGESTIVO",
+  "dx": "OTRAS SALMONELOSIS  A02",
+  "epi": 177.0
+ },
+ {
+  "fila": 41,
+  "grupo": "ENFS INFECS Y PARASITARIAS \nDEL APARATO DIGESTIVO",
+  "dx": "FIEBRE PARATIFOIDEA  A01.1-A01.4",
+  "epi": "178"
+ },
+ {
+  "fila": 42,
+  "grupo": "ENFERMEDADES \nINFECCIOSAS DEL APARATO RESPIRATORIO",
+  "dx": "TUBERCULOSIS RESPIRATORIA  ( + )  A15-A16",
+  "epi": 19.0
+ },
+ {
+  "fila": 43,
+  "grupo": "ENFERMEDADES \nINFECCIOSAS DEL APARATO RESPIRATORIO",
+  "dx": "OTITIS MEDIA AGUDA  H65.0-H65.1",
+  "epi": 18.0
+ },
+ {
+  "fila": 44,
+  "grupo": "ENFERMEDADES \nINFECCIOSAS DEL APARATO RESPIRATORIO",
+  "dx": "FARINGITIS Y AMIGDALITIS ESTREPTOCÓCICAS  J02.0, J03.0",
+  "epi": 15.0
+ },
+ {
+  "fila": 45,
+  "grupo": "ENFERMEDADES \nINFECCIOSAS DEL APARATO RESPIRATORIO",
+  "dx": "INFECCIONES RESPIRATORIAS AGUDAS  J00-J06, J20, J21 EXCEPTO J02.0 Y J03.0",
+  "epi": 16.0
+ },
+ {
+  "fila": 46,
+  "grupo": "ENFERMEDADES \nINFECCIOSAS DEL APARATO RESPIRATORIO",
+  "dx": "NEUMONÍAS Y BRONCONEUMONÍAS  J12-J18 EXCEPTO J18.2, J13 y J14",
+  "epi": 17.0
+ },
+ {
+  "fila": 47,
+  "grupo": "ENFERMEDADES \nINFECCIOSAS DEL APARATO RESPIRATORIO",
+  "dx": "COVID-19 ( * + # )  U07.1-U07.2",
+  "epi": 191.0
+ },
+ {
+  "fila": 48,
+  "grupo": "ENFERMEDADES DE TRANSMISIÓN SEXUAL",
+  "dx": "SÍFILIS CONGÉNITA  ( * + )  A50",
+  "epi": 92.0
+ },
+ {
+  "fila": 49,
+  "grupo": "ENFERMEDADES DE TRANSMISIÓN SEXUAL",
+  "dx": "SÍFILIS ADQUIRIDA  A51-A53",
+  "epi": 25.0
+ },
+ {
+  "fila": 50,
+  "grupo": "ENFERMEDADES DE TRANSMISIÓN SEXUAL",
+  "dx": "INFECCIÓN GONOCÓCICA DEL TRACTO GENITOURINARIO  A54.0-A54.2",
+  "epi": 23.0
+ },
+ {
+  "fila": 51,
+  "grupo": "ENFERMEDADES DE TRANSMISIÓN SEXUAL",
+  "dx": "LINFOGRANULOMA VENÉREO POR CLAMIDIAS  A55",
+  "epi": 24.0
+ },
+ {
+  "fila": 52,
+  "grupo": "ENFERMEDADES DE TRANSMISIÓN SEXUAL",
+  "dx": "CHANCRO BLANDO  A57",
+  "epi": 21.0
+ },
+ {
+  "fila": 53,
+  "grupo": "ENFERMEDADES DE TRANSMISIÓN SEXUAL",
+  "dx": "TRICOMONIASIS UROGENITAL  A59.0",
+  "epi": 26.0
+ },
+ {
+  "fila": 54,
+  "grupo": "ENFERMEDADES DE TRANSMISIÓN SEXUAL",
+  "dx": "HERPES GENITAL  A60.0",
+  "epi": 22.0
+ },
+ {
+  "fila": 55,
+  "grupo": "ENFERMEDADES DE TRANSMISIÓN SEXUAL",
+  "dx": "CANDIDIASIS UROGENITAL  B37.3-B37.4",
+  "epi": 20.0
+ },
+ {
+  "fila": 56,
+  "grupo": "ENFERMEDADES DE TRANSMISIÓN SEXUAL",
+  "dx": "VULVOVAGINITIS  N76",
+  "epi": 179.0
+ },
+ {
+  "fila": 57,
+  "grupo": "ENFERMEDADES DE TRANSMISIÓN SEXUAL",
+  "dx": "INFECCIÓN POR EL VIRUS DE LA INMUNODEFICIENCIA HUMANA ( * + )  B20-B24, Z21",
+  "epi": 192.0
+ },
+ {
+  "fila": 58,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "DENGUE NO GRAVE  ( + # )  A97.0, A97.9",
+  "epi": 27.0
+ },
+ {
+  "fila": 59,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "DENGUE CON SIGNOS DE ALARMA ( * + #  )  A97.1",
+  "epi": 189.0
+ },
+ {
+  "fila": 60,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "DENGUE GRAVE   ( * + #  )  A97.2",
+  "epi": 89.0
+ },
+ {
+  "fila": 61,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "PALUDISMO por Plasmodium falciparum  ( * + # )  B50",
+  "epi": 76.0
+ },
+ {
+  "fila": 62,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "PALUDISMO por Plasmodium vivax  ( + )  B51",
+  "epi": 28.0
+ },
+ {
+  "fila": 63,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "ENCEFALITIS EQUINA VENEZOLANA ( * )  A92.2",
+  "epi": 88.0
+ },
+ {
+  "fila": 64,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "FIEBRE AMARILLA  ( * + # )  A95",
+  "epi": 77.0
+ },
+ {
+  "fila": 65,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "FIEBRE MANCHADA  ( * + )  A77.0",
+  "epi": 81.0
+ },
+ {
+  "fila": 66,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "FIEBRE DEL OESTE DEL NILO  ( * + # )  A92.3",
+  "epi": 504.0
+ },
+ {
+  "fila": 67,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "PESTE  ( * + # )  A20",
+  "epi": 78.0
+ },
+ {
+  "fila": 68,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "TIFO EPIDÉMICO  ( * + )  A75.0",
+  "epi": 175.0
+ },
+ {
+  "fila": 69,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "TIFO MURINO  ( * + )  A75.2",
+  "epi": 80.0
+ },
+ {
+  "fila": 70,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "ENFERMEDAD POR VIRUS CHIKUNGUNYA ( + # )  A92.0",
+  "epi": 146.0
+ },
+ {
+  "fila": 71,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "OTRAS RICKETTSIOSIS  ( + )  A79",
+  "epi": 180.0
+ },
+ {
+  "fila": 72,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "INFECCIÓN POR VIRUS ZIKA ( * + # )  A92.5",
+  "epi": 183.0
+ },
+ {
+  "fila": 73,
+  "grupo": "ENFERMEDADES TRANSMITIDAS POR VECTOR",
+  "dx": "FIEBRE POR VIRUS MAYARO ( * + # )  A92.8",
+  "epi": 188.0
+ },
+ {
+  "fila": 74,
+  "grupo": "Grupo",
+  "dx": "Diagnóstico y Código CIE 10a Revisión",
+  "epi": "EPI Clave"
+ },
+ {
+  "fila": 77,
+  "grupo": "ZOONOSIS",
+  "dx": "BRUCELOSIS ( + # )  A23",
+  "epi": 29.0
+ },
+ {
+  "fila": 78,
+  "grupo": "ZOONOSIS",
+  "dx": "LEPTOSPIROSIS  ( + # )  A27",
+  "epi": 102.0
+ },
+ {
+  "fila": 79,
+  "grupo": "ZOONOSIS",
+  "dx": "RABIA HUMANA POR FAUNA SILVESTRE ( * + # )  A82.0",
+  "epi": 218.0
+ },
+ {
+  "fila": 80,
+  "grupo": "ZOONOSIS",
+  "dx": "RABIA HUMANA POR FAUNA URBANA ( * + # )  A82.1",
+  "epi": 219.0
+ },
+ {
+  "fila": 81,
+  "grupo": "ZOONOSIS",
+  "dx": "CISTICERCOSIS  B69",
+  "epi": 30.0
+ },
+ {
+  "fila": 82,
+  "grupo": "ZOONOSIS",
+  "dx": "TENIASIS  B68",
+  "epi": 12.0
+ },
+ {
+  "fila": 83,
+  "grupo": "ZOONOSIS",
+  "dx": "TRIQUINOSIS  B75",
+  "epi": 103.0
+ },
+ {
+  "fila": 84,
+  "grupo": "OTRAS ENFERME-\nDADES EXANTE-\nMÁTICAS",
+  "dx": "ESCARLATINA  A38",
+  "epi": 34.0
+ },
+ {
+  "fila": 85,
+  "grupo": "OTRAS ENFERME-\nDADES EXANTE-\nMÁTICAS",
+  "dx": "ERISIPELA  A46",
+  "epi": 35.0
+ },
+ {
+  "fila": 86,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "TUBERCULOSIS OTRAS FORMAS  ( + )  A17.1, A17.8, A17.9, A18-A19",
+  "epi": 45.0
+ },
+ {
+  "fila": 87,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "LEPRA  ( + )  A30",
+  "epi": 73.0
+ },
+ {
+  "fila": 88,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "HEPATITIS VÍRICA C  B17.1, B18.2",
+  "epi": 104.0
+ },
+ {
+  "fila": 89,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "OTRAS HEPATITIS VÍRICAS  B17-B19 EXCEPTO B17.1, B18.2",
+  "epi": 39.0
+ },
+ {
+  "fila": 90,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "CONJUNTIVITIS  H10",
+  "epi": "173"
+ },
+ {
+  "fila": 91,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "ESCABIOSIS  B86",
+  "epi": 43.0
+ },
+ {
+  "fila": 92,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "CONJUNTIVITIS EPIDÉMICA AGUDA HEMORRÁGICA (#)  B30.3",
+  "epi": 36.0
+ },
+ {
+  "fila": 93,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "MAL DEL PINTO  A67",
+  "epi": 72.0
+ },
+ {
+  "fila": 94,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "MENINGOENCEFALITIS AMEBIANA PRIMARIA  ( * # )  B60.2",
+  "epi": 68.0
+ },
+ {
+  "fila": 95,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "TOXOPLASMOSIS  B58",
+  "epi": 105.0
+ },
+ {
+  "fila": 96,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "TRIPANOSOMIASIS AMERICANA (ENFERMEDAD DE CHAGAS) AGUDA       ( + # )  B57.0-B57.1",
+  "epi": 186.0
+ },
+ {
+  "fila": 97,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "TRIPANOSOMIASIS AMERICANA (ENFERMEDAD DE CHAGAS) CRÓNICA       ( + # )  B57.2-B57.5",
+  "epi": 187.0
+ },
+ {
+  "fila": 98,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "INFECCIÓN ASOCIADA A LA ATENCIÓN DE LA SALUD  ( + # )  S/C",
+  "epi": 181.0
+ },
+ {
+  "fila": 99,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "ENFERMEDAD POR VIRUS ÉBOLA ( * + # )  A98.4",
+  "epi": 182.0
+ },
+ {
+  "fila": 100,
+  "grupo": "OTRAS ENFERMEDADES TRANSMISIBLES",
+  "dx": "VIRUELA SÍMICA ( * + # )  B04",
+  "epi": 194.0
+ },
+ {
+  "fila": 101,
+  "grupo": "ENFERMEDADES \nDE INTERES \nLOCAL O \nREGIONAL",
+  "dx": "LEISHMANIASIS VISCERAL( + # )  B55.0",
+  "epi": 144.0
+ },
+ {
+  "fila": 102,
+  "grupo": "ENFERMEDADES \nDE INTERES \nLOCAL O \nREGIONAL",
+  "dx": "LEISHMANIASIS CUTÁNEA ( + # ) B55.1",
+  "epi": 145.0
+ },
+ {
+  "fila": 103,
+  "grupo": "ENFERMEDADES \nDE INTERES \nLOCAL O \nREGIONAL",
+  "dx": "ONCOCERCOSIS  ( + )  B73",
+  "epi": 69.0
+ },
+ {
+  "fila": 104,
+  "grupo": "ENFERMEDADES \nDE INTERES \nLOCAL O \nREGIONAL",
+  "dx": "TRACOMA  ( + )  A71",
+  "epi": 74.0
+ },
+ {
+  "fila": 105,
+  "grupo": "ENFERMEDADES \nDE INTERES \nLOCAL O \nREGIONAL",
+  "dx": "MIASIS ( + )  B87",
+  "epi": 235.0
+ },
+ {
+  "fila": 106,
+  "grupo": "ENFERMEDA-\nDES BAJO VIGILANCIA SINDRO-\nMÁTICA",
+  "dx": "ENFERMEDAD FEBRIL EXANTEMÁTICA  ( * + # )  U97",
+  "epi": 64.0
+ },
+ {
+  "fila": 107,
+  "grupo": "ENFERMEDA-\nDES BAJO VIGILANCIA SINDRO-\nMÁTICA",
+  "dx": "PARÁLISIS FLÁCIDA AGUDA  ( * + # )  U98",
+  "epi": 66.0
+ },
+ {
+  "fila": 108,
+  "grupo": "ENFERMEDA-\nDES BAJO VIGILANCIA SINDRO-\nMÁTICA",
+  "dx": "SÍNDROME COQUELUCHOIDE  ( * + # )  U99",
+  "epi": 98.0
+ },
+ {
+  "fila": 109,
+  "grupo": "ENFERMEDA-\nDES BAJO VIGILANCIA SINDRO-\nMÁTICA",
+  "dx": "( * ) NOTIFICACIÓN INMEDIATA                              ( + ) HACER ESTUDIO EPIDEMIOLÓGICO                              ( # ) ESTUDIO DE BROTE",
+  "epi": null
+ },
+ {
+  "fila": 111,
+  "grupo": "Grupo",
+  "dx": "Diagnóstico y Código CIE 10a Revisión",
+  "epi": "EPI Clave"
+ },
+ {
+  "fila": 114,
+  "grupo": "ENFERME-\nDADES BAJO VIGILANCIA SINDROMÁ-\nTICA",
+  "dx": "SÍNDROME MENÍNGEO  ( # )  G00-G03 EXCEPTO G00.0, G00.1",
+  "epi": 41.0
+ },
+ {
+  "fila": 115,
+  "grupo": "ENFERME-\nDADES BAJO VIGILANCIA SINDROMÁ-\nTICA",
+  "dx": "INFECCIÓN DE VÍAS URINARIAS  N30, N34, N39.0",
+  "epi": 110.0
+ },
+ {
+  "fila": 116,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "BOCIO ENDÉMICO  E01",
+  "epi": 48.0
+ },
+ {
+  "fila": 117,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "DIABETES MELLITUS TIPO 1  E10",
+  "epi": 127.0
+ },
+ {
+  "fila": 118,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "DIABETES MELLITUS TIPO 2  E11-E14",
+  "epi": 49.0
+ },
+ {
+  "fila": 119,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "DIABETES MELLITUS EN EL EMBARAZO  O24.4",
+  "epi": 136.0
+ },
+ {
+  "fila": 120,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "INTOXICACIÓN AGUDA POR ALCOHOL  F10.0",
+  "epi": 112.0
+ },
+ {
+  "fila": 121,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "FIEBRE REUMÁTICA AGUDA  I00-I02",
+  "epi": 46.0
+ },
+ {
+  "fila": 122,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "HIPERTENSIÓN ARTERIAL  I10-I15",
+  "epi": 47.0
+ },
+ {
+  "fila": 123,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "ENFERMEDAD ISQUÉMICA DEL CORAZÓN  I20-I25",
+  "epi": 51.0
+ },
+ {
+  "fila": 124,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "ENFERMEDAD CEREBROVASCULAR  I60-I67, I69",
+  "epi": 52.0
+ },
+ {
+  "fila": 125,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "ASMA  J45, J46",
+  "epi": 54.0
+ },
+ {
+  "fila": 126,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "GINGIVITIS Y ENFERMEDAD PERIODONTAL  K05",
+  "epi": 128.0
+ },
+ {
+  "fila": 127,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "ÚLCERAS, GASTRITIS Y DUODENITIS  K25-K29",
+  "epi": 109.0
+ },
+ {
+  "fila": 128,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "ENFERMEDAD ALCOHÓLICA DEL HÍGADO  K70 EXCEPTO K70.3",
+  "epi": 111.0
+ },
+ {
+  "fila": 129,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "INTOXICACIÓN POR PLAGUICIDAS  T60",
+  "epi": 57.0
+ },
+ {
+  "fila": 130,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "MORDEDURA DE ARAÑA VIUDA NEGRA  (+)  U60.2",
+  "epi": 220.0
+ },
+ {
+  "fila": 131,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "MORDEDURA DE ARAÑA VIOLINISTA  (+)  U60.3",
+  "epi": 221.0
+ },
+ {
+  "fila": 132,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "MORDEDURA DE OTRAS ARAÑAS  (+)  T63.3, X21 EXCEPTO U60.2 y U60.3",
+  "epi": 222.0
+ },
+ {
+  "fila": 133,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "PICADURA DE ABEJA  (+)  U60.4",
+  "epi": 223.0
+ },
+ {
+  "fila": 134,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "PICADURA DE AVISPA  (+)  U60.5",
+  "epi": 224.0
+ },
+ {
+  "fila": 135,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "PICADURA POR OTROS ARTRÓPODOS  (+)  T63.4, X23 EXCEPTO U60.4 y U60.5",
+  "epi": 225.0
+ },
+ {
+  "fila": 136,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "PICADURA O INTOXICACIÓN POR OTROS ANIMALES PONZOÑOSOS  (+)  T63.1, T63.5-T63.9, X26, X27, U60.8",
+  "epi": 226.0
+ },
+ {
+  "fila": 137,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "INTOXICACIÓN POR PICADURA DE ALACRÁN  T63.2, X22",
+  "epi": 94.0
+ },
+ {
+  "fila": 138,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "EDEMA, PROTEINURIA Y TRANSTORNOS HIPERTENSIVOS EN EL EMBARAZO, PARTO Y PUERPERIO  O10-O16",
+  "epi": 107.0
+ },
+ {
+  "fila": 139,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "EVENTOS SUPUESTAMENTE ASOCIADOS A LA VACUNACIÓN (ESAVI)                ( * + )  Y58, Y59",
+  "epi": 91.0
+ },
+ {
+  "fila": 140,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "HIPERPLASIA DE LA PRÓSTATA  N40",
+  "epi": 151.0
+ },
+ {
+  "fila": 141,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "HIPOTERMIA  T68",
+  "epi": 152.0
+ },
+ {
+  "fila": 142,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "INSUFICIENCIA VENOSA PERIFÉRICA  I87.2",
+  "epi": 106.0
+ },
+ {
+  "fila": 143,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "INTOXICACIÓN POR MONÓXIDO DE CARBONO  ( + )  T58",
+  "epi": 153.0
+ },
+ {
+  "fila": 144,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "QUEMADURAS  T20-T32",
+  "epi": 125.0
+ },
+ {
+  "fila": 145,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "CIRROSIS HEPÁTICA ALCOHÓLICA  K70.3",
+  "epi": 150.0
+ },
+ {
+  "fila": 146,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "EFECTOS DEL CALOR Y DE LA LUZ  T67, X30",
+  "epi": 148.0
+ },
+ {
+  "fila": 147,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "DEPLECIÓN DEL VOLUMEN (DESHIDRATACIÓN)  E86",
+  "epi": 234.0
+ },
+ {
+  "fila": 148,
+  "grupo": "ENFERMEDADES NO TRANSMISIBLES",
+  "dx": "( * ) NOTIFICACIÓN INMEDIATA                              ( + ) HACER ESTUDIO EPIDEMIOLÓGICO                              ( # ) ESTUDIO DE BROTE",
+  "epi": null
+ },
+ {
+  "fila": 149,
+  "grupo": "Grupo",
+  "dx": "Diagnóstico y Código CIE 10a Revisión",
+  "epi": "EPI Clave"
+ },
+ {
+  "fila": 152,
+  "grupo": "NUTRICIÓN",
+  "dx": "DESNUTRICIÓN LEVE  E44.1",
+  "epi": 114.0
+ },
+ {
+  "fila": 153,
+  "grupo": "NUTRICIÓN",
+  "dx": "DESNUTRICIÓN MODERADA  E44.0",
+  "epi": 115.0
+ },
+ {
+  "fila": 154,
+  "grupo": "NUTRICIÓN",
+  "dx": "DESNUTRICIÓN SEVERA  E40-E43",
+  "epi": 116.0
+ },
+ {
+  "fila": 155,
+  "grupo": "NUTRICIÓN",
+  "dx": "OBESIDAD  E66",
+  "epi": 135.0
+ },
+ {
+  "fila": 156,
+  "grupo": "NUTRICIÓN",
+  "dx": "ANOREXIA, BULIMIA Y OTROS TRASTORNOS ALIMENTARIOS  F50",
+  "epi": "155"
+ },
+ {
+  "fila": 157,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DE LA MAMA  C50",
+  "epi": 119.0
+ },
+ {
+  "fila": 158,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DEL CUELLO DEL ÚTERO  ( + )  C53",
+  "epi": 97.0
+ },
+ {
+  "fila": 159,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "DISPLASIA CERVICAL LEVE Y MODERADA  ( + )  N87.0-N87.1",
+  "epi": 117.0
+ },
+ {
+  "fila": 160,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "DISPLASIA CERVICAL SEVERA Y CACU IN SITU  ( + )  N87.2, D06",
+  "epi": 118.0
+ },
+ {
+  "fila": 161,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DE LA PRÓSTATA  C61",
+  "epi": "203"
+ },
+ {
+  "fila": 162,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DE TRÁQUEA, BRONQUIOS Y PULMÓN  C33-C34",
+  "epi": "204"
+ },
+ {
+  "fila": 163,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DEL ESTÓMAGO  C16",
+  "epi": "205"
+ },
+ {
+  "fila": 164,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DEL COLON Y RECTO  C18-C21",
+  "epi": "206"
+ },
+ {
+  "fila": 165,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DEL HÍGADO Y DE LAS VÍAS BILIARES INTRAHEPÁTICAS  C22",
+  "epi": "207"
+ },
+ {
+  "fila": 166,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "LINFOMA HODKING  C81",
+  "epi": "208"
+ },
+ {
+  "fila": 167,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "LINFOMA NO HODKING  C82-C85",
+  "epi": "209"
+ },
+ {
+  "fila": 168,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "LEUCEMIA  C91-C95",
+  "epi": "210"
+ },
+ {
+  "fila": 169,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DEL ESÓFAGO  C15",
+  "epi": "211"
+ },
+ {
+  "fila": 170,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DEL PÁNCREAS  C25",
+  "epi": "212"
+ },
+ {
+  "fila": 171,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DEL CUERPO DEL ÚTERO  C54",
+  "epi": "213"
+ },
+ {
+  "fila": 172,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DEL OVARIO  C56",
+  "epi": "214"
+ },
+ {
+  "fila": 173,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMORES MALIGNOS DEL ENCÉFALO Y DE OTRAS PARTES DEL SISTEMA NERVIOSO CENTRAL  C70-C72",
+  "epi": "215"
+ },
+ {
+  "fila": 174,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMORES MALIGNOS DE LOS HUESOS Y DE LOS CARTÍLAGOS ARTICULARES  C40-C41",
+  "epi": "216"
+ },
+ {
+  "fila": 175,
+  "grupo": "DISPLASIAS Y NEOPLASIAS",
+  "dx": "TUMOR MALIGNO DE RIÑÓN  C64",
+  "epi": "217"
+ },
+ {
+  "fila": 176,
+  "grupo": "DEFECTOS AL NACIMIENTO",
+  "dx": "ENCEFALOCELE  ( + )  Q01",
+  "epi": 129.0
+ },
+ {
+  "fila": 177,
+  "grupo": "DEFECTOS AL NACIMIENTO",
+  "dx": "ESPINA BÍFIDA  ( + )  Q05",
+  "epi": 130.0
+ },
+ {
+  "fila": 178,
+  "grupo": "DEFECTOS AL NACIMIENTO",
+  "dx": "LABIO Y PALADAR HENDIDO  Q35-Q37",
+  "epi": 131.0
+ },
+ {
+  "fila": 179,
+  "grupo": "DEFECTOS AL NACIMIENTO",
+  "dx": "MICROCEFALIA ( * + ) Q02",
+  "epi": 184.0
+ },
+ {
+  "fila": 180,
+  "grupo": "DEFECTOS AL NACIMIENTO",
+  "dx": "ANENCEFALIA  ( + )  Q00",
+  "epi": 96.0
+ },
+ {
+  "fila": 181,
+  "grupo": "DEFECTOS AL NACIMIENTO",
+  "dx": "( * ) NOTIFICACIÓN INMEDIATA                              ( + ) HACER ESTUDIO EPIDEMIOLÓGICO                              ( # ) ESTUDIO DE BROTE",
+  "epi": null
+ },
+ {
+  "fila": 183,
+  "grupo": "Grupo",
+  "dx": "Diagnóstico y Código CIE 10a Revisión",
+  "epi": "EPI Clave"
+ },
+ {
+  "fila": 186,
+  "grupo": "ENFERMEDADES NEUROLÓGICAS Y DE \nSALUD MENTAL",
+  "dx": "DEPRESIÓN  F32",
+  "epi": 169.0
+ },
+ {
+  "fila": 187,
+  "grupo": "ENFERMEDADES NEUROLÓGICAS Y DE \nSALUD MENTAL",
+  "dx": "ENFERMEDAD DE PARKINSON  G20",
+  "epi": 170.0
+ },
+ {
+  "fila": 188,
+  "grupo": "ENFERMEDADES NEUROLÓGICAS Y DE \nSALUD MENTAL",
+  "dx": "ENFERMEDAD DE ALZHEIMER  G30",
+  "epi": 171.0
+ },
+ {
+  "fila": 189,
+  "grupo": "ENFERMEDADES NEUROLÓGICAS Y DE \nSALUD MENTAL",
+  "dx": "ENVENENAMIENTO AUTOINFLIGIDO INTENCIONALMENTE POR ANALGÉSICOS NO NARCÓTICOS, ANTIPIRÉTICOS Y ANTIRREUMÁTICOS  X60",
+  "epi": "195"
+ },
+ {
+  "fila": 190,
+  "grupo": "ENFERMEDADES NEUROLÓGICAS Y DE \nSALUD MENTAL",
+  "dx": "ENVENENAMIENTO AUTOINFLIGIDO INTENCIONALMENTE POR DROGAS ANTIEPILÉPTICAS, SEDANTES, HIPNÓTICAS, ANTIPARKINSONIANAS Y PSICOTRÓPICAS  X61",
+  "epi": "196"
+ },
+ {
+  "fila": 191,
+  "grupo": "ENFERMEDADES NEUROLÓGICAS Y DE \nSALUD MENTAL",
+  "dx": "LESIÓN AUTOINFLIGIDA INTENCIONALMENTE POR AHORCAMIENTO, ESTRANGULAMIENTO O SOFOCACIÓN  X70",
+  "epi": "197"
+ },
+ {
+  "fila": 192,
+  "grupo": "ENFERMEDADES NEUROLÓGICAS Y DE \nSALUD MENTAL",
+  "dx": "LESIÓN AUTOINFLIGIDA INTENCIONALMENTE POR DISPARO DE ARMA CORTA  X72",
+  "epi": "198"
+ },
+ {
+  "fila": 193,
+  "grupo": "ENFERMEDADES NEUROLÓGICAS Y DE \nSALUD MENTAL",
+  "dx": "LESIÓN AUTOINFLIGIDA INTENCIONALMENTE POR OBJETO CORTANTE  X78",
+  "epi": "199"
+ },
+ {
+  "fila": 194,
+  "grupo": "ENFERMEDADES NEUROLÓGICAS Y DE \nSALUD MENTAL",
+  "dx": "LESIÓN AUTOINFLIGIDA INTENCIONALMENTE AL SALTAR DESDE UN LUGAR ELEVADO  X80",
+  "epi": "200"
+ },
+ {
+  "fila": 195,
+  "grupo": "ENFERMEDADES NEUROLÓGICAS Y DE \nSALUD MENTAL",
+  "dx": "HISTORIA PERSONAL DE LESIÓN AUTOINFLIGIDA INTENCIONALMENTE (INTENTO DE SUICIDIO)  Z91.5",
+  "epi": "201"
+ },
+ {
+  "fila": 196,
+  "grupo": "ENFERMEDADES NEUROLÓGICAS Y DE \nSALUD MENTAL",
+  "dx": "OTROS SÍNTOMAS Y SIGNOS QUE INVOLUCRAN EL ESTADO EMOCIONAL (IDEACIÓN SUICIDA)  R45.8",
+  "epi": "202"
+ },
+ {
+  "fila": 197,
+  "grupo": "ACCIDENTES",
+  "dx": "PEATÓN LESIONADO EN ACCIDENTE DE TRANSPORTE  V01-V09",
+  "epi": 123.0
+ },
+ {
+  "fila": 198,
+  "grupo": "ACCIDENTES",
+  "dx": "ACCIDENTES DE TRANSPORTE EN VEHÍCULOS CON MOTOR  V20-V29, V40-V79",
+  "epi": 124.0
+ },
+ {
+  "fila": 199,
+  "grupo": "ACCIDENTES",
+  "dx": "MORDEDURAS POR PERRO  W54",
+  "epi": 126.0
+ },
+ {
+  "fila": 200,
+  "grupo": "ACCIDENTES",
+  "dx": "MORDEDURAS POR OTROS MAMÍFEROS  W55",
+  "epi": 132.0
+ },
+ {
+  "fila": 201,
+  "grupo": "ACCIDENTES",
+  "dx": "MORDEDURA POR SERPIENTE DE CASCABEL  (+)  U60.0",
+  "epi": 227.0
+ },
+ {
+  "fila": 202,
+  "grupo": "ACCIDENTES",
+  "dx": "MORDEDURA POR SERPIENTE CORAL  (+)  U60.1",
+  "epi": 228.0
+ },
+ {
+  "fila": 203,
+  "grupo": "ACCIDENTES",
+  "dx": "MORDEDURA POR OTRAS SERPIENTES  (+)  T63.0, X20 EXCEPTO U60.0 y U60.1",
+  "epi": 229.0
+ },
+ {
+  "fila": 204,
+  "grupo": "ACCIDENTES",
+  "dx": "VIOLENCIA INTRAFAMILIAR  Y07.0-Y07.2",
+  "epi": 122.0
+ },
+ {
+  "fila": 205,
+  "grupo": "ACCIDENTES",
+  "dx": "HERIDA POR ARMA DE FUEGO Y PUNZOCORTANTES  W32-W34",
+  "epi": 172.0
+ },
+ {
+  "fila": 206,
+  "grupo": "ACCIDENTES",
+  "dx": "ENVENENAMIENTO ACCIDENTAL POR, Y EXPOSICIÓN A SUSTANCIAS NOCIVAS  X40-X49",
+  "epi": 230.0
+ },
+ {
+  "fila": 207,
+  "grupo": "ACCIDENTES",
+  "dx": "CONTACTO TRAUMÁTICO CON OTROS ANIMALES Y PLANTAS VENENOSAS  X24-X29 EXCEPTO X26, X27",
+  "epi": 231.0
+ },
+ {
+  "fila": 208,
+  "grupo": "ACCIDENTES",
+  "dx": "EXPOSICIÓN AL HUMO, FUEGO Y LLAMAS  X00-X09",
+  "epi": 232.0
+ },
+ {
+  "fila": 209,
+  "grupo": "ACCIDENTES",
+  "dx": "CONTACTO CON CALOR Y SUSTANCIAS CALIENTES  X10-X19",
+  "epi": "233"
+ }
+]
