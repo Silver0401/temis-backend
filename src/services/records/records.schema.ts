@@ -206,6 +206,35 @@ const FamilyPlanningClinicalVariablesSchema = {
   OycOtrasSSRA: Type.Optional(Type.Integer()) // 63
 }
 
+// --- Salud Bucal - GIIS-B016-04-08 (campos 44-68) ---
+const SaludBucalClinicalVariablesSchema = {
+  placaBacteriana: Type.Optional(Type.Integer()),
+  cepillado: Type.Optional(Type.Integer()),
+  hiloDental: Type.Optional(Type.Integer()),
+  limpiezaDental: Type.Optional(Type.Integer()),
+  protesis: Type.Optional(Type.Integer()),
+  tejidosBucales: Type.Optional(Type.Integer()),
+  autoExamen: Type.Optional(Type.Integer()),
+  fluor: Type.Optional(Type.Integer()),
+  raspadoAlisadoPeriodontal: Type.Optional(Type.Integer()),
+  barnizFluor: Type.Optional(Type.Integer()),
+  fosetasFisuras: Type.Optional(Type.Integer()),
+  amalgamas: Type.Optional(Type.Integer()),
+  resinas: Type.Optional(Type.Integer()),
+  ionomeroVidrio: Type.Optional(Type.Integer()),
+  alcasite: Type.Optional(Type.Integer()),
+  obturacionTemporal: Type.Optional(Type.Integer()),
+  dienteTemp: Type.Optional(Type.Integer()),
+  dientePerm: Type.Optional(Type.Integer()),
+  pulpar: Type.Optional(Type.Integer()),
+  cirugiaBucal: Type.Optional(Type.Integer()),
+  farmacoTerapia: Type.Optional(Type.Integer()),
+  otrasAtenciones: Type.Optional(Type.Integer()),
+  radiografias: Type.Optional(Type.Integer()),
+  orientacionSaludBucal: Type.Optional(Type.Integer()),
+  tratamientoIntegral: Type.Optional(Type.Integer())
+}
+
 // --- Administrativas de la atención (sector público) ---
 // Huérfanas de grupo: aplican a toda atención, se piden siempre.
 const AdministrativeClinicalVariablesSchema = {
@@ -229,6 +258,7 @@ const ClinicalVariablesSchema = {
   Pediatrics: Type.Optional(Type.Object(PediatricsClinicalVariablesSchema)),
   Detections: Type.Optional(Type.Object(DetectionsClinicalVariablesSchema)),
   FamilyPlanning: Type.Optional(Type.Object(FamilyPlanningClinicalVariablesSchema)),
+  SaludBucal: Type.Optional(Type.Object(SaludBucalClinicalVariablesSchema)),
   Administrativas: Type.Optional(Type.Object(AdministrativeClinicalVariablesSchema))
 }
 

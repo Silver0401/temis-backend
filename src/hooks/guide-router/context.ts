@@ -8,6 +8,7 @@
  */
 import type { HookContext } from '../../declarations'
 import type { DiagnosticoCatalogo, RoutingContext, SexoBiologico } from './types'
+import { TIPO_PERSONAL } from '../../services/exchange-file/exchange-file.constants'
 
 /** Catálogo TIPO PERSONAL – SIS: trabajo social. Gate transversal de B019. */
 export const TIPO_PERSONAL_TRABAJO_SOCIAL = 30
@@ -50,12 +51,18 @@ export function mapSexoBiologico(sex: string | undefined | null): SexoBiologico 
   return null
 }
 
-/** Extrae la clave numérica del catálogo de tipo de personal del usuario. */
+/**
+ * Resuelve la etiqueta guardada por TipoPersonal contra la tabla canónica SIS.
+ * El regex anterior esperaba el formato numerado de Especialidades, que no es
+ * el formato persistido para professionType.
+ */
 export function mapTipoPersonal(professionType: string | undefined | null): number | null {
-  if (!professionType) return null
-  const match = professionType.match(/^(\d+)/)
-  return match ? parseInt(match[1], 10) : null
+  return professionType ? (TIPO_PERSONAL[professionType] ?? null) : null
 }
+
+/** Tipos de personal autorizados por GIIS-B016. */
+export const esTipoPersonalOdontologia = (tipoPersonal: number | null): boolean =>
+  tipoPersonal !== null && [12, 13, 14, 23].includes(tipoPersonal)
 
 /**
  * Arma el contexto de ruteo. Se llama después de patientIdDataValidator, para
@@ -74,6 +81,7 @@ export function buildRoutingContext(context: HookContext): RoutingContext {
   const diagnosticos: DiagnosticoCatalogo[] = ((context.data as any)?.diagnosisCatalog ?? []).slice(0, 3)
 
   return {
+    role: user?.role ?? null,
     edad: calcularEdad(info?.birthDate),
     sexoBiologico: mapSexoBiologico(info?.sex),
     tipoPersonal: mapTipoPersonal(user?.professionType),
@@ -85,6 +93,13 @@ export function buildRoutingContext(context: HookContext): RoutingContext {
 }
 
 // --- Predicados reutilizables por las hojas ---------------------------------
+
+/**
+ * Odontologo: su renglon es B016, no B015. El rol decide la UI y el tipo de
+ * personal cubre cuentas legacy creadas antes de que existiera el rol.
+ */
+export const esOdontologo = (ctx: RoutingContext): boolean =>
+  ctx.role === 'odontologo' || esTipoPersonalOdontologia(ctx.tipoPersonal)
 
 /** El gate transversal de B019: casi ninguna detección aplica a trabajo social. */
 export const noEsTrabajoSocial = (ctx: RoutingContext): boolean =>

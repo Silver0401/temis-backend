@@ -5,6 +5,7 @@ import { ObjectIdSchema } from '@feathersjs/typebox'
 import type { Static } from '@feathersjs/typebox'
 import { passwordHash } from '@feathersjs/authentication-local'
 import { clinicalHistoryBaseFormat, evoNoteBaseFormat } from '../../json/Constants'
+import { TIPO_PERSONAL } from '../exchange-file/exchange-file.constants'
 
 import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
@@ -41,6 +42,9 @@ const NufiDataSchema = Type.Object({
 // Defaults to 'medico' for legacy users without the field (see userDataResolver).
 export const userRoleSchema = Type.Union([
   Type.Literal('medico'),
+  // Perfil clinico autonomo: nace por registro normal cuando el tipo de
+  // personal corresponde a odontologia, igual que el medico.
+  Type.Literal('odontologo'),
   // Unico rol de equipo: se crea desde el servicio `medical-team` bajo la
   // tutela de un medico.
   Type.Literal('enfermeria'),
@@ -198,7 +202,11 @@ export const userDataResolver = resolve<User, HookContext<UserService>>({
   email: (email) => email?.toLowerCase(),
   groups: () => [],
   status: () => ({ devices: [], recording: false }),
-  role: (_value, _data, context) => context.params.internalSubuserRole ?? 'medico',
+  role: (_value, data, context) => {
+    if (context.params.internalSubuserRole) return context.params.internalSubuserRole
+    const tipoPersonal = TIPO_PERSONAL[data.professionType]
+    return [12, 13, 14, 23].includes(tipoPersonal) ? 'odontologo' : 'medico'
+  },
   // El alta de un integrante nace ya en plural; `tutorId` singular no se
   // escribe nunca mas.
   tutorIds: (_value, _data, context) =>

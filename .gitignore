@@ -116,3 +116,7 @@ dist
 .sqlite
 
 lib/
+
+# Fuentes GIIS/SUIVE (binarios de referencia, no codigo)
+docs/giis/*.pdf
+docs/giis/*.xlsx

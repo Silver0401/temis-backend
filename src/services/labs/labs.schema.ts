@@ -8,6 +8,13 @@ import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
 import type { LabsService } from './labs.class'
 
+const labValueSchema = Type.Object({
+  fullName: Type.String(),
+  abreviation: Type.String(),
+  unit: Type.String(),
+  value: Type.String()
+})
+
 // Main data model schema
 export const labsSchema = Type.Object(
   {
@@ -17,14 +24,7 @@ export const labsSchema = Type.Object(
     name: Type.String(),
     diagnosisId: Type.Optional(Type.String()),
     dateTaken: Type.String(),
-    values: Type.Array(
-      Type.Object({
-        fullName: Type.String(),
-        abreviation: Type.String(),
-        unit: Type.String(),
-        value: Type.String()
-      })
-    )
+    values: Type.Array(labValueSchema)
   },
   { $id: 'Labs', additionalProperties: false }
 )
@@ -35,12 +35,20 @@ export const labsResolver = resolve<Labs, HookContext<LabsService>>({})
 export const labsExternalResolver = resolve<Labs, HookContext<LabsService>>({})
 
 // Schema for creating new entries
-export const labsDataSchema = Type.Pick(
-  labsSchema,
-  ['dateTaken', 'patientId', 'values', 'diagnosisId', 'recordId', 'name'],
+// Igual que Cronos: el alta normal manda `baseText` (texto libre, o lo que la IA
+// extrajo de un PDF/foto) y el hook `format_labs` lo convierte en `values`. Los
+// flujos que ya traen `values` estructurados se guardan tal cual.
+export const labsDataSchema = Type.Object(
   {
-    $id: 'LabsData'
-  }
+    dateTaken: Type.String(),
+    patientId: ObjectIdSchema(),
+    name: Type.String(),
+    diagnosisId: Type.Optional(Type.String()),
+    recordId: Type.Optional(ObjectIdSchema()),
+    baseText: Type.Optional(Type.String()),
+    values: Type.Optional(Type.Array(labValueSchema))
+  },
+  { $id: 'LabsData', additionalProperties: false }
 )
 export type LabsData = Static<typeof labsDataSchema>
 export const labsDataValidator = getValidator(labsDataSchema, dataValidator)

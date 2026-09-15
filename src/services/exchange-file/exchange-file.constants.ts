@@ -133,15 +133,20 @@ export const GIIS_FIELD_NAMES = [
 export const GIIS_HEADER_ROW = GIIS_FIELD_NAMES.join('|')
 
 // ------- tipoPersonal (GIIS campo 7) -------
-// Catálogo TIPO PERSONAL–SIS. Solo los tipos activos en CronosMD.
-// Fuente strings: TipoPersonal[] en cronos-frontend/src/scripts/Constants.ts
+// Catálogo TIPO PERSONAL–SIS. Solo los tipos activos en Temis.
+// Fuente strings: TipoPersonal[] en frontend/src/scripts/Constants.ts.
 export const TIPO_PERSONAL: Record<string, number> = {
   'MÉDICA(O) PASANTE': 1,
   'MÉDICA(O) GENERAL': 2,
   'MÉDICA(O) RESIDENTE': 3,
   'MÉDICA(O) ESPECIALISTA': 4,
   'PASANTE DE ENFERMERÍA': 5,
-  'ENFERMERA(O)': 6
+  'ENFERMERA(O)': 6,
+  // GIIS-B016-04-08, tipoPersonal (líneas 764-768).
+  'PASANTE EN ODONTOLOGÍA': 12,
+  'ODONTÓLOGA (O)': 13,
+  'ODONTÓLOGA (O) ESPECIALISTA': 14,
+  'TÉCNICA(O) EN ODONTOLOGÍA': 23
 }
 
 // ------- sexoCURP (GIIS campo 16) -------
