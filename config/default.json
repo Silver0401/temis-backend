@@ -22,7 +22,7 @@
       "header": {
         "type": "access"
       },
-      "audience": "https://temis-frontend-git-dev-silver0401s-projects.vercel.app",
+      "audience": "https://www.temismd.com",
       "algorithm": "HS256",
       "expiresIn": "7d"
     },

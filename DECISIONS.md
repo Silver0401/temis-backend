@@ -372,3 +372,44 @@ médico cuando la enfermera tiene dos o más. La consulta no se dispara hasta qu
 hay médico elegido, para no mandar una petición que el backend rechazaría. Las
 escrituras de agenda no necesitan selector: el médico se deduce del paciente de
 la cita.
+
+## 2026-09-25 — CIE-10: el catálogo entra con tipos mixtos (fix previo a la presentación)
+
+**Síntoma.** Al guardar un paciente con ciertos diagnósticos, HTTP 400 antes de
+cualquier validación clínica.
+
+**Causa.** El frontend manda el documento crudo del catálogo en
+`diagnosisCatalog`. `records.ts:67` corre `validateData(recordsDataValidator)`
+*antes* que `cieDiagnosticValidator` (línea 71), y `DiagnosticoCatalogoSchema`
+tipaba todos los campos como `Type.String()`. En Mongo hay cinco campos con
+documentos numéricos (censo sobre 9,302 docs en dev):
+
+| Campo | string | number |
+|---|---:|---:|
+| `EPI_CLAVE` | 8,018 | 1,284 (13.8%) |
+| `VALIDO_SB` | 9,196 | 106 |
+| `TIPO_PERSONAL_1VEZ_CE` | 9,214 | 88 |
+| `TIPO_PERSONAL_SUBSEC_CE` | 9,214 | 88 |
+| `CLAVE_PROGRAMA_SIS` | 9,236 | 66 |
+
+Ej.: `A011` FIEBRE PARATIFOIDEA A trae `EPI_CLAVE: 178` numérico.
+En Cronos no ocurre porque Cronos no manda `diagnosisCatalog`.
+
+**Fix.** Esos cinco campos pasan a
+`Type.Optional(Type.Union([Type.String(), Type.Number()]))` en
+`src/services/records/records.schema.ts`. Solo afloja el contrato; `CATALOG_KEY`
+y `NOMBRE` siguen requeridos y no se tocó un solo documento.
+
+Los consumidores ya coercionaban: `String(catalogEntry.VALIDO_SB ?? '')` en el
+validador CIE y `Number(catalogEntry.EPI_CLAVE)` en `suive.class.ts:116`. Los
+otros tres campos no se leen en el backend.
+
+**Verificación.** `tsc --noEmit` limpio; `npm run test:giis` 10/10. Prueba
+directa contra `recordsDataValidator`: catálogo con números PASA, con strings
+PASA, con boolean FALLA (el contrato sigue apretado donde debe).
+
+**Pendiente (post-presentación).** Normalizar el catálogo en Mongo a string y
+volver a apretar el schema. También hay dos declaraciones desalineadas que hoy no
+validan nada y conviene corregir: `CONSECUTIVO` y `CLAVE_PROGRAMA_SIS` como
+`Type.Number()` en `catalogo-dxcie-10.schema.ts` (Mongo los tiene string), y
+`CIEResponse` en `globalsCC.d.ts` del frontend, que tipa `EPI_CLAVE` como string.
